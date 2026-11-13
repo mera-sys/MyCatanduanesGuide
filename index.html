@@ -4,1961 +4,416 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyCatanduanesGuide | Discover Catanduanes</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+<meta name="theme-color" content="#ffffff">
+<title>MyCatanduanesGuide | Discover the Happy Island</title>
 <style>
 :root{
- --pink:#df2180;
- --pink-light:#fff0f7;
- --teal:#009bb0;
- --dark:#162329;
- --muted:#75818b;
- --line:#e5e9ed;
- --light:#f5f7f9;
+  --pink:#ed2786;--teal:#087b83;--dark:#162d36;
+  --muted:#6b7b88;--bg:#f5f7f8;--line:#e6ebef;
+  --white:#fff;--radius:15px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:"DM Sans",sans-serif;color:var(--dark)}
-button,input,select{font:inherit}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark)}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-a{color:inherit;text-decoration:none;cursor:pointer}
-.container{width:min(1250px,94%);margin:auto}
+a{text-decoration:none;color:inherit}
+img{width:100%;display:block;object-fit:cover}
+.container{width:min(1180px,calc(100% - 32px));margin:auto}
 .hidden{display:none!important}
-h1,h2,h3{font-family:Outfit,sans-serif}
-.pink-btn{
- border:0;border-radius:25px;padding:12px 20px;
- background:var(--pink);color:white;font-size:12px;font-weight:800;
-}
-.pink-btn:hover{background:#bc1367}
-.eyebrow{font-size:10px;font-weight:900;letter-spacing:1.5px;color:var(--teal)}
-.section-title{font-size:32px;margin:9px 0 12px}
-.section-desc{color:var(--muted);font-size:13px;line-height:1.8}
-
+.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:800}
+.btn-pink{background:var(--pink);color:white}
+.btn-outline{background:white;border:1px solid var(--line);color:var(--dark)}
+.btn-teal{background:var(--teal);color:white}
+.section{padding:42px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:20px}
+.section-head h2{font-size:28px;margin:5px 0}
+.section-head p{color:var(--muted);margin:0;font-size:13px}
+.eyebrow{font-size:10px;letter-spacing:1.8px;color:var(--teal);font-weight:900}
+.pill{border-radius:30px;padding:5px 9px;font-size:10px;font-weight:800;background:#e9f7f6;color:var(--teal)}
 /* HEADER */
-header{
- position:sticky;top:0;z-index:1000;height:68px;
- background:white;box-shadow:0 2px 12px #00000012;
-}
-.nav{
- height:100%;display:flex;align-items:center;
- justify-content:space-between;gap:15px;
-}
-.logo{font:900 19px Outfit;white-space:nowrap}
-.logo b{font-size:27px;color:var(--pink)}
+.header{position:sticky;top:0;background:white;z-index:200;border-bottom:1px solid var(--line)}
+.header-inner{min-height:67px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:19px;font-weight:900;color:var(--pink);letter-spacing:-.6px;white-space:nowrap}
 .logo span{color:var(--teal)}
-.nav-links{display:flex;align-items:center;gap:17px}
-.nav-links a{font-size:11px;font-weight:800;white-space:nowrap}
-.nav-links a:hover,.nav-links a.active{color:var(--teal)}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.signin-btn{
- display:flex;align-items:center;gap:8px;background:white;
- border:1px solid var(--line);padding:7px 15px 7px 8px;
- border-radius:25px;font-size:12px;font-weight:800;white-space:nowrap;
-}
-.signin-icon{
- width:29px;height:29px;background:var(--teal);
- color:white;border-radius:50%;display:grid;place-items:center;
-}
-.menu-btn{display:none;border:0;background:none;font-size:25px}
-
-/* HOME */
-.hero{
- height:520px;position:relative;
- background:linear-gradient(90deg,#082b3dcc,#082b3d22),
- url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800") center/cover;
-}
-.hero-inner{padding-top:95px;color:white}
-.hero-badge{
- background:#ffffff33;border:1px solid #ffffff55;
- border-radius:20px;padding:8px 13px;font-size:10px;font-weight:800;
-}
-.hero h1{
- font:900 clamp(42px,6vw,76px)/1.02 Outfit;
- letter-spacing:-2px;margin:25px 0;
-}
-.hero h1 span{color:#ffce27}
-.hero p{font-size:15px;line-height:1.8;max-width:530px}
-.search-box{
- position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);
- width:min(1100px,92%);display:flex;align-items:center;
- background:white;padding:13px;border-radius:16px;
- box-shadow:0 12px 35px #0002;gap:10px;
-}
-.search-field{flex:1;min-width:0;padding:7px 12px;border-right:1px solid var(--line)}
-.search-field label{
- display:block;font-size:9px;font-weight:900;
- color:var(--muted);margin-bottom:7px;
-}
-.search-field select,.search-field input{
- width:100%;border:0;outline:0;background:white;
- font-size:12px;font-weight:800;
-}
-.search-box .pink-btn{padding:16px 26px}
-.stats{
- display:grid;grid-template-columns:repeat(4,1fr);
- text-align:center;gap:15px;padding:95px 0 45px;
-}
-.stats strong{display:block;font:900 24px Outfit}
-.stats span{font-size:12px;color:var(--muted)}
-.section{padding:55px 0}
-.gray{background:var(--light)}
-.category-grid{
- display:grid;grid-template-columns:repeat(4,1fr);
- gap:15px;margin-top:25px;
-}
-.category-tile{
- height:225px;position:relative;overflow:hidden;
- border-radius:12px;cursor:pointer;
-}
-.category-tile img{width:100%;height:100%;object-fit:cover}
-.category-tile:after{
- content:"";position:absolute;inset:0;
- background:linear-gradient(transparent 30%,#000b);
-}
-.category-tile div{
- position:absolute;bottom:17px;left:16px;
- color:white;z-index:1;
-}
-.category-tile h3{font-size:19px;margin:0 0 5px}
-.category-tile p{font-size:11px;margin:0}
-
-/* LISTING PAGES */
-.listing-page{background:var(--light);min-height:75vh}
-.page-top{
- background:white;border-bottom:1px solid var(--line);
- padding:18px 0;
-}
-.breadcrumb{font-size:11px;color:var(--muted);margin-bottom:14px}
-.breadcrumb a{color:var(--teal);font-weight:800}
-.page-search{display:flex;gap:10px;flex-wrap:wrap}
-.page-search input,.page-search select{
- border:1px solid var(--line);border-radius:9px;
- padding:12px;font-size:12px;background:white;
-}
-.page-search input{flex:2;min-width:170px}
-.page-search select{flex:1;min-width:120px}
-.page-search button{
- border:0;border-radius:9px;background:var(--pink);
- color:white;padding:12px 22px;font-size:12px;font-weight:800;
-}
-.page-layout{
- display:grid;grid-template-columns:215px minmax(0,1fr);
- gap:24px;padding-top:30px;padding-bottom:65px;
-}
-.sidebar{align-self:start;position:sticky;top:90px}
-.sidebar h2{font-size:19px;margin:0 0 8px}
-.sidebar p{color:var(--muted);font-size:12px;line-height:1.7}
-.filter-group{border-top:1px solid var(--line);padding:20px 0}
-.filter-group h3{font-size:12px;margin:0 0 14px}
-.filter-option{
- display:flex;gap:9px;align-items:center;
- font-size:12px;margin:12px 0;cursor:pointer;
-}
-.filter-option input{accent-color:var(--teal)}
-.clear-btn{
- width:100%;border:1px solid var(--line);background:white;
- padding:11px;border-radius:8px;font-size:12px;font-weight:800;
-}
-.results-heading{
- display:flex;justify-content:space-between;
- align-items:center;gap:15px;margin-bottom:20px;
-}
-.results-heading h1{font-size:26px;margin:0 0 7px}
-.results-heading p{font-size:12px;color:var(--muted);margin:0}
-.results-heading select{
- border:1px solid var(--line);border-radius:8px;
- padding:10px;background:white;font-size:12px;
-}
-.destination-grid,.stays-grid{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
- gap:15px;
-}
-.card,.stay-card{
- background:white;border:1px solid var(--line);
- border-radius:12px;overflow:hidden;transition:.2s;
-}
-.card:hover,.stay-card:hover{
- transform:translateY(-2px);
- box-shadow:0 10px 25px #00000012;
-}
-.card-image,.stay-photo{
- height:170px;position:relative;background:#e9eef1;
-}
-.card-image img,.stay-photo img{
- width:100%;height:100%;object-fit:cover;
-}
-.badge{
- position:absolute;top:10px;left:10px;
- background:#ffcf27;border-radius:5px;
- padding:5px 8px;font-size:9px;font-weight:900;
-}
-.heart{
- position:absolute;top:10px;right:10px;
- width:30px;height:30px;border:0;border-radius:50%;
- background:#ffffffed;color:var(--pink);
- font-size:19px;z-index:2;
-}
-.heart.saved{background:var(--pink);color:white}
-.card-body,.stay-body{padding:13px}
-.card-body h3,.stay-body h3{font-size:15px;margin:5px 0 8px}
-.card-body p,.stay-body p{
- font-size:11px;color:var(--muted);line-height:1.6;
-}
-.card-location{color:var(--teal)!important;font-weight:800}
-.card-bottom,.stay-price-row{
- display:flex;justify-content:space-between;
- align-items:center;gap:8px;margin-top:13px;
-}
-.card-bottom small{font-size:10px;color:var(--muted)}
-.card-bottom button,.stay-price-row button{
- border:0;background:var(--pink);color:white;
- padding:9px 13px;border-radius:20px;
- font-size:10px;font-weight:800;
-}
-.stay-categories{
- display:flex;flex-wrap:wrap;gap:8px;padding:18px 0 0;
-}
-.stay-categories button{
- background:white;border:1px solid var(--line);
- padding:9px 16px;border-radius:20px;
- font-size:11px;font-weight:800;
-}
-.stay-categories button.active{background:var(--teal);color:white}
-.stay-badges{
- position:absolute;top:10px;left:10px;
- display:flex;gap:5px;
-}
-.stay-badges span{
- background:#ffcf27;padding:5px 8px;
- border-radius:5px;font-size:9px;font-weight:900;
-}
-.stay-badges .promo{background:var(--pink);color:white}
-.photo-prev,.photo-next{
- position:absolute;top:50%;transform:translateY(-50%);
- width:26px;height:26px;border:0;border-radius:50%;
- background:#ffffffd9;font-size:16px;
-}
-.photo-prev{left:8px}
-.photo-next{right:8px}
-.stay-type{font-size:9px;color:var(--muted);font-weight:900}
-.stay-rating{color:#f2a000;font-size:11px;font-weight:800}
-.stay-rating span{color:var(--muted);font-weight:500}
-.stay-features{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
-.stay-features span{font-size:10px;color:var(--muted)}
-.stay-price-row{
- border-top:1px solid var(--line);padding-top:12px;
-}
-.price{font:900 18px Outfit;color:var(--pink)}
-.price small{
- font:500 10px "DM Sans";color:var(--muted);
-}
-.demo-note{
- font-size:10px;color:var(--muted);margin-top:8px;
-}
-.pagination{
- display:flex;justify-content:center;
- gap:8px;margin-top:30px;
-}
-.pagination button{
- background:white;border:1px solid var(--line);
- border-radius:8px;padding:10px 14px;
- font-size:12px;font-weight:800;
-}
-.pagination button.active{background:var(--teal);color:white}
-.empty{
- padding:40px;background:white;
- color:var(--muted);text-align:center;
-}
-
-/* SIMPLE PAGES */
-.simple-page{
- background:var(--light);min-height:65vh;padding:55px 0;
-}
-.simple-grid{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:17px;margin-top:25px;
-}
-.info-card{
- background:white;border:1px solid var(--line);
- border-radius:12px;overflow:hidden;
-}
-.info-card img{width:100%;height:190px;object-fit:cover}
-.info-card div{padding:17px}
-.info-card h3{font-size:17px;margin:0 0 9px}
-.info-card p{
- font-size:12px;color:var(--muted);line-height:1.7;
-}
-.info-card button{
- background:var(--pink);border:0;color:white;
- padding:10px 16px;border-radius:20px;
- font-size:11px;font-weight:800;
-}
-
-/* PARTNER REGISTRATION */
-.partner-hero{
- background:
- radial-gradient(circle at 96% 4%,#58744555,transparent 24%),
- radial-gradient(circle at 5% 95%,#58497555,transparent 25%),
- linear-gradient(125deg,#061a20,#003b49 60%,#006774);
- padding:45px 0;min-height:590px;
-}
-.partner-layout{
- display:grid;grid-template-columns:1.12fr .95fr;
- gap:55px;align-items:center;
-}
-.partner-intro{color:white}
-.partner-label{
- display:inline-flex;align-items:center;gap:8px;
- background:#ffffff17;border:1px solid #ffffff35;
- border-radius:25px;padding:9px 14px;
- font-size:11px;font-weight:800;
-}
-.partner-intro h1{
- font:900 clamp(33px,4vw,49px)/1.12 Outfit;
- letter-spacing:-1.5px;margin:22px 0 15px;
-}
-.partner-intro h1 span{
- background:linear-gradient(90deg,#f32394,#ff873b);
- -webkit-background-clip:text;background-clip:text;
- color:transparent;
-}
-.partner-intro>p{
- max-width:520px;font-size:14px;
- line-height:1.85;color:#d5e6e9;
-}
-.partner-benefits{margin:25px 0}
-.partner-benefit{
- display:flex;align-items:center;
- gap:11px;margin:15px 0;font-size:13px;
-}
-.partner-benefit b{color:#25d78a;font-size:18px}
-.partner-trust{
- border-top:1px solid #ffffff26;
- margin-top:25px;padding-top:22px;
- display:flex;flex-wrap:wrap;gap:18px;
- color:#c7e0e4;font-size:11px;
-}
-.auth-card{
- background:white;border-radius:17px;padding:30px;
- box-shadow:0 15px 45px #00000018;
-}
-.auth-card h2{font:900 23px Outfit;margin:0 0 6px}
-.auth-subtitle{
- font-size:12px;color:var(--muted);margin:0 0 22px;
-}
-.auth-form{display:grid;gap:15px}
-.auth-field label{
- display:block;font-size:10px;font-weight:900;
- letter-spacing:.8px;margin-bottom:8px;
-}
-.auth-field input{
- width:100%;height:46px;border:1px solid var(--line);
- border-radius:10px;padding:0 13px;
- font-size:13px;outline:none;
-}
-.auth-field input:focus{
- border-color:var(--teal);
- box-shadow:0 0 0 3px #00a4b81a;
-}
-.password-wrap{position:relative}
-.password-wrap input{padding-right:55px}
-.password-toggle{
- position:absolute;right:8px;top:7px;
- border:0;background:none;padding:7px;
- color:var(--muted);font-size:12px;
-}
-.agreement{
- display:flex;align-items:flex-start;gap:10px;
- font-size:11px;line-height:1.7;color:#59646d;
-}
-.agreement input{accent-color:var(--pink);margin-top:3px}
-.agreement a{color:var(--teal);font-weight:700}
-.auth-submit{
- width:100%;border:0;background:var(--pink);
- color:white;padding:16px;border-radius:25px;
- font-size:13px;font-weight:900;
- box-shadow:0 7px 18px #e51b8033;
-}
-.auth-submit:hover{background:#c7116d}
-.auth-switch{
- text-align:center;font-size:11px;
- color:var(--muted);margin-top:18px;
-}
-.auth-switch a{color:var(--pink);font-weight:900}
-.form-message{
- font-size:12px;padding:12px;border-radius:8px;
- background:#fff0f4;color:#ac125b;line-height:1.6;
-}
-.form-message.success{
- background:#e8f9f1;color:#08744a;
-}
-.partner-why{
- padding:65px 0;background:white;text-align:center;
-}
-.partner-why h2{font-size:33px;margin:10px 0 25px}
-.partner-cards{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:17px;text-align:left;
-}
-.partner-card{
- background:#f6f7f8;border:1px solid #edf0f1;
- border-radius:15px;padding:28px;
-}
-.partner-card-icon{
- width:48px;height:48px;border-radius:12px;
- background:#e3f7fa;display:grid;place-items:center;
- color:var(--teal);font-size:24px;
-}
-.partner-card:nth-child(2) .partner-card-icon{
- background:#ffe5f1;color:var(--pink);
-}
-.partner-card:nth-child(3) .partner-card-icon{
- background:#fff4d8;color:#f1a500;
-}
-.partner-card h3{font-size:17px;margin:18px 0 8px}
-.partner-card p{
- font-size:13px;color:var(--muted);
- line-height:1.8;margin:0;
-}
-.partner-help{
- background:#e5f8fb;text-align:center;
- padding:24px;font-size:12px;color:#52666d;
-}
-.partner-help a{color:var(--pink);font-weight:800}
-
-/* NEW SIGN IN DESIGN */
-.login-page{
- min-height:100vh;
- display:grid;
- grid-template-columns:1fr 1fr;
- background:#f7f8fa;
-}
-
-/* LEFT SIDE */
-.login-visual{
- position:relative;
- min-height:100vh;
- padding:48px;
- overflow:hidden;
- background:
- linear-gradient(180deg,
- rgba(255,255,255,.93) 0%,
- rgba(255,255,255,.77) 34%,
- rgba(255,255,255,.50) 70%,
- rgba(255,255,255,.22) 100%),
- url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1500")
- center/cover;
- display:flex;
- flex-direction:column;
- justify-content:space-between;
-}
-.login-visual-logo{
- font:900 21px Outfit;
- display:inline-flex;
- align-items:center;
- gap:5px;
-}
-.login-visual-logo b{font-size:35px;color:var(--pink)}
-.login-visual-logo span{color:var(--pink)}
-.login-visual-content{max-width:530px}
-.login-visual-content h1{
- font:900 clamp(32px,3.2vw,48px)/1.13 Outfit;
- letter-spacing:-1.5px;
- color:#24323a;
- margin:0 0 14px;
-}
-.gradient-text{
- background:linear-gradient(90deg,#009bb0,#e52b91);
- -webkit-background-clip:text;
- background-clip:text;
- color:transparent;
-}
-.login-visual-content>p{
- font-size:15px;
- color:#596b76;
- line-height:1.8;
- margin:0 0 25px;
- max-width:450px;
-}
-.login-feature{
- display:flex;
- align-items:center;
- gap:15px;
- padding:15px 17px;
- background:#ffffffd9;
- border:1px solid #ffffffd9;
- border-radius:17px;
- margin:11px 0;
- box-shadow:0 7px 25px #0000000a;
- backdrop-filter:blur(10px);
-}
-.login-feature-icon{
- width:46px;height:46px;
- border-radius:12px;
- display:grid;place-items:center;
- background:#e4f8fb;
- color:var(--teal);
- font-size:24px;
- flex-shrink:0;
-}
-.login-feature:nth-of-type(2) .login-feature-icon{
- background:#fff5df;color:#e8ae34;
-}
-.login-feature:nth-of-type(3) .login-feature-icon{
- background:#ffe8f3;color:var(--pink);
-}
-.login-feature-copy{flex:1}
-.login-feature-copy strong{
- display:block;font-size:14px;
- margin-bottom:4px;
-}
-.login-feature-copy small{
- font-size:11px;color:var(--muted);
-}
-.login-feature-stat{
- background:white;
- border-radius:12px;
- padding:9px 13px;
- text-align:center;
- min-width:67px;
-}
-.login-feature-stat strong{
- display:block;color:var(--teal);
- font:900 19px Outfit;
-}
-.login-feature-stat small{
- font-size:9px;color:var(--muted);
-}
-.login-feature:nth-of-type(2) .login-feature-stat strong{
- color:#d4a02e;
-}
-.login-feature:nth-of-type(3) .login-feature-stat strong{
- color:var(--pink);
-}
-.login-visual-bottom{
- font-size:12px;
- color:#526a75;
- font-weight:800;
- display:flex;
- align-items:center;
- gap:12px;
-}
-.login-dots{display:flex;gap:7px}
-.login-dots span{
- width:10px;height:10px;
- border-radius:50%;background:var(--pink);
-}
-.login-dots span:nth-child(2){background:#65cddd}
-.login-dots span:nth-child(3){background:#f8c85c}
-
-/* RIGHT SIDE */
-.login-right{
- min-height:100vh;
- display:flex;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- padding:45px 35px;
-}
-.login-panel{
- width:min(530px,100%);
- background:white;
- border-radius:24px;
- padding:38px 40px;
- box-shadow:0 20px 55px #15232d0c;
-}
-.login-panel h2{
- font:900 36px Outfit;
- letter-spacing:-1px;
- margin:0;
-}
-.login-accent{
- width:53px;height:4px;
- background:var(--pink);
- border-radius:5px;
- margin:11px 0 21px;
-}
-.login-description{
- color:#59636e;
- font-size:15px;
- line-height:1.7;
- margin:0 0 28px;
-}
-.login-form{display:grid;gap:21px}
-.login-form-label{
- display:flex;justify-content:space-between;
- align-items:center;
- font-size:12px;font-weight:900;
- letter-spacing:.7px;
- margin-bottom:11px;
-}
-.login-form-label a{
- color:#0089a3;
- font-size:12px;
- letter-spacing:0;
-}
-.login-input-wrap{position:relative}
-.login-input-wrap input{
- width:100%;
- height:61px;
- border:1px solid #dfe4e8;
- border-radius:15px;
- outline:none;
- padding:0 50px;
- font-size:15px;
- color:var(--dark);
- transition:.2s;
-}
-.login-input-wrap input:focus{
- border-color:var(--teal);
- box-shadow:0 0 0 4px #009bb012;
-}
-.login-input-wrap input::placeholder{color:#9ba3aa}
-.login-input-icon{
- position:absolute;
- left:18px;top:50%;
- transform:translateY(-50%);
- font-size:20px;
- color:var(--pink);
- pointer-events:none;
-}
-.login-eye{
- position:absolute;right:13px;top:50%;
- transform:translateY(-50%);
- border:0;background:none;
- color:#87929b;font-size:12px;
- padding:8px;
-}
-.keep-signed{
- display:flex;align-items:center;
- gap:11px;font-size:14px;
- color:#4e5964;
- cursor:pointer;
-}
-.keep-signed input{
- width:18px;height:18px;
- accent-color:var(--pink);
-}
-.login-submit{
- border:0;
- background:var(--pink);
- color:white;
- border-radius:35px;
- width:100%;
- height:62px;
- font-size:17px;
- font-weight:900;
- box-shadow:0 10px 22px #df218033;
- transition:.2s;
-}
-.login-submit:hover{
- background:#c41670;
- transform:translateY(-1px);
-}
-.login-divider{
- display:flex;align-items:center;
- gap:15px;color:#98a1a9;
- font-size:12px;
- margin:27px 0;
-}
-.login-divider:before,.login-divider:after{
- content:"";height:1px;
- flex:1;background:#e9edf0;
-}
-.google-btn{
- width:100%;
- height:55px;
- background:white;
- border:1px solid #dfe5e9;
- border-radius:30px;
- display:flex;align-items:center;
- justify-content:center;
- gap:13px;
- font-size:15px;
- font-weight:800;
-}
-.google-g{
- font:900 23px Arial,sans-serif;
- background:conic-gradient(#4285f4 0 100deg,#34a853 100deg 180deg,#fbbc05 180deg 260deg,#ea4335 260deg 360deg);
- -webkit-background-clip:text;background-clip:text;
- color:transparent;
-}
-.login-terms{
- text-align:center;
- font-size:12px;
- line-height:1.8;
- color:#89939c;
- margin:23px 0 0;
-}
-.login-terms a{color:#0089a3;font-weight:700}
-.login-create{
- text-align:center;
- font-size:14px;
- color:#59636e;
- margin:25px 0 0;
-}
-.login-create a{color:var(--pink);font-weight:900}
-.login-copyright{
- color:#9ca6af;
- font-size:12px;
- margin-top:25px;
- text-align:center;
-}
-
-/* MODAL */
-.modal-bg{
- position:fixed;inset:0;
- background:#061b2dc9;z-index:2000;
- display:flex;align-items:center;
- justify-content:center;padding:20px;
-}
-.modal{
- width:min(550px,100%);
- max-height:90vh;overflow:auto;
- background:white;border-radius:15px;
- padding:25px;position:relative;
-}
-.modal-close{
- position:absolute;top:12px;right:13px;
- border:0;border-radius:50%;
- background:#f0f1f2;width:34px;height:34px;
- font-size:22px;
-}
-.modal img{
- width:100%;height:230px;
- object-fit:cover;border-radius:10px;
-}
-.modal h2{font-size:25px}
-.modal p{
- font-size:13px;color:var(--muted);line-height:1.8;
-}
-.modal-actions{
- display:flex;gap:10px;
- flex-wrap:wrap;margin-top:20px;
-}
-.modal-actions a{
- background:var(--pink);color:white;
- padding:11px 16px;border-radius:20px;
- font-size:12px;font-weight:800;
-}
-
+.desktop-nav{display:flex;align-items:center;gap:15px;font-size:12px;font-weight:800}
+.desktop-nav a:hover{color:var(--pink)}
+.nav-actions{display:flex;align-items:center;gap:7px}
+.icon-btn{width:36px;height:36px;border:1px solid var(--line);background:white;border-radius:9px;display:grid;place-items:center;font-size:18px}
+.mobile-menu{display:none;background:white;border-top:1px solid var(--line)}
+.mobile-menu a{display:block;padding:13px 16px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700}
+.mobile-menu a:hover{color:var(--pink)}
+/* HERO */
+.hero{min-height:450px;display:flex;align-items:center;background:linear-gradient(90deg,#062e3dd9,#062e3d55),url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600") center/cover;color:white}
+.hero-inner{padding:65px 0 95px}
+.hero h1{font-size:clamp(35px,5vw,65px);max-width:650px;line-height:1.05;letter-spacing:-2px;margin:12px 0}
+.hero h1 em{color:#ffd05b;font-style:normal}
+.hero p{max-width:530px;line-height:1.8;font-size:14px;color:#e8f2f4}
+.hero-tag{display:inline-block;background:#ffffff33;padding:8px 13px;border-radius:40px;font-size:10px;font-weight:800;letter-spacing:1px}
+/* STICKY SEARCH */
+.search-wrap{position:sticky;top:67px;z-index:150;margin-top:-42px}
+.search-panel{background:white;border-radius:14px;box-shadow:0 10px 30px #152e3a20;padding:12px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr auto;gap:9px}
+.search-field{min-width:0;background:#f7f9fa;border:1px solid var(--line);border-radius:9px;padding:9px}
+.search-field label{display:block;color:var(--muted);font-size:9px;font-weight:900;letter-spacing:.4px;margin-bottom:6px}
+.search-field input,.search-field select{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--dark);font-size:12px;font-weight:700}
+.search-btn{border:0;background:var(--pink);color:white;border-radius:9px;padding:12px 21px;font-size:12px;font-weight:900}
+/* FEATURE STRIP */
+.feature-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;padding:32px 0 10px;text-align:center}
+.feature-strip strong{display:block;font-size:16px}
+.feature-strip span{display:block;font-size:11px;color:var(--muted);margin-top:5px}
+/* CATEGORY GRID */
+.category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.category-card{height:220px;border-radius:13px;overflow:hidden;position:relative;cursor:pointer}
+.category-card img{height:100%;transition:transform .3s}
+.category-card:hover img{transform:scale(1.06)}
+.category-card:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,#000a)}
+.category-card strong{position:absolute;bottom:15px;left:15px;color:white;z-index:1;font-size:18px}
+/* CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.place-card,.stay-card,.simple-card{background:white;border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.card-photo{height:190px;position:relative;background:#e5eaed}
+.card-photo img{height:100%}
+.photo-tag{position:absolute;top:10px;left:10px;background:#ffd34e;color:#614400;border-radius:5px;padding:5px 8px;font-size:9px;font-weight:900}
+.heart{position:absolute;top:9px;right:9px;border:0;background:white;border-radius:50%;height:30px;width:30px;color:#8a9aa4;font-size:19px}
+.heart.saved{color:var(--pink)}
+.card-body{padding:15px}
+.card-body h3{font-size:17px;margin:0 0 6px}
+.location{font-size:11px;color:var(--teal);font-weight:700}
+.description{font-size:12px;color:var(--muted);line-height:1.7}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-top:14px}
+.price{color:var(--pink);font-weight:900;font-size:17px}
+.small{font-size:10px;color:var(--muted)}
+/* LISTING PAGE */
+.page-banner{background:linear-gradient(110deg,#064451,#0b8290);color:white;padding:40px 0}
+.page-banner h1{font-size:34px;margin:8px 0}
+.page-banner p{font-size:13px;color:#dceef0;line-height:1.7}
+.list-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px;padding:28px 0}
+.filter-box{background:white;border:1px solid var(--line);border-radius:13px;padding:17px;margin-bottom:14px}
+.filter-box h3{font-size:15px;margin:0 0 14px}
+.filter-box label{display:flex;align-items:center;gap:9px;margin:12px 0;font-size:12px}
+.filter-box input{accent-color:var(--pink)}
+.filter-chips{display:flex;flex-wrap:wrap;gap:7px}
+.filter-chip{border:1px solid var(--line);background:#f8fafb;border-radius:30px;padding:8px 10px;font-size:11px}
+.filter-chip.active{background:#ffe9f3;border-color:#ffb9d8;color:var(--pink)}
+.result-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.result-heading h2{font-size:22px;margin:0}
+.result-heading select{padding:9px;border:1px solid var(--line);border-radius:8px;background:white}
+.list-cards{display:grid;gap:14px}
+.list-card{display:grid;grid-template-columns:220px 1fr;gap:16px;background:white;border:1px solid var(--line);border-radius:13px;padding:11px}
+.list-card .card-photo{height:215px;border-radius:9px;overflow:hidden}
+.list-card .card-body{padding:4px 5px}
+.amenities{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.amenities span{font-size:10px;background:#f1f5f6;padding:6px 8px;border-radius:6px}
+.mobile-filter-button{display:none}
+.empty{padding:40px;text-align:center;background:white;border-radius:12px;color:var(--muted)}
+/* DETAIL MODAL */
+.modal{position:fixed;inset:0;background:#0b1c26cc;z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modal-panel{width:min(650px,100%);max-height:90vh;overflow:auto;background:white;border-radius:17px}
+.modal-panel img{height:260px}
+.modal-content{padding:22px}
+.modal-top{display:flex;justify-content:space-between;align-items:center}
+.modal-close{border:0;background:#f1f3f5;border-radius:50%;width:34px;height:34px;font-size:20px}
+/* PARTNER & SIGN IN */
+.auth-layout{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:#f4f6f8}
+.auth-hero{padding:50px;background:linear-gradient(145deg,#062e3edc,#087c84b8),url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400") center/cover;color:white;display:flex;flex-direction:column;justify-content:space-between}
+.auth-hero h1{font-size:clamp(32px,4vw,52px);line-height:1.1;letter-spacing:-1.5px}
+.auth-hero p{line-height:1.8;color:#d9edef}
+.auth-card-wrap{padding:30px;display:grid;place-items:center}
+.auth-card{background:white;border:1px solid var(--line);border-radius:18px;padding:32px;width:min(440px,100%)}
+.auth-card h2{font-size:27px;margin:15px 0 7px}
+.auth-card p{font-size:12px;color:var(--muted);line-height:1.7}
+.form-group{margin-top:15px}
+.form-group label{display:block;font-size:11px;font-weight:800;margin-bottom:7px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--pink)}
+.auth-link{color:var(--pink);font-weight:800}
+.check-line{display:flex;align-items:center;gap:8px;font-size:11px;margin-top:16px}
+.check-line input{accent-color:var(--pink)}
 /* FOOTER */
-footer{
- background:#08171b;color:white;
- padding:55px 0 20px;
-}
-.footer-grid{
- display:grid;grid-template-columns:repeat(4,1fr);
- gap:30px;
-}
-footer h4{
- color:#ff983e;font-size:11px;
- letter-spacing:1px;margin:0 0 20px;
-}
-footer a{
- display:block;color:#d3e1e5;
- font-size:12px;margin:12px 0;
-}
-footer p{
- color:#d3e1e5;font-size:12px;line-height:1.8;
-}
-.footer-bottom{
- border-top:1px solid #2b3b40;
- margin-top:40px;padding-top:25px;
- text-align:center;color:#9db2ba;font-size:11px;
-}
-.footer-bottom .logo{margin-bottom:12px}
-
+.footer{background:#112d38;color:white;padding:38px 0 18px;margin-top:35px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:25px}
+.footer h4{font-size:12px}
+.footer a,.footer p{display:block;color:#b9cbd2;font-size:11px;line-height:2}
+.footer-bottom{border-top:1px solid #ffffff24;margin-top:25px;padding-top:16px;text-align:center;color:#a6bbc4;font-size:10px}
 /* RESPONSIVE */
-@media(max-width:1100px){
- .nav-links{gap:9px}
- .nav-links a{font-size:10px}
+@media(max-width:1000px){
+ .desktop-nav{gap:8px;font-size:10px}
  .logo{font-size:16px}
+ .list-layout{grid-template-columns:220px 1fr}
 }
-@media(max-width:950px){
- .menu-btn{display:block}
- .nav-links{
-  display:none;position:absolute;top:68px;
-  left:0;right:0;background:white;
-  flex-direction:column;align-items:stretch;
-  padding:20px;box-shadow:0 12px 20px #0002;
- }
- .nav-links.open{display:flex}
- .partner-layout{gap:25px}
- .page-layout{grid-template-columns:180px minmax(0,1fr)}
- .destination-grid,.stays-grid{grid-template-columns:repeat(2,1fr)}
- .login-visual{padding:30px}
- .login-panel{padding:30px}
-}
-@media(max-width:700px){
- .partner-layout{grid-template-columns:1fr}
- .partner-hero{padding:45px 0}
- .partner-intro h1{font-size:37px}
+@media(max-width:768px){
+ .container{width:calc(100% - 24px)}
+ .header-inner{min-height:51px;gap:6px}
+ .logo{font-size:13px;letter-spacing:-.5px}
+ .desktop-nav,.nav-actions .desktop-only{display:none!important}
+ .nav-actions{gap:5px;margin-left:auto}
+ .icon-btn{width:31px;height:31px;font-size:16px;border:0}
+ .mobile-menu{display:block;position:absolute;top:100%;left:0;right:0;max-height:80vh;overflow:auto;box-shadow:0 10px 20px #0002}
+ .hero{min-height:330px}
+ .hero-inner{padding:45px 0 75px}
+ .hero h1{font-size:35px;letter-spacing:-1px}
+ .hero p{font-size:11px;line-height:1.7}
+ .search-wrap{top:51px;margin-top:-25px}
+ .search-panel{grid-template-columns:minmax(0,1fr) auto;gap:6px;padding:8px}
+ .search-field{padding:8px}
+ .search-field label{font-size:8px}
+ .search-field select,.search-field input{font-size:10px}
+ .search-field.mobile-hide{display:none}
+ .search-btn{font-size:10px;padding:9px 12px}
+ .feature-strip{gap:5px;padding-top:25px}
+ .feature-strip strong{font-size:12px}
+ .feature-strip span{font-size:9px}
+ .section{padding:27px 0}
+ .section-head h2{font-size:21px}
+ .section-head p{font-size:11px}
+ .category-grid{grid-template-columns:repeat(2,1fr);gap:9px}
+ .category-card{height:155px}
+ .category-card strong{font-size:14px}
+ .card-grid{grid-template-columns:1fr;gap:12px}
+ .card-photo{height:180px}
+ .card-body{padding:12px}
+ .card-body h3{font-size:15px}
+ .page-banner{padding:26px 0}
+ .page-banner h1{font-size:25px}
+ .list-layout{grid-template-columns:1fr;padding:15px 0}
+ .filters{display:none}
+ .filters.open{display:block}
+ .mobile-filter-button{display:block;width:100%;text-align:left;background:white;border:1px solid var(--line);padding:12px;border-radius:10px;font-weight:800;margin-bottom:10px}
+ .list-card{grid-template-columns:1fr;gap:7px}
+ .list-card .card-photo{height:210px}
+ .list-card .card-body{padding:6px}
+ .result-heading h2{font-size:18px}
+ .result-heading select{font-size:10px;max-width:120px}
+ .auth-layout{grid-template-columns:1fr}
+ .auth-hero{min-height:205px;padding:23px}
+ .auth-hero h1{font-size:27px}
+ .auth-card-wrap{padding:15px}
  .auth-card{padding:23px}
- .partner-cards{grid-template-columns:1fr}
- .category-grid{grid-template-columns:repeat(2,1fr)}
- .simple-grid{grid-template-columns:repeat(2,1fr)}
- .footer-grid{grid-template-columns:repeat(2,1fr)}
- .login-page{grid-template-columns:1fr}
- .login-visual{min-height:560px}
- .login-right{min-height:auto;padding:35px 18px}
- .login-panel{padding:30px 23px}
+ .footer-grid{grid-template-columns:repeat(2,1fr);gap:15px}
 }
-@media(max-width:600px){
- .hero{height:680px}
- .hero-inner{padding-top:65px}
- .hero h1{font-size:43px}
- .search-box{
-  bottom:-185px;display:grid;
-  grid-template-columns:repeat(2,1fr);
- }
- .search-field{
-  border:1px solid var(--line);
-  border-radius:8px;
- }
- .search-box .pink-btn{grid-column:1/-1}
- .stats{
-  padding-top:215px;
-  grid-template-columns:repeat(2,1fr);
- }
- .page-layout{display:block}
- .sidebar{
-  position:static;background:white;
-  padding:16px;border-radius:12px;
-  margin-bottom:20px;
- }
- .destination-grid,.stays-grid{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:9px;
- }
- .card-image,.stay-photo{height:135px}
- .results-heading{
-  flex-direction:column;align-items:start;
- }
- .nav-actions .pink-btn{
-  padding:10px;font-size:10px;
- }
- .signin-btn{
-  font-size:10px;padding:5px 9px 5px 5px;
- }
- .signin-icon{width:25px;height:25px}
-}
-@media(max-width:390px){
- .destination-grid,.stays-grid,.simple-grid{
-  grid-template-columns:1fr;
- }
- .card-image,.stay-photo{height:200px}
- .logo{font-size:14px}
+@media(max-width:380px){
+ .logo{font-size:11px}
+ .hero h1{font-size:30px}
+ .list-card .card-photo{height:180px}
 }
 </style>
 </head>
 <body>
 
-<header id="mainHeader">
-<div class="container nav">
- <a class="logo" onclick="showPage('home')"><b>✿</b>My<span>Catanduanes</span>Guide</a>
- <button class="menu-btn" id="menuBtn">☰</button>
- <nav class="nav-links" id="navLinks">
-  <a data-nav="home" onclick="showPage('home')">Home</a>
-  <a data-nav="destinations" onclick="showPage('destinations')">Destinations</a>
-  <a data-nav="stays" onclick="showPage('stays')">Stays</a>
-  <a data-nav="activities" onclick="showPage('activities')">Activities</a>
-  <a data-nav="transport" onclick="showPage('transport')">Transportation</a>
-  <a data-nav="businesses" onclick="showPage('businesses')">Local Businesses</a>
-  <a data-nav="about" onclick="showPage('about')">About</a>
- </nav>
- <div class="nav-actions">
-  <button class="pink-btn" onclick="showPage('partner')">List Your Business ↗</button>
-  <button class="signin-btn" onclick="showPage('signin')">
-   <span class="signin-icon">●</span> Sign In
-  </button>
+<div id="site">
+<header class="header">
+ <div class="container header-inner">
+  <a href="#home" class="logo">✿My<span>Catanduanes</span>Guide</a>
+  <nav class="desktop-nav">
+   <a href="#home">Home</a>
+   <a href="#destinations">Destinations</a>
+   <a href="#stays">Stays</a>
+   <a href="#activities">Activities</a>
+   <a href="#transportation">Transportation</a>
+   <a href="#businesses">Local Businesses</a>
+   <a href="#about">About</a>
+  </nav>
+  <div class="nav-actions">
+   <button class="icon-btn" id="favoritesBtn" title="Favorites">♡</button>
+   <a class="btn btn-pink desktop-only" href="#partner" style="font-size:11px">List Your Business</a>
+   <a class="btn btn-outline desktop-only" href="#signin" style="font-size:11px">Sign In</a>
+   <button class="icon-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  </div>
  </div>
-</div>
+ <nav class="mobile-menu hidden" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#destinations">Destinations</a>
+  <a href="#stays">Stays</a>
+  <a href="#activities">Activities</a>
+  <a href="#transportation">Transportation</a>
+  <a href="#businesses">Local Businesses</a>
+  <a href="#about">About</a>
+  <a href="#partner">List Your Business</a>
+  <a href="#signin">Sign In</a>
+ </nav>
 </header>
 
-<!-- HOME -->
-<div id="homePage">
-<section class="hero">
- <div class="container hero-inner">
-  <span class="hero-badge">🌴 EXPLORE THE HAPPY ISLAND • CATANDUANES</span>
-  <h1>Your Catanduanes<br>island adventure,<br><span>starts here.</span></h1>
-  <p>Discover beautiful beaches, scenic viewpoints, accommodations, local experiences and businesses across Catanduanes.</p>
-  <p>★★★★★ &nbsp; Discover more. Explore local. Support Catandunganons.</p>
+<div id="pageContent"></div>
+
+<footer class="footer">
+ <div class="container">
+  <div class="footer-grid">
+   <div><div class="logo">✿My<span>Catanduanes</span>Guide</div><p>Your digital guide to Catanduanes tourism, destinations and local businesses.</p></div>
+   <div><h4>Explore</h4><a href="#destinations">Destinations</a><a href="#stays">Stays</a><a href="#activities">Activities</a></div>
+   <div><h4>Travel Information</h4><a href="#transportation">Transportation</a><a href="#businesses">Local Businesses</a><a href="#about">About</a></div>
+   <div><h4>Partners</h4><a href="#partner">List Your Business</a><a href="#signin">Sign In</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 MyCatanduanesGuide · Catanduanes, Philippines</div>
  </div>
- <form class="search-box" id="homeSearch">
-  <div class="search-field">
-   <label>WHAT ARE YOU LOOKING FOR?</label>
-   <select id="homeCategory">
-    <option value="all">All destinations</option>
-    <option value="beach">Beaches</option>
-    <option value="waterfall">Waterfalls</option>
-    <option value="viewpoint">Viewpoints</option>
-    <option value="culture">Heritage & Culture</option>
-   </select>
-  </div>
-  <div class="search-field">
-   <label>LOCATION</label>
-   <select id="homeLocation">
-    <option value="all">Anywhere in Catanduanes</option>
-    <option>Baras</option><option>Virac</option>
-    <option>San Andres</option><option>Bagamanoc</option>
-    <option>Gigmoto</option><option>Pandan</option>
-    <option>Caramoran</option><option>Bato</option>
-    <option>San Miguel</option><option>Viga</option>
-    <option>Panganiban</option>
-   </select>
-  </div>
-  <div class="search-field">
-   <label>TRAVEL DATE</label>
-   <input type="date" id="travelDate">
-  </div>
-  <div class="search-field">
-   <label>TRAVELERS</label>
-   <select>
-    <option>1 traveler</option>
-    <option selected>2 travelers</option>
-    <option>3 travelers</option>
-    <option>4+ travelers</option>
-   </select>
-  </div>
-  <button class="pink-btn">⌕ Explore</button>
- </form>
-</section>
-
-<div class="container stats">
- <div><strong>11</strong><span>Municipalities</span></div>
- <div><strong>Happy Island</strong><span>Explore Catanduanes</span></div>
- <div><strong>Nature</strong><span>Beautiful destinations</span></div>
- <div><strong>Support Local</strong><span>Help island businesses</span></div>
-</div>
-
-<section class="section gray">
-<div class="container">
- <span class="eyebrow">EXPLORE YOUR WAY</span>
- <h2 class="section-title">Discover everything Catanduanes has to offer.</h2>
- <div class="category-grid">
-  <div class="category-tile" onclick="categoryShortcut('beach')">
-   <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600">
-   <div><h3>Beaches</h3><p>Explore the coast</p></div>
-  </div>
-  <div class="category-tile" onclick="categoryShortcut('waterfall')">
-   <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600">
-   <div><h3>Waterfalls</h3><p>Discover nature</p></div>
-  </div>
-  <div class="category-tile" onclick="categoryShortcut('viewpoint')">
-   <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600">
-   <div><h3>Viewpoints</h3><p>Scenic landscapes</p></div>
-  </div>
-  <div class="category-tile" onclick="showPage('businesses')">
-   <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600">
-   <div><h3>Local Businesses</h3><p>Support local</p></div>
-  </div>
- </div>
-</div>
-</section>
-
-<section class="section">
-<div class="container">
- <span class="eyebrow">POPULAR DESTINATIONS</span>
- <h2 class="section-title">Find your favorite island spots.</h2>
- <div class="destination-grid" id="homeDestinations"></div>
- <div style="text-align:center;margin-top:25px">
-  <button class="pink-btn" onclick="showPage('destinations')">View All Destinations ↗</button>
- </div>
-</div>
-</section>
-
-<section class="section gray">
-<div class="container">
- <span class="eyebrow">ACCOMMODATIONS</span>
- <h2 class="section-title">Find your perfect island stay.</h2>
- <div class="stays-grid" id="homeStays"></div>
- <div style="text-align:center;margin-top:25px">
-  <button class="pink-btn" onclick="showPage('stays')">View All Stays ↗</button>
- </div>
-</div>
-</section>
-</div>
-
-<!-- DESTINATIONS -->
-<div id="destinationsPage" class="listing-page hidden">
-<div class="page-top">
-<div class="container">
- <div class="breadcrumb"><a onclick="showPage('home')">Home</a> / Destinations</div>
- <div class="page-search">
-  <input id="destinationSearch" placeholder="Search tourist spots...">
-  <select id="topCategory">
-   <option value="all">All categories</option>
-   <option value="beach">Beaches</option>
-   <option value="waterfall">Waterfalls</option>
-   <option value="viewpoint">Viewpoints</option>
-   <option value="culture">Heritage & Culture</option>
-  </select>
-  <select id="topLocation">
-   <option value="all">All municipalities</option>
-   <option>Baras</option><option>Virac</option>
-   <option>Bato</option><option>Pandan</option>
-   <option>San Andres</option><option>Caramoran</option>
-   <option>Bagamanoc</option><option>Gigmoto</option>
-   <option>Viga</option><option>San Miguel</option>
-   <option>Panganiban</option>
-  </select>
-  <button onclick="applyDestinationFilters()">⌕ Search</button>
- </div>
-</div>
-</div>
-
-<div class="container page-layout">
- <aside class="sidebar">
-  <h2>Explore Catanduanes</h2>
-  <p>Find your next island destination.</p>
-  <div class="filter-group">
-   <h3>DESTINATION TYPE</h3>
-   <div id="destinationCategoryFilters"></div>
-  </div>
-  <div class="filter-group">
-   <h3>MUNICIPALITY</h3>
-   <div id="destinationLocationFilters"></div>
-  </div>
-  <button class="clear-btn" onclick="clearDestinationFilters()">Clear Filters ×</button>
- </aside>
- <div>
-  <div class="results-heading">
-   <div>
-    <h1>Catanduanes Tourist Destinations</h1>
-    <p id="destinationCount"></p>
-   </div>
-   <select id="destinationSort" onchange="applyDestinationFilters()">
-    <option value="default">Recommended</option>
-    <option value="name">Name A–Z</option>
-    <option value="location">Municipality</option>
-   </select>
-  </div>
-  <div class="destination-grid" id="destinationResults"></div>
-  <div class="pagination" id="destinationPagination"></div>
- </div>
-</div>
-</div>
-
-<!-- STAYS -->
-<div id="staysPage" class="listing-page hidden">
-<div class="page-top">
-<div class="container">
- <div class="breadcrumb"><a onclick="showPage('home')">Home</a> / Stays</div>
- <div class="page-search">
-  <input id="staySearch" placeholder="Search hotels, resorts, villas...">
-  <select id="stayLocation">
-   <option value="all">All municipalities</option>
-   <option>Virac</option><option>Baras</option>
-   <option>San Andres</option><option>Pandan</option>
-   <option>Caramoran</option><option>Bato</option>
-  </select>
-  <select id="staySort">
-   <option value="default">Recommended</option>
-   <option value="low">Price: Low to High</option>
-   <option value="high">Price: High to Low</option>
-   <option value="rating">Highest Rated</option>
-  </select>
-  <button onclick="applyStayFilters()">⌕ Search</button>
- </div>
-</div>
-</div>
-
-<div class="container">
- <div class="stay-categories">
-  <button class="active" data-stay-type="all">All Stays</button>
-  <button data-stay-type="Hotel">Hotels</button>
-  <button data-stay-type="Resort">Resorts</button>
-  <button data-stay-type="Villa">Villas</button>
-  <button data-stay-type="Homestay">Homestays</button>
-  <button data-stay-type="Beachfront">Beachfront</button>
- </div>
-</div>
-
-<div class="container page-layout">
- <aside class="sidebar">
-  <h2>Catanduanes Stays</h2>
-  <p>Find hotels, resorts and homestays across the island.</p>
-  <div class="filter-group">
-   <h3>PROPERTY TYPE</h3>
-   <div id="stayTypeFilters"></div>
-  </div>
-  <div class="filter-group">
-   <h3>PRICE PER NIGHT</h3>
-   <label class="filter-option"><input type="radio" name="priceFilter" value="all" checked> Any price</label>
-   <label class="filter-option"><input type="radio" name="priceFilter" value="budget"> Under ₱2,000</label>
-   <label class="filter-option"><input type="radio" name="priceFilter" value="mid"> ₱2,000 – ₱4,000</label>
-   <label class="filter-option"><input type="radio" name="priceFilter" value="premium"> Above ₱4,000</label>
-  </div>
-  <div class="filter-group">
-   <h3>AMENITIES</h3>
-   <label class="filter-option"><input type="checkbox" name="amenity" value="WiFi"> WiFi</label>
-   <label class="filter-option"><input type="checkbox" name="amenity" value="Pool"> Swimming Pool</label>
-   <label class="filter-option"><input type="checkbox" name="amenity" value="Parking"> Parking</label>
-   <label class="filter-option"><input type="checkbox" name="amenity" value="Beach Access"> Beach Access</label>
-  </div>
-  <button class="clear-btn" onclick="clearStayFilters()">Clear All Filters ×</button>
- </aside>
- <div>
-  <div class="results-heading">
-   <div>
-    <h1>Hotels, Resorts & Villas in Catanduanes</h1>
-    <p id="stayCount"></p>
-   </div>
-  </div>
-  <div class="stays-grid" id="stayResults"></div>
-  <div class="pagination" id="stayPagination"></div>
- </div>
-</div>
-</div>
-
-<!-- ACTIVITIES -->
-<div id="activitiesPage" class="simple-page hidden">
-<div class="container">
- <span class="eyebrow">THINGS TO DO</span>
- <h1 class="section-title">Activities in Catanduanes</h1>
- <div class="simple-grid" id="activitiesGrid"></div>
-</div>
-</div>
-
-<!-- TRANSPORT -->
-<div id="transportPage" class="simple-page hidden">
-<div class="container">
- <span class="eyebrow">TRANSPORTATION</span>
- <h1 class="section-title">Getting Around Catanduanes</h1>
- <div class="simple-grid" id="transportGrid"></div>
-</div>
-</div>
-
-<!-- BUSINESSES -->
-<div id="businessesPage" class="simple-page hidden">
-<div class="container">
- <span class="eyebrow">SUPPORT LOCAL</span>
- <h1 class="section-title">Local Businesses in Catanduanes</h1>
- <p class="section-desc">Discover local businesses and support Catandunganon entrepreneurs.</p>
- <button class="pink-btn" onclick="showPage('partner')">+ List Your Business</button>
- <div class="simple-grid" id="businessGrid"></div>
-</div>
-</div>
-
-<!-- ABOUT -->
-<div id="aboutPage" class="simple-page hidden">
-<div class="container">
- <span class="eyebrow">ABOUT OUR PLATFORM</span>
- <h1 class="section-title">Discover. Explore. Support Local.</h1>
- <p class="section-desc" style="max-width:750px">
- MyCatanduanesGuide is a proposed tourism and business promotion platform that helps visitors discover destinations, accommodations, transportation options and local businesses throughout Catanduanes.
- </p>
-</div>
-</div>
-
-<!-- PARTNER REGISTRATION -->
-<div id="partnerPage" class="hidden">
-
-<section class="partner-hero">
-<div class="container partner-layout">
- <div class="partner-intro">
-  <span class="partner-label">🟡 Partner with us • Catanduanes Tourism</span>
-  <h1>Grow your Catanduanes business with <span>MyCatanduanesGuide</span></h1>
-  <p>Reach more tourists, showcase your products and services, and manage your business information through a platform designed to promote tourism and support local entrepreneurs across Catanduanes.</p>
-  <div class="partner-benefits">
-   <div class="partner-benefit"><b>✓</b> Create your partner account in minutes</div>
-   <div class="partner-benefit"><b>✓</b> Start preparing your business listing</div>
-   <div class="partner-benefit"><b>✓</b> Showcase your products, services and location</div>
-   <div class="partner-benefit"><b>✓</b> Help tourists discover and contact your business</div>
-  </div>
-  <div class="partner-trust">
-   <span>🔒 Your data matters</span>
-   <span>⚡ Easy registration</span>
-   <span>📍 Supporting Catanduanes businesses</span>
-  </div>
- </div>
-
- <div class="auth-card">
-  <h2>Create your partner account</h2>
-  <p class="auth-subtitle">Register to start showcasing your business.</p>
-  <form class="auth-form" id="partnerForm">
-   <div class="auth-field">
-    <label for="partnerName">FULL NAME</label>
-    <input id="partnerName" type="text" autocomplete="name" required minlength="2">
-   </div>
-   <div class="auth-field">
-    <label for="partnerEmail">EMAIL ADDRESS</label>
-    <input id="partnerEmail" type="email" autocomplete="email" required>
-   </div>
-   <div class="auth-field">
-    <label for="partnerPhone">PHONE (OPTIONAL)</label>
-    <input id="partnerPhone" type="tel" autocomplete="tel">
-   </div>
-   <div class="auth-field">
-    <label for="partnerPassword">PASSWORD</label>
-    <div class="password-wrap">
-     <input id="partnerPassword" type="password" autocomplete="new-password" required minlength="8">
-     <button class="password-toggle" type="button" onclick="togglePassword('partnerPassword',this)">Show</button>
-    </div>
-   </div>
-   <div class="auth-field">
-    <label for="partnerConfirm">CONFIRM PASSWORD</label>
-    <div class="password-wrap">
-     <input id="partnerConfirm" type="password" autocomplete="new-password" required minlength="8">
-     <button class="password-toggle" type="button" onclick="togglePassword('partnerConfirm',this)">Show</button>
-    </div>
-   </div>
-   <label class="agreement">
-    <input type="checkbox" id="partnerAgree" required>
-    <span>I agree to the <a onclick="showLegal('Partner Agreement')">Partner Agreement</a>, <a onclick="showLegal('Terms of Service')">Terms of Service</a>, and <a onclick="showLegal('Privacy Policy')">Privacy Policy</a>. <b style="color:var(--pink)">*</b></span>
-   </label>
-   <div id="partnerMessage" class="form-message hidden" role="status"></div>
-   <button type="submit" class="auth-submit">Create partner account →</button>
-  </form>
-  <div class="auth-switch">
-   Already have an account?
-   <a onclick="showPage('signin')">Sign in</a>
-  </div>
- </div>
-</div>
-</section>
-
-<section class="partner-why">
-<div class="container">
- <span class="eyebrow">WHY PARTNER WITH MYCATANDUANESGUIDE</span>
- <h2>More visibility. Easy management. Local support.</h2>
- <div class="partner-cards">
-  <div class="partner-card">
-   <div class="partner-card-icon">◎</div>
-   <h3>More Visibility</h3>
-   <p>Help tourists discover your business when searching for accommodations, restaurants, transportation and local services in Catanduanes.</p>
-  </div>
-  <div class="partner-card">
-   <div class="partner-card-icon">▦</div>
-   <h3>Easy Management</h3>
-   <p>Prepare your business information, showcase photos and provide contact details for travelers interested in your services.</p>
-  </div>
-  <div class="partner-card">
-   <div class="partner-card-icon">♧</div>
-   <h3>Local Partnership</h3>
-   <p>Support the province's tourism development by connecting local businesses with visitors and helping promote Catanduanes.</p>
-  </div>
- </div>
-</div>
-</section>
-<div class="partner-help">
- Need assistance with your business listing?
- <a onclick="showPage('about')">Learn more about the project.</a>
-</div>
-</div>
-
-<!-- NEW FULL-SCREEN SIGN IN -->
-<div id="signinPage" class="login-page hidden">
-
-<!-- LEFT IMAGE PANEL -->
-<div class="login-visual">
- <a class="login-visual-logo" onclick="showPage('home')">
-  <b>✿</b>MyCatanduanes<span>Guide</span>
- </a>
-
- <div class="login-visual-content">
-  <h1>
-   Manage your business,<br>
-   <span class="gradient-text">all in one place.</span>
-  </h1>
-  <p>
-   Access your business listings, customer inquiries,
-   performance insights, and local tourism opportunities.
-  </p>
-
-  <div class="login-feature">
-   <div class="login-feature-icon">▥</div>
-   <div class="login-feature-copy">
-    <strong>Your Business Listings</strong>
-    <small>Manage business details, photos and services.</small>
-   </div>
-   <div class="login-feature-stat">
-    <strong>01</strong>
-    <small>DEMO</small>
-   </div>
-  </div>
-
-  <div class="login-feature">
-   <div class="login-feature-icon">▤</div>
-   <div class="login-feature-copy">
-    <strong>Customer Inquiries</strong>
-    <small>Connect with tourists and potential customers.</small>
-   </div>
-   <div class="login-feature-stat">
-    <strong>24/7</strong>
-    <small>ACCESS</small>
-   </div>
-  </div>
-
-  <div class="login-feature">
-   <div class="login-feature-icon">↗</div>
-   <div class="login-feature-copy">
-    <strong>Grow Your Business</strong>
-    <small>Promote local products and services.</small>
-   </div>
-   <div class="login-feature-stat">
-    <strong>★</strong>
-    <small>GROWTH</small>
-   </div>
-  </div>
-
-  <p style="margin-top:25px;font-size:13px;color:#536b78;font-weight:800">
-   📍 Catanduanes, Philippines
-  </p>
- </div>
-
- <div class="login-visual-bottom">
-  <div class="login-dots">
-   <span></span><span></span><span></span>
-  </div>
-  SUPPORTING LOCAL TOURISM
- </div>
-</div>
-
-<!-- RIGHT LOGIN PANEL -->
-<div class="login-right">
- <div class="login-panel">
-  <h2>Welcome back.</h2>
-  <div class="login-accent"></div>
-  <p class="login-description">
-   Sign in to manage your business listings, inquiries, and opportunities.
-  </p>
-
-  <form class="login-form" id="signinForm">
-
-   <div>
-    <div class="login-form-label">
-     <label for="signinEmail">EMAIL ADDRESS</label>
-    </div>
-    <div class="login-input-wrap">
-     <span class="login-input-icon">✉</span>
-     <input
-      id="signinEmail"
-      type="email"
-      placeholder="Enter your email address"
-      autocomplete="email"
-      required>
-    </div>
-   </div>
-
-   <div>
-    <div class="login-form-label">
-     <label for="signinPassword">PASSWORD</label>
-     <a onclick="showForgotPassword()">Forgot?</a>
-    </div>
-    <div class="login-input-wrap">
-     <span class="login-input-icon">♙</span>
-     <input
-      id="signinPassword"
-      type="password"
-      placeholder="Enter your password"
-      autocomplete="current-password"
-      required>
-     <button type="button" class="login-eye" onclick="togglePassword('signinPassword',this)">Show</button>
-    </div>
-   </div>
-
-   <label class="keep-signed">
-    <input type="checkbox" id="keepSigned">
-    Keep me signed in on this device
-   </label>
-
-   <div id="signinMessage" class="form-message hidden" role="status"></div>
-
-   <button class="login-submit" type="submit">
-    Sign in →
-   </button>
-  </form>
-
-  <div class="login-divider">or continue with</div>
-
-  <button class="google-btn" type="button" onclick="showGoogleNotice()">
-   <span class="google-g">G</span>
-   Continue with Google
-  </button>
-
-  <p class="login-terms">
-   By continuing, you agree to our
-   <a onclick="showLegal('Terms of Service')">Terms of Service</a>
-   and
-   <a onclick="showLegal('Privacy Policy')">Privacy Policy</a>.
-  </p>
-
-  <p class="login-create">
-   New to MyCatanduanesGuide?
-   <a onclick="showPage('partner')">Create an account</a>
-  </p>
- </div>
-
- <div class="login-copyright">
-  © <span id="loginYear"></span> MyCatanduanesGuide. All rights reserved.
- </div>
-</div>
-
-</div>
-
-<!-- FOOTER -->
-<footer id="mainFooter">
-<div class="container">
- <div class="footer-grid">
-  <div>
-   <h4>TOURISM GUIDE</h4>
-   <a onclick="showPage('destinations')">All Destinations</a>
-   <a onclick="showPage('stays')">Hotels & Resorts</a>
-   <a onclick="showPage('stays')">Villas & Homestays</a>
-   <a onclick="showPage('businesses')">Local Businesses</a>
-  </div>
-  <div>
-   <h4>TRANSPORTATION</h4>
-   <a onclick="showPage('transport')">Airport Transfers</a>
-   <a onclick="showPage('transport')">Local Transportation</a>
-   <a onclick="showPage('transport')">Ferry Travel</a>
-   <a onclick="showPage('transport')">Getting Around</a>
-  </div>
-  <div>
-   <h4>ACTIVITIES</h4>
-   <a onclick="showPage('activities')">All Activities</a>
-   <a onclick="showPage('activities')">Surfing</a>
-   <a onclick="showPage('activities')">Sightseeing</a>
-   <a onclick="showPage('activities')">Nature Adventures</a>
-  </div>
-  <div>
-   <h4>INFORMATION</h4>
-   <a onclick="showPage('about')">About Us</a>
-   <a onclick="showPage('partner')">List Your Business</a>
-   <a onclick="showPage('signin')">Partner Sign In</a>
-   <a onclick="showLegal('Privacy Policy')">Privacy Policy</a>
-  </div>
- </div>
- <div class="footer-bottom">
-  <div class="logo"><b>✿</b>My<span>Catanduanes</span>Guide</div>
-  © <span id="year"></span> MyCatanduanesGuide • Tourism and Local Business Platform Prototype
- </div>
-</div>
 </footer>
+</div>
 
-<!-- DETAILS MODAL -->
-<div class="modal-bg hidden" id="detailModal">
- <div class="modal">
-  <button class="modal-close" onclick="closeModal()">×</button>
-  <div id="detailContent"></div>
- </div>
+<div id="authPage" class="hidden"></div>
+
+<div class="modal" id="detailModal">
+ <div class="modal-panel" id="modalPanel"></div>
 </div>
 
 <script>
-const img={
- beach:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700",
- sea:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=700",
- coast:"https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=700",
- falls:"https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=700",
- hills:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700",
- nature:"https://images.unsplash.com/photo-1500534623283-312aade485b7?w=700",
- hotel:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700",
- resort:"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700",
- room:"https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=700",
- villa:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700",
- pool:"https://images.unsplash.com/photo-1572331165267-854da2b10ccc?w=700",
- restaurant:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700",
- shop:"https://images.unsplash.com/photo-1473181488821-2d23949a045a?w=700",
- surf:"https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=700",
- road:"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=700",
- boat:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700"
+const IMG={
+ beach:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900",
+ falls:"https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=900",
+ hills:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900",
+ church:"https://images.unsplash.com/photo-1548625361-ec853a4d7c25?w=900",
+ surf:"https://images.unsplash.com/photo-1455729552865-3658a5d7f3aa?w=900",
+ hotel:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900",
+ resort:"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900",
+ room:"https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900",
+ villa:"https://images.unsplash.com/photo-1582719508461-905c673771fd?w=900",
+ food:"https://images.unsplash.com/photo-1552566626-52f8b828add9?w=900"
 };
-
 const destinations=[
- {id:1,name:"Puraran Beach",location:"Baras",category:"beach",image:img.beach,description:"A popular surfing destination with beautiful coastal scenery."},
- {id:2,name:"Binurong Point",location:"Baras",category:"viewpoint",image:img.hills,description:"Rolling green hills overlooking the Pacific Ocean."},
- {id:3,name:"Balacay Point",location:"Baras",category:"viewpoint",image:img.coast,description:"A scenic coastal viewpoint with ocean views."},
- {id:4,name:"Maribina Falls",location:"Bato",category:"waterfall",image:img.falls,description:"A natural waterfall surrounded by lush vegetation."},
- {id:5,name:"Bato Church",location:"Bato",category:"culture",image:img.nature,description:"A historic church reflecting the island's cultural heritage."},
- {id:6,name:"Twin Rock Beach",location:"Virac",category:"beach",image:img.sea,description:"A coastal destination known for its rock formations."},
- {id:7,name:"Mamangal Beach",location:"Virac",category:"beach",image:img.beach,description:"A relaxing beach with beautiful sea views."},
- {id:8,name:"Talisoy Beach",location:"Virac",category:"beach",image:img.coast,description:"A scenic beach with distinctive coastal rocks."},
- {id:9,name:"Cagnipa Rolling Hills",location:"Pandan",category:"viewpoint",image:img.hills,description:"Beautiful rolling hills and coastal scenery."},
- {id:10,name:"Caramoran Coast",location:"Caramoran",category:"beach",image:img.sea,description:"Explore coastal scenery around Caramoran."},
- {id:11,name:"Pandan Coast",location:"Pandan",category:"beach",image:img.beach,description:"Explore the coastline of Pandan."},
- {id:12,name:"Bagamanoc Coast",location:"Bagamanoc",category:"beach",image:img.coast,description:"Discover coastal landscapes in Bagamanoc."}
+ {id:"d1",name:"Puraran Beach",location:"Baras",category:"Beach",image:IMG.surf,desc:"Known for surfing and beautiful coastal scenery."},
+ {id:"d2",name:"Binurong Point",location:"Baras",category:"Viewpoint",image:IMG.hills,desc:"A scenic coastal viewpoint with rolling green hills."},
+ {id:"d3",name:"Balacay Point",location:"Baras",category:"Viewpoint",image:IMG.beach,desc:"Enjoy spectacular views of the surrounding coastline."},
+ {id:"d4",name:"Maribina Falls",location:"Bato",category:"Waterfall",image:IMG.falls,desc:"A refreshing waterfall surrounded by greenery."},
+ {id:"d5",name:"Bato Church",location:"Bato",category:"Heritage",image:IMG.church,desc:"A historic stone church and cultural landmark."},
+ {id:"d6",name:"Twin Rock Beach",location:"Virac",category:"Beach",image:IMG.beach,desc:"A popular coastal attraction near Virac."},
+ {id:"d7",name:"Mamangal Beach",location:"Virac",category:"Beach",image:IMG.beach,desc:"A peaceful beach destination for visitors."},
+ {id:"d8",name:"Cagnipa Rolling Hills",location:"Pandan",category:"Viewpoint",image:IMG.hills,desc:"Scenic hills and countryside landscapes."}
 ];
-
 const stays=[
- {id:101,name:"Puraran Beach Resort — Sample",location:"Baras",type:"Resort",price:2500,rating:4.7,amenities:["WiFi","Beach Access","Parking"],photos:[img.resort,img.pool,img.room]},
- {id:102,name:"Virac Island Hotel — Sample",location:"Virac",type:"Hotel",price:1800,rating:4.5,amenities:["WiFi","Parking"],photos:[img.hotel,img.room]},
- {id:103,name:"Catanduanes Beach Villa — Sample",location:"Virac",type:"Villa",price:4200,rating:4.8,amenities:["WiFi","Pool","Beach Access"],photos:[img.villa,img.pool]},
- {id:104,name:"Happy Island Homestay — Sample",location:"San Andres",type:"Homestay",price:1200,rating:4.6,amenities:["WiFi","Parking"],photos:[img.room,img.villa]},
- {id:105,name:"Coastal View Resort — Sample",location:"Pandan",type:"Resort",price:3200,rating:4.7,amenities:["Pool","Parking"],photos:[img.resort,img.pool]},
- {id:106,name:"Baras Surf Lodge — Sample",location:"Baras",type:"Beachfront",price:2100,rating:4.6,amenities:["WiFi","Beach Access"],photos:[img.beach,img.room]},
- {id:107,name:"Virac Garden Villa — Sample",location:"Virac",type:"Villa",price:4800,rating:4.9,amenities:["WiFi","Pool"],photos:[img.villa,img.pool]},
- {id:108,name:"Caramoran Nature Stay — Sample",location:"Caramoran",type:"Homestay",price:1400,rating:4.4,amenities:["Parking"],photos:[img.room,img.nature]},
- {id:109,name:"Pandan Seaside Stay — Sample",location:"Pandan",type:"Beachfront",price:2800,rating:4.7,amenities:["WiFi","Beach Access"],photos:[img.sea,img.resort]}
+ {id:"s1",name:"Puraran Beach Resort — Sample",location:"Baras",type:"Resort",price:2500,image:IMG.resort,amenities:["Wi-Fi","Beach access","Restaurant"],desc:"Illustrative beachfront accommodation listing."},
+ {id:"s2",name:"Virac Island Hotel — Sample",location:"Virac",type:"Hotel",price:1800,image:IMG.hotel,amenities:["Wi-Fi","Air conditioning","Parking"],desc:"Illustrative town hotel listing."},
+ {id:"s3",name:"Catanduanes Beach Villa — Sample",location:"San Andres",type:"Villa",price:4200,image:IMG.villa,amenities:["Wi-Fi","Beach access","Pool"],desc:"Illustrative coastal villa listing."},
+ {id:"s4",name:"Caramoran Homestay — Sample",location:"Caramoran",type:"Homestay",price:1200,image:IMG.room,amenities:["Parking","Wi-Fi"],desc:"Illustrative local homestay listing."},
+ {id:"s5",name:"Pandan Guesthouse — Sample",location:"Pandan",type:"Guesthouse",price:1500,image:IMG.room,amenities:["Wi-Fi","Parking"],desc:"Illustrative affordable guesthouse listing."},
+ {id:"s6",name:"Baras Surf Lodge — Sample",location:"Baras",type:"Guesthouse",price:1600,image:IMG.resort,amenities:["Wi-Fi","Beach access"],desc:"Illustrative surf accommodation listing."}
 ];
-
 const activities=[
- {name:"Surfing at Puraran",location:"Baras",image:img.surf,description:"Discover surfing opportunities on the coast."},
- {name:"Waterfall Exploration",location:"Bato",image:img.falls,description:"Explore beautiful natural waterfalls."},
- {name:"Coastal Sightseeing",location:"Baras",image:img.hills,description:"Visit scenic viewpoints and coastal landscapes."}
-];
-const transport=[
- {name:"Airport Transfer Information",location:"Virac",image:img.road,description:"Find airport transportation options."},
- {name:"Tricycle Transportation",location:"Virac",image:img.road,description:"Explore local transportation services."},
- {name:"Ferry Travel Information",location:"San Andres",image:img.boat,description:"Check routes and schedules with ferry operators."}
+ {name:"Surfing at Puraran",location:"Baras",image:IMG.surf,desc:"Explore Catanduanes' famous surfing destination."},
+ {name:"Coastal Hiking",location:"Baras",image:IMG.hills,desc:"Enjoy viewpoints and outdoor adventures."},
+ {name:"Waterfall Exploration",location:"Bato",image:IMG.falls,desc:"Discover refreshing nature attractions."}
 ];
 const businesses=[
- {name:"Sample Local Restaurant",location:"Virac",image:img.restaurant,description:"Demonstration restaurant listing."},
- {name:"Sample Souvenir Shop",location:"Virac",image:img.shop,description:"Demonstration local products listing."},
- {name:"Sample Island Resort",location:"Baras",image:img.resort,description:"Demonstration accommodation listing."}
+ {name:"Local Restaurants",location:"Catanduanes",image:IMG.food,desc:"Discover food and dining businesses."},
+ {name:"Tourism Services",location:"Catanduanes",image:IMG.beach,desc:"Explore local guides and travel services."},
+ {name:"Souvenir Shops",location:"Catanduanes",image:IMG.hills,desc:"Support locally made products and crafts."}
 ];
-
-const municipalities=[
- "all","Baras","Virac","San Andres","Bagamanoc",
- "Gigmoto","Pandan","Caramoran","Bato","San Miguel",
- "Viga","Panganiban"
-];
-const categories=["all","beach","waterfall","viewpoint","culture"];
-let destinationFiltered=[...destinations];
-let stayFiltered=[...stays];
-let destinationPage=1,stayPage=1;
-const pageSize=9,photoIndexes={};
-
-function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",
-  '"':"&quot;","'":"&#39;"
- }[c]));
+let favorites=[];
+try{favorites=JSON.parse(localStorage.getItem("mcgFavorites")||"[]");if(!Array.isArray(favorites))favorites=[]}catch{}
+const pageContent=document.getElementById("pageContent");
+const money=n=>"₱"+n.toLocaleString("en-PH");
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function heart(id){return `<button class="heart ${favorites.includes(id)?"saved":""}" data-fav="${id}" aria-label="Favorite">${favorites.includes(id)?"♥":"♡"}</button>`}
+function placeCard(p){return `<article class="place-card"><div class="card-photo"><img loading="lazy" src="${p.image}" alt="${safe(p.name)}"><span class="photo-tag">${safe(p.category)}</span>${heart(p.id)}</div><div class="card-body"><h3>${safe(p.name)}</h3><div class="location">📍 ${safe(p.location)}, Catanduanes</div><p class="description">${safe(p.desc)}</p><div class="card-foot"><span class="small">Explore the Happy Island</span><button class="btn btn-pink" data-detail="${p.id}">View Details</button></div></div></article>`}
+function stayCard(s,list=false){return `<article class="${list?"list-card":"stay-card"}"><div class="card-photo"><img loading="lazy" src="${s.image}" alt="Illustrative accommodation image"><span class="photo-tag">SAMPLE</span>${heart(s.id)}</div><div class="card-body"><div class="pill" style="display:inline-block;margin-bottom:7px">${safe(s.type)}</div><h3>${safe(s.name)}</h3><div class="location">📍 ${safe(s.location)}, Catanduanes</div><p class="description">${safe(s.desc)}</p><div class="amenities">${s.amenities.map(a=>`<span>✓ ${safe(a)}</span>`).join("")}</div><div class="card-foot"><div><div class="price">${money(s.price)}</div><div class="small">Illustrative price/night</div></div><button class="btn btn-pink" data-detail="${s.id}">View Details</button></div><p class="small">Demo listing — booking not available</p></div></article>`}
+function sectionHead(tag,title,desc,link){return `<div class="section-head"><div><span class="eyebrow">${tag}</span><h2>${title}</h2><p>${desc}</p></div>${link?`<a class="btn btn-outline" href="${link}" style="font-size:11px">View All</a>`:""}</div>`}
+function searchBar(){return `<div class="search-wrap"><div class="container"><form class="search-panel" id="globalSearch"><div class="search-field"><label>WHAT ARE YOU LOOKING FOR?</label><select id="searchCategory"><option value="all">All destinations</option><option>Beach</option><option>Waterfall</option><option>Viewpoint</option><option>Heritage</option></select></div><div class="search-field mobile-hide"><label>LOCATION</label><select id="searchLocation"><option value="all">Anywhere in Catanduanes</option>${["Baras","Virac","San Andres","Bagamanoc","Gigmoto","Pandan","Caramoran","Bato"].map(x=>`<option>${x}</option>`).join("")}</select></div><div class="search-field mobile-hide"><label>TRAVEL DATE</label><input type="date" id="searchDate"></div><div class="search-field mobile-hide"><label>TRAVELERS</label><select id="searchTravelers"><option>1 traveler</option><option selected>2 travelers</option><option>3 travelers</option><option>4+ travelers</option></select></div><button class="search-btn">⌕ Explore</button></form></div></div>`}
+function homePage(){return `<section class="hero"><div class="container hero-inner"><span class="hero-tag">✦ YOUR GATEWAY TO THE HAPPY ISLAND</span><h1>Your Catanduanes island adventure <em>starts here.</em></h1><p>Discover breathtaking destinations, beautiful accommodations, local experiences and businesses across Catanduanes.</p></div></section>${searchBar()}<div class="container"><div class="feature-strip"><div><strong>11</strong><span>Municipalities</span></div><div><strong>Happy Island</strong><span>Explore Catanduanes</span></div><div><strong>Support Local</strong><span>Help local businesses</span></div></div></div><section class="section"><div class="container">${sectionHead("EXPLORE YOUR WAY","Discover everything Catanduanes has to offer.","Choose your adventure.")}<div class="category-grid">${[{n:"Beaches",i:IMG.beach,l:"#destinations"},{n:"Waterfalls",i:IMG.falls,l:"#destinations"},{n:"Viewpoints",i:IMG.hills,l:"#destinations"},{n:"Local Businesses",i:IMG.food,l:"#businesses"}].map(c=>`<a class="category-card" href="${c.l}"><img src="${c.i}" alt="${c.n}" loading="lazy"><strong>${c.n}</strong></a>`).join("")}</div></div></section><section class="section"><div class="container">${sectionHead("POPULAR DESTINATIONS","Find your favorite island spots.","Explore the natural beauty of Catanduanes.","#destinations")}<div class="card-grid">${destinations.slice(0,6).map(placeCard).join("")}</div></div></section><section class="section"><div class="container">${sectionHead("ACCOMMODATIONS","Find your perfect island stay.","Sample accommodation concepts for future partners.","#stays")}<div class="card-grid">${stays.slice(0,3).map(s=>stayCard(s)).join("")}</div></div></section>`}
+function banner(title,subtitle){return `<section class="page-banner"><div class="container"><span class="eyebrow" style="color:#b9e8ea">MYCATANDUANESGUIDE</span><h1>${title}</h1><p>${subtitle}</p></div></section>`}
+function destinationsPage(){return banner("Explore Destinations","Discover beaches, waterfalls, viewpoints and heritage sites.")+`<div class="container list-layout"><aside><button class="mobile-filter-button" id="filterToggle">☷ Filters ▾</button><div class="filters" id="filters"><div class="filter-box"><h3>Destination category</h3><div class="filter-chips" id="destChips">${["All","Beach","Waterfall","Viewpoint","Heritage"].map((x,i)=>`<button class="filter-chip ${i===0?"active":""}" data-dcat="${x}">${x}</button>`).join("")}</div></div><div class="filter-box"><h3>Location</h3><select id="destLocation" style="width:100%;padding:10px;border:1px solid var(--line)"><option value="All">All locations</option>${[...new Set(destinations.map(x=>x.location))].map(x=>`<option>${x}</option>`).join("")}</select></div></div></aside><section><div class="result-heading"><h2>Tourist Destinations</h2><span class="small" id="destCount"></span></div><div class="card-grid" id="destResults"></div></section></div>`}
+function staysPage(){return banner("Hotels & Stays","Find a comfortable place to stay in Catanduanes.")+`<div class="container list-layout"><aside><button class="mobile-filter-button" id="filterToggle">☷ Filters & amenities ▾</button><div class="filters" id="filters"><div class="filter-box"><h3>Stay type</h3><div class="filter-chips" id="stayChips">${["All","Hotel","Resort","Villa","Homestay","Guesthouse"].map((x,i)=>`<button class="filter-chip ${i===0?"active":""}" data-stype="${x}">${x}</button>`).join("")}</div></div><div class="filter-box"><h3>Amenities</h3>${["Wi-Fi","Air conditioning","Parking","Beach access","Restaurant","Pool"].map(a=>`<label><input class="amenity-check" type="checkbox" value="${a}">${a}</label>`).join("")}</div><div class="filter-box"><h3>Maximum nightly price</h3><select id="maxPrice" style="width:100%;padding:10px;border:1px solid var(--line)"><option value="999999">Any price</option><option value="1500">Up to ₱1,500</option><option value="3000">Up to ₱3,000</option><option value="5000">Up to ₱5,000</option></select></div></div></aside><section><div class="result-heading"><div><h2>Rooms & Stays</h2><span class="small" id="stayCount"></span></div><select id="staySort"><option value="default">Featured</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select></div><div class="list-cards" id="stayResults"></div></section></div>`}
+function simplePage(title,desc,items){return banner(title,desc)+`<section class="section"><div class="container"><div class="card-grid">${items.map(x=>`<article class="simple-card"><div class="card-photo"><img src="${x.image}" alt="${safe(x.name)}" loading="lazy"></div><div class="card-body"><h3>${safe(x.name)}</h3><div class="location">📍 ${safe(x.location)}</div><p class="description">${safe(x.desc)}</p></div></article>`).join("")}</div></div></section>`}
+function transportationPage(){return simplePage("Getting Around Catanduanes","Plan your travel using available local transportation options.",[{name:"Arriving by Air",location:"Virac Airport",image:IMG.beach,desc:"Check current flight schedules and availability with airlines."},{name:"Arriving by Sea",location:"Catanduanes Ports",image:IMG.surf,desc:"Check current ferry schedules with authorized operators."},{name:"Local Transportation",location:"Across Catanduanes",image:IMG.hills,desc:"Explore jeepneys, tricycles and other local transport options. Confirm routes and fares locally."}])}
+function aboutPage(){return banner("About MyCatanduanesGuide","A digital tourism and business discovery platform for Catanduanes.")+`<section class="section"><div class="container" style="max-width:800px"><div class="filter-box"><h2>Our Mission</h2><p class="description">MyCatanduanesGuide aims to help travelers discover the beauty of Catanduanes while supporting local tourism businesses through a convenient digital platform.</p><h3>Platform Goals</h3><p class="description">Promote tourist destinations, help travelers find accommodations and transportation information, and provide opportunities for local businesses to showcase their services.</p><a href="#partner" class="btn btn-pink" style="display:inline-block">List Your Business</a></div></div></section>`}
+function authPage(kind){
+ const partner=kind==="partner";
+ return `<div class="auth-layout"><div class="auth-hero"><a class="logo" style="color:white" href="#home">✿MyCatanduanesGuide</a><div><h1>${partner?"Grow your business with Catanduanes travelers.":"Manage every journey, all in one place."}</h1><p>${partner?"Join our tourism platform and showcase your services to visitors.":"Sign in to manage your favorite destinations and partner experience."}</p><p>✓ Discover local opportunities<br>✓ Connect with travelers<br>✓ Support Catanduanes tourism</p></div><p>Explore the Happy Island.</p></div><div class="auth-card-wrap"><div class="auth-card"><a href="#home" class="auth-link">← Back to website</a><h2>${partner?"Create partner account":"Welcome back."}</h2><p>${partner?"Register your interest in joining MyCatanduanesGuide.":"Sign in to your MyCatanduanesGuide account."}</p><form id="authForm">${partner?`<div class="form-group"><label>Full name</label><input required name="name" autocomplete="name" placeholder="Your full name"></div><div class="form-group"><label>Business name</label><input required name="business" placeholder="Business name"></div>`:""}<div class="form-group"><label>Email address</label><input required type="email" name="email" autocomplete="email" placeholder="Enter your email"></div>${partner?`<div class="form-group"><label>Phone number (optional)</label><input type="tel" name="phone" placeholder="Contact number"></div>`:""}<div class="form-group"><label>Password</label><input required type="password" id="authPassword" minlength="8" autocomplete="${partner?"new-password":"current-password"}" placeholder="Enter password"></div>${partner?`<div class="form-group"><label>Confirm password</label><input required type="password" id="confirmPassword" minlength="8" autocomplete="new-password" placeholder="Confirm password"></div><label class="check-line"><input type="checkbox" required>I agree to the terms and privacy policy.</label>`:`<label class="check-line"><input type="checkbox" id="showPassword">Show password</label><label class="check-line"><input type="checkbox">Keep me signed in</label>`}<button class="btn btn-pink" style="width:100%;margin-top:20px">${partner?"Create Account":"Sign In"}</button></form><p style="text-align:center;margin-top:18px">${partner?`Already have an account? <a href="#signin" class="auth-link">Sign In</a>`:`New here? <a href="#partner" class="auth-link">Create partner account</a>`}</p><p class="small" style="text-align:center">Demo only. Secure account services are not yet connected.</p></div></div></div>`;
 }
-function getStored(key){
- try{
-  const v=JSON.parse(localStorage.getItem(key)||"[]");
-  return Array.isArray(v)?v:[];
- }catch{return []}
-}
-function setStored(key,value){
- try{
-  localStorage.setItem(key,JSON.stringify(value));
-  return true;
- }catch{return false}
-}
-function mapURL(item){
- return "https://www.google.com/maps/search/?api=1&query="+
- encodeURIComponent(item.name+", "+item.location+", Catanduanes, Philippines");
-}
-
-/* PAGE NAVIGATION */
-function showPage(page){
- const pages=[
-  "home","destinations","stays","activities",
-  "transport","businesses","about","partner","signin"
- ];
- pages.forEach(p=>{
-  document.getElementById(p+"Page")
-   .classList.toggle("hidden",p!==page);
- });
- document.querySelectorAll("[data-nav]").forEach(a=>{
-  a.classList.toggle("active",a.dataset.nav===page);
- });
- document.getElementById("navLinks").classList.remove("open");
-
- // Login matches reference screenshot:
- // no main navigation and no footer.
- document.getElementById("mainHeader")
-  .classList.toggle("hidden",page==="signin");
- document.getElementById("mainFooter")
-  .classList.toggle("hidden",page==="signin");
-
- history.replaceState(null,"","#"+page);
- window.scrollTo({top:0,behavior:"instant"});
-}
-function closeModal(){
- document.getElementById("detailModal").classList.add("hidden");
-}
-function showLegal(title){
- document.getElementById("detailContent").innerHTML=
- `<h2>${esc(title)}</h2>
- <p>This is a demonstration website. A complete
- ${esc(title)} must be prepared and published before
- accepting real user registrations.</p>`;
- document.getElementById("detailModal").classList.remove("hidden");
-}
-function togglePassword(id,button){
- const field=document.getElementById(id);
- field.type=field.type==="password"?"text":"password";
- button.textContent=field.type==="password"?"Show":"Hide";
-}
-function showFormMessage(id,message,success=false){
- const el=document.getElementById(id);
- el.textContent=message;
- el.className="form-message"+(success?" success":"");
-}
-
-/* PARTNER REGISTRATION — DEMO */
-document.getElementById("partnerForm").addEventListener("submit",function(e){
- e.preventDefault();
- const name=document.getElementById("partnerName").value.trim();
- const email=document.getElementById("partnerEmail").value.trim();
- const password=document.getElementById("partnerPassword").value;
- const confirm=document.getElementById("partnerConfirm").value;
- if(password.length<8){
-  showFormMessage("partnerMessage","Password must contain at least 8 characters.");
-  return;
- }
- if(password!==confirm){
-  showFormMessage("partnerMessage","Passwords do not match. Please try again.");
-  return;
- }
- if(!document.getElementById("partnerAgree").checked){
-  showFormMessage("partnerMessage","Please review and accept the agreements.");
-  return;
- }
- showFormMessage(
-  "partnerMessage",
-  "Registration form validated for "+name+" ("+email+"). This prototype does not create real accounts. Connect a secure authentication service before launch.",
-  true
- );
-});
-
-/* SIGN IN — DEMO */
-document.getElementById("signinForm").addEventListener("submit",function(e){
- e.preventDefault();
- showFormMessage(
-  "signinMessage",
-  "Sign in is currently a demonstration interface. Connect a secure authentication backend to enable real account access."
- );
-});
-function showForgotPassword(){
- showFormMessage(
-  "signinMessage",
-  "Password recovery requires an authentication backend. This feature will be available after integration."
- );
-}
-function showGoogleNotice(){
- showFormMessage(
-  "signinMessage",
-  "Google Sign In requires OAuth authentication setup. This button is currently a demonstration."
- );
-}
-
-/* DESTINATIONS */
-function destinationCard(d){
- const saved=getStored("catFavorites").includes(d.id);
- return `<article class="card">
- <div class="card-image">
- <img src="${d.image}" alt="${esc(d.name)}" loading="lazy">
- <span class="badge">${esc(d.category.toUpperCase())}</span>
- <button class="heart ${saved?"saved":""}"
- onclick="toggleFavorite(${d.id})">${saved?"♥":"♡"}</button>
- </div>
- <div class="card-body">
- <h3>${esc(d.name)}</h3>
- <p class="card-location">📍 ${esc(d.location)}, Catanduanes</p>
- <p>${esc(d.description)}</p>
- <div class="card-bottom">
- <small>Explore destination</small>
- <button onclick="openDestination(${d.id})">View Details ↗</button>
- </div></div></article>`;
-}
+let activeDestCat="All",activeStayType="All";
 function renderDestinations(){
- const start=(destinationPage-1)*pageSize;
- const list=destinationFiltered.slice(start,start+pageSize);
- document.getElementById("destinationResults").innerHTML=
- list.length?list.map(destinationCard).join(""):
- '<div class="empty">No destinations found.</div>';
- document.getElementById("destinationCount").textContent=
- `Showing ${destinationFiltered.length?start+1:0}–${Math.min(start+pageSize,destinationFiltered.length)} of ${destinationFiltered.length} destinations`;
- document.getElementById("destinationPagination").innerHTML=
- pagination(destinationFiltered.length,destinationPage,"destination");
-}
-function pagination(total,current,type){
- let html="";
- for(let i=1;i<=Math.ceil(total/pageSize);i++){
-  html+=`<button class="${i===current?"active":""}"
-  onclick="changePage('${type}',${i})">${i}</button>`;
- }
- return html;
-}
-function changePage(type,page){
- if(type==="destination"){
-  destinationPage=page;renderDestinations();
- }else{
-  stayPage=page;renderStays();
- }
- window.scrollTo({top:0,behavior:"smooth"});
-}
-function renderDestinationSidebar(){
- document.getElementById("destinationCategoryFilters").innerHTML=
- categories.map(c=>`<label class="filter-option">
- <input type="radio" name="sideCategory" value="${c}"
- ${c==="all"?"checked":""}
- onchange="destinationSidebarFilter()">
- ${c==="all"?"All destinations":c.charAt(0).toUpperCase()+c.slice(1)}
- </label>`).join("");
- document.getElementById("destinationLocationFilters").innerHTML=
- municipalities.map(c=>`<label class="filter-option">
- <input type="radio" name="sideLocation" value="${c}"
- ${c==="all"?"checked":""}
- onchange="destinationSidebarFilter()">
- ${c==="all"?"All municipalities":c}
- </label>`).join("");
-}
-function destinationSidebarFilter(){
- document.getElementById("topCategory").value=
- document.querySelector('[name="sideCategory"]:checked').value;
- document.getElementById("topLocation").value=
- document.querySelector('[name="sideLocation"]:checked').value;
- applyDestinationFilters();
-}
-function applyDestinationFilters(){
- const q=document.getElementById("destinationSearch").value.toLowerCase();
- const c=document.getElementById("topCategory").value;
- const l=document.getElementById("topLocation").value;
- destinationFiltered=destinations.filter(d=>
-  (c==="all"||d.category===c)&&
-  (l==="all"||d.location===l)&&
-  (d.name+" "+d.location+" "+d.description).toLowerCase().includes(q)
- );
- const sort=document.getElementById("destinationSort").value;
- if(sort==="name")destinationFiltered.sort((a,b)=>a.name.localeCompare(b.name));
- if(sort==="location")destinationFiltered.sort((a,b)=>a.location.localeCompare(b.location));
- document.querySelectorAll('[name="sideCategory"]').forEach(x=>x.checked=x.value===c);
- document.querySelectorAll('[name="sideLocation"]').forEach(x=>x.checked=x.value===l);
- destinationPage=1;
- renderDestinations();
-}
-function clearDestinationFilters(){
- document.getElementById("destinationSearch").value="";
- document.getElementById("topCategory").value="all";
- document.getElementById("topLocation").value="all";
- document.getElementById("destinationSort").value="default";
- applyDestinationFilters();
-}
-function categoryShortcut(c){
- showPage("destinations");
- document.getElementById("topCategory").value=c;
- applyDestinationFilters();
-}
-function toggleFavorite(id){
- const list=getStored("catFavorites");
- const updated=list.includes(id)?list.filter(x=>x!==id):[...list,id];
- if(setStored("catFavorites",updated)){
-  renderDestinations();
-  document.getElementById("homeDestinations").innerHTML=
-  destinations.slice(0,6).map(destinationCard).join("");
- }
-}
-function openDestination(id){
- const d=destinations.find(x=>x.id===id);
- if(!d)return;
- document.getElementById("detailContent").innerHTML=
- `<img src="${d.image}" alt="${esc(d.name)}">
- <h2>${esc(d.name)}</h2>
- <p>📍 ${esc(d.location)}, Catanduanes</p>
- <p>${esc(d.description)}</p>
- <p>Confirm travel conditions, entrance fees and transportation locally.</p>
- <div class="modal-actions">
- <a href="${mapURL(d)}" target="_blank" rel="noopener noreferrer">
- 📍 View on Google Maps</a></div>`;
- document.getElementById("detailModal").classList.remove("hidden");
-}
-
-/* STAYS */
-function stayCard(s){
- const index=photoIndexes[s.id]||0;
- const saved=getStored("stayFavorites").includes(s.id);
- return `<article class="stay-card">
- <div class="stay-photo">
- <img id="stayPhoto${s.id}" src="${s.photos[index]}"
- alt="${esc(s.name)}" loading="lazy">
- <div class="stay-badges">
- <span>FEATURED</span><span class="promo">DEMO</span>
- </div>
- <button class="heart ${saved?"saved":""}"
- onclick="toggleStayFavorite(${s.id})">${saved?"♥":"♡"}</button>
- <button class="photo-prev" onclick="changeStayPhoto(${s.id},-1)">‹</button>
- <button class="photo-next" onclick="changeStayPhoto(${s.id},1)">›</button>
- </div>
- <div class="stay-body">
- <div class="stay-type">${esc(s.type.toUpperCase())} • ★★★★☆</div>
- <h3>${esc(s.name)}</h3>
- <p class="card-location">📍 ${esc(s.location)}, Catanduanes</p>
- <div class="stay-rating">★ ${s.rating.toFixed(1)}
- <span>Sample rating</span></div>
- <div class="stay-features">
- ${s.amenities.map(a=>`<span>✓ ${esc(a)}</span>`).join("")}
- </div>
- <div class="stay-price-row">
- <div class="price">₱${s.price.toLocaleString()}
- <small>/ night</small></div>
- <button onclick="openStay(${s.id})">View Details</button>
- </div>
- <div class="demo-note">Illustrative rates and ratings only.</div>
- </div></article>`;
+ const loc=document.getElementById("destLocation")?.value||"All";
+ const filtered=destinations.filter(d=>(activeDestCat==="All"||d.category===activeDestCat)&&(loc==="All"||d.location===loc));
+ document.getElementById("destResults").innerHTML=filtered.length?filtered.map(placeCard).join(""):`<div class="empty">No matching destinations.</div>`;
+ document.getElementById("destCount").textContent=filtered.length+" destinations";
 }
 function renderStays(){
- const start=(stayPage-1)*pageSize;
- const list=stayFiltered.slice(start,start+pageSize);
- document.getElementById("stayResults").innerHTML=
- list.length?list.map(stayCard).join(""):
- '<div class="empty">No stays match your filters.</div>';
- document.getElementById("stayCount").textContent=
- `Showing ${stayFiltered.length?start+1:0}–${Math.min(start+pageSize,stayFiltered.length)} of ${stayFiltered.length} example stays`;
- document.getElementById("stayPagination").innerHTML=
- pagination(stayFiltered.length,stayPage,"stay");
+ const amenities=[...document.querySelectorAll(".amenity-check:checked")].map(x=>x.value);
+ const max=Number(document.getElementById("maxPrice")?.value||999999);
+ let filtered=stays.filter(s=>(activeStayType==="All"||s.type===activeStayType)&&s.price<=max&&amenities.every(a=>s.amenities.includes(a)));
+ const sort=document.getElementById("staySort")?.value;
+ if(sort==="low")filtered.sort((a,b)=>a.price-b.price);
+ if(sort==="high")filtered.sort((a,b)=>b.price-a.price);
+ document.getElementById("stayResults").innerHTML=filtered.length?filtered.map(s=>stayCard(s,true)).join(""):`<div class="empty">No matching stays. Try changing your filters.</div>`;
+ document.getElementById("stayCount").textContent=filtered.length+" sample listings";
 }
-function changeStayPhoto(id,direction){
- const s=stays.find(x=>x.id===id);
- if(!s)return;
- photoIndexes[id]=
- ((photoIndexes[id]||0)+direction+s.photos.length)%s.photos.length;
- const el=document.getElementById("stayPhoto"+id);
- if(el)el.src=s.photos[photoIndexes[id]];
-}
-function toggleStayFavorite(id){
- const list=getStored("stayFavorites");
- const updated=list.includes(id)?list.filter(x=>x!==id):[...list,id];
- if(setStored("stayFavorites",updated)){
-  renderStays();
-  document.getElementById("homeStays").innerHTML=
-  stays.slice(0,3).map(stayCard).join("");
+function showRoute(){
+ const route=decodeURIComponent(location.hash.slice(1))||"home";
+ const auth=route==="signin"||route==="partner";
+ document.getElementById("site").classList.toggle("hidden",auth);
+ document.getElementById("authPage").classList.toggle("hidden",!auth);
+ if(auth){
+  document.getElementById("authPage").innerHTML=authPage(route);
+ }else{
+  const pages={
+   home:homePage,
+   destinations:destinationsPage,
+   stays:staysPage,
+   activities:()=>simplePage("Island Activities","Discover memorable experiences across Catanduanes.",activities),
+   transportation:transportationPage,
+   businesses:()=>simplePage("Local Businesses","Support local entrepreneurs and discover their services.",businesses),
+   about:aboutPage
+  };
+  pageContent.innerHTML=(pages[route]||homePage)();
+  if(route==="destinations")renderDestinations();
+  if(route==="stays")renderStays();
  }
+ document.getElementById("mobileMenu").classList.add("hidden");
+ window.scrollTo(0,0);
 }
-function renderStaySidebar(){
- const types=["all","Hotel","Resort","Villa","Homestay","Beachfront"];
- document.getElementById("stayTypeFilters").innerHTML=
- types.map(t=>`<label class="filter-option">
- <input type="radio" name="stayType" value="${t}"
- ${t==="all"?"checked":""} onchange="applyStayFilters()">
- ${t==="all"?"All property types":t}</label>`).join("");
-}
-function selectStayType(t){
- document.querySelectorAll('[name="stayType"]').forEach(x=>x.checked=x.value===t);
- applyStayFilters();
-}
-function applyStayFilters(){
- const q=document.getElementById("staySearch").value.toLowerCase();
- const location=document.getElementById("stayLocation").value;
- const type=document.querySelector('[name="stayType"]:checked')?.value||"all";
- const price=document.querySelector('[name="priceFilter"]:checked')?.value||"all";
- const amenities=[...document.querySelectorAll('[name="amenity"]:checked')].map(x=>x.value);
- stayFiltered=stays.filter(s=>{
-  if(q&&!(`${s.name} ${s.location} ${s.type}`).toLowerCase().includes(q))return false;
-  if(location!=="all"&&s.location!==location)return false;
-  if(type!=="all"&&s.type!==type)return false;
-  if(price==="budget"&&s.price>=2000)return false;
-  if(price==="mid"&&(s.price<2000||s.price>4000))return false;
-  if(price==="premium"&&s.price<=4000)return false;
-  return amenities.every(a=>s.amenities.includes(a));
- });
- const sort=document.getElementById("staySort").value;
- if(sort==="low")stayFiltered.sort((a,b)=>a.price-b.price);
- if(sort==="high")stayFiltered.sort((a,b)=>b.price-a.price);
- if(sort==="rating")stayFiltered.sort((a,b)=>b.rating-a.rating);
- document.querySelectorAll("[data-stay-type]").forEach(b=>
-  b.classList.toggle("active",b.dataset.stayType===type)
- );
- stayPage=1;renderStays();
-}
-function clearStayFilters(){
- document.getElementById("staySearch").value="";
- document.getElementById("stayLocation").value="all";
- document.getElementById("staySort").value="default";
- document.querySelector('[name="stayType"][value="all"]').checked=true;
- document.querySelector('[name="priceFilter"][value="all"]').checked=true;
- document.querySelectorAll('[name="amenity"]').forEach(x=>x.checked=false);
- applyStayFilters();
-}
-function openStay(id){
- const s=stays.find(x=>x.id===id);
- if(!s)return;
- document.getElementById("detailContent").innerHTML=
- `<img src="${s.photos[0]}" alt="${esc(s.name)}">
- <h2>${esc(s.name)}</h2>
- <p>📍 ${esc(s.location)}, Catanduanes</p>
- <p>Property Type: ${esc(s.type)}</p>
- <p>Facilities: ${esc(s.amenities.join(", "))}</p>
- <p>Illustrative rate: ₱${s.price.toLocaleString()} per night.</p>
- <p>This is a demonstration property, not a verified accommodation listing.</p>
- <div class="modal-actions">
- <a href="${mapURL(s)}" target="_blank" rel="noopener noreferrer">
- 📍 Search on Google Maps</a></div>`;
- document.getElementById("detailModal").classList.remove("hidden");
-}
-
-/* OTHER PAGES */
-function simpleCard(item){
- return `<article class="info-card">
- <img src="${item.image}" alt="${esc(item.name)}" loading="lazy">
- <div><h3>${esc(item.name)}</h3>
- <p>📍 ${esc(item.location)}, Catanduanes</p>
- <p>${esc(item.description)}</p>
- <button onclick="window.open('${mapURL(item)}','_blank','noopener')">
- View Location ↗</button></div></article>`;
-}
-function renderOtherPages(){
- document.getElementById("activitiesGrid").innerHTML=
- activities.map(simpleCard).join("");
- document.getElementById("transportGrid").innerHTML=
- transport.map(simpleCard).join("");
- document.getElementById("businessGrid").innerHTML=
- businesses.map(simpleCard).join("");
-}
-
-/* EVENTS */
-document.getElementById("homeSearch").addEventListener("submit",function(e){
- e.preventDefault();
- showPage("destinations");
- document.getElementById("topCategory").value=
- document.getElementById("homeCategory").value;
- document.getElementById("topLocation").value=
- document.getElementById("homeLocation").value;
- applyDestinationFilters();
+document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("mobileMenu").classList.toggle("hidden"));
+document.getElementById("favoritesBtn").addEventListener("click",()=>alert("You have "+favorites.length+" saved favorites."));
+document.addEventListener("click",e=>{
+ const fav=e.target.closest("[data-fav]");
+ if(fav){
+  const id=fav.dataset.fav;
+  favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
+  try{localStorage.setItem("mcgFavorites",JSON.stringify(favorites))}catch{}
+  fav.classList.toggle("saved",favorites.includes(id));
+  fav.textContent=favorites.includes(id)?"♥":"♡";
+  return;
+ }
+ const detail=e.target.closest("[data-detail]");
+ if(detail){
+  const item=[...destinations,...stays].find(x=>x.id===detail.dataset.detail);
+  if(!item)return;
+  document.getElementById("modalPanel").innerHTML=`<img src="${item.image}" alt="${safe(item.name)}"><div class="modal-content"><div class="modal-top"><h2>${safe(item.name)}</h2><button class="modal-close" id="closeModal">×</button></div><p class="location">📍 ${safe(item.location)}, Catanduanes</p><p class="description">${safe(item.desc)}</p>${item.price?`<p class="price">${money(item.price)} <span class="small">illustrative nightly price</span></p>`:""}<button class="btn btn-pink" id="closeDetail">Close</button></div>`;
+  document.getElementById("detailModal").classList.add("open");
+ }
+ if(e.target.id==="closeModal"||e.target.id==="closeDetail"||e.target.id==="detailModal")document.getElementById("detailModal").classList.remove("open");
+ if(e.target.id==="filterToggle")document.getElementById("filters")?.classList.toggle("open");
+ const dc=e.target.closest("[data-dcat]");
+ if(dc){activeDestCat=dc.dataset.dcat;document.querySelectorAll("[data-dcat]").forEach(x=>x.classList.toggle("active",x===dc));renderDestinations()}
+ const sc=e.target.closest("[data-stype]");
+ if(sc){activeStayType=sc.dataset.stype;document.querySelectorAll("[data-stype]").forEach(x=>x.classList.toggle("active",x===sc));renderStays()}
 });
-document.getElementById("destinationSearch").addEventListener("input",applyDestinationFilters);
-document.getElementById("topCategory").addEventListener("change",applyDestinationFilters);
-document.getElementById("topLocation").addEventListener("change",applyDestinationFilters);
-document.getElementById("staySearch").addEventListener("input",applyStayFilters);
-document.getElementById("stayLocation").addEventListener("change",applyStayFilters);
-document.getElementById("staySort").addEventListener("change",applyStayFilters);
-document.querySelectorAll('[name="priceFilter"],[name="amenity"]').forEach(x=>
- x.addEventListener("change",applyStayFilters)
-);
-document.querySelectorAll("[data-stay-type]").forEach(b=>
- b.addEventListener("click",()=>selectStayType(b.dataset.stayType))
-);
-document.getElementById("menuBtn").addEventListener("click",()=>
- document.getElementById("navLinks").classList.toggle("open")
-);
-document.getElementById("detailModal").addEventListener("click",e=>{
- if(e.target.id==="detailModal")closeModal();
+document.addEventListener("change",e=>{
+ if(e.target.id==="destLocation")renderDestinations();
+ if(e.target.id==="maxPrice"||e.target.id==="staySort"||e.target.classList.contains("amenity-check"))renderStays();
+ if(e.target.id==="showPassword")document.getElementById("authPassword").type=e.target.checked?"text":"password";
 });
-document.addEventListener("keydown",e=>{
- if(e.key==="Escape")closeModal();
+document.addEventListener("submit",e=>{
+ if(e.target.id==="globalSearch"){
+  e.preventDefault();
+  const cat=document.getElementById("searchCategory").value;
+  const loc=document.getElementById("searchLocation").value;
+  location.hash="destinations";
+  setTimeout(()=>{
+   activeDestCat=cat==="all"?"All":cat;
+   const selector=document.getElementById("destLocation");
+   if(selector&&loc!=="all"&&[...selector.options].some(o=>o.value===loc))selector.value=loc;
+   document.querySelectorAll("[data-dcat]").forEach(x=>x.classList.toggle("active",x.dataset.dcat===activeDestCat));
+   renderDestinations();
+  },0);
+ }
+ if(e.target.id==="authForm"){
+  e.preventDefault();
+  const pw=document.getElementById("authPassword").value;
+  const confirm=document.getElementById("confirmPassword");
+  if(confirm&&pw!==confirm.value){alert("Passwords do not match.");return}
+  alert("This is a demo form. A secure authentication backend is required before accounts can be created or signed in.");
+ }
 });
-
-/* INITIALIZE */
-renderDestinationSidebar();
-renderStaySidebar();
-renderDestinations();
-renderStays();
-renderOtherPages();
-
-document.getElementById("homeDestinations").innerHTML=
- destinations.slice(0,6).map(destinationCard).join("");
-document.getElementById("homeStays").innerHTML=
- stays.slice(0,3).map(stayCard).join("");
-
-document.getElementById("year").textContent=new Date().getFullYear();
-document.getElementById("loginYear").textContent=new Date().getFullYear();
-
-const today=new Date();
-document.getElementById("travelDate").min=
- new Date(today.getTime()-today.getTimezoneOffset()*60000)
- .toISOString().split("T")[0];
-
-const initial=location.hash.replace("#","");
-showPage([
- "home","destinations","stays","activities",
- "transport","businesses","about","partner","signin"
-].includes(initial)?initial:"home");
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("detailModal").classList.remove("open")});
+window.addEventListener("hashchange",showRoute);
+showRoute();
 </script>
 </body>
 </html>
