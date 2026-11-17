@@ -11,7 +11,7 @@
 
 <style>
 :root{
- --pink:#e51b80;
+ --pink:#431be5;
  --teal:#009fb2;
  --dark:#14252d;
  --muted:#72808a;
@@ -719,6 +719,115 @@ footer a{display:block;color:#d3e1e5;font-size:12px;margin:12px 0}
  .dashboard-stats{grid-template-columns:1fr 1fr}
  .stat-card{padding:13px}
 }
+
+/* ===== MOBILE LAYOUT REPAIR — keeps all existing features ===== */
+html,body{max-width:100%;overflow-x:clip}
+img,video,iframe{max-width:100%}
+.container{width:min(1250px,calc(100% - 32px))}
+.nav{min-width:0}
+.logo{flex-shrink:0}
+.nav-actions{flex-shrink:0}
+@media(max-width:950px){
+ header{height:64px}
+ .nav{display:flex;gap:10px;justify-content:space-between;position:relative}
+ .logo{margin-right:auto;min-width:0}
+ .nav-actions{order:2;margin-left:auto}
+ .menu-btn{order:3;display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;margin-left:0;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--dark);font-size:23px;line-height:1;position:static}
+ .nav-links{position:absolute;top:64px;left:-16px;right:-16px;width:auto;max-height:calc(100dvh - 64px);overflow-y:auto;display:none;flex-direction:column;align-items:stretch;gap:0;padding:8px 16px 15px;background:white;box-shadow:0 15px 25px #0002;z-index:1002}
+ .nav-links.open{display:flex}
+ .nav-links a{font-size:14px;padding:14px 8px;border-bottom:1px solid var(--line)}
+ .nav-links .mobile-partner-link{color:var(--pink)}
+ .nav-links .mobile-signin-link{color:var(--teal)}
+ .nav-actions .pink-btn{display:none}
+ .signin-btn{padding:5px 9px 5px 5px;font-size:11px}
+ .signin-icon{width:27px;height:27px}
+ .page-layout{grid-template-columns:190px minmax(0,1fr)}
+}
+@media(max-width:700px){
+ .container{width:calc(100% - 28px)}
+ .section{padding:40px 0}
+ .section-title{font-size:clamp(24px,7vw,32px);line-height:1.17}
+ .hero{height:auto;min-height:0;padding:56px 0 26px;background-position:center}
+ .hero-inner{padding-top:0;padding-bottom:18px}
+ .hero h1{font-size:clamp(33px,9vw,52px);line-height:1.05;letter-spacing:-1px;margin:20px 0}
+ .hero p{font-size:13px;line-height:1.7}
+ .search-box{position:relative;left:auto;bottom:auto;transform:none;width:calc(100% - 28px);margin:12px auto -72px;padding:13px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;border-radius:15px}
+ .search-field{min-width:0;padding:10px;border:1px solid var(--line);border-radius:9px}
+ .search-field label{font-size:9px;line-height:1.3}
+ .search-field select,.search-field input{font-size:12px;min-width:0;max-width:100%;height:25px}
+ .search-box .pink-btn{grid-column:1/-1;width:100%;min-height:44px;padding:12px}
+ .stats{padding:103px 0 30px;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 10px}
+ .stats strong{font-size:19px}
+ .stats span{font-size:11px}
+ .category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .category-tile{height:175px}
+ .category-tile h3{font-size:16px}
+ .page-layout{display:block;padding-top:18px}
+ .sidebar{position:static;top:auto;margin-bottom:18px;background:white;border:1px solid var(--line);border-radius:12px;padding:15px}
+ .filter-group{padding:12px 0}
+ .page-search{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .page-search input{grid-column:1/-1;min-width:0}
+ .page-search select{min-width:0;width:100%}
+ .page-search button{grid-column:1/-1}
+ .results-heading{flex-direction:column;align-items:stretch;gap:12px}
+ .results-heading h1{font-size:23px}
+ .results-actions{width:100%;justify-content:space-between;flex-wrap:wrap}
+ .destination-grid,.stays-grid{grid-template-columns:minmax(0,1fr);gap:15px}
+ .card-image,.stay-photo{height:205px}
+ .card-body,.stay-body{padding:16px}
+ .card-body h3,.stay-body h3{font-size:18px}
+ .card-body p,.stay-body p{font-size:12px}
+ .card-bottom button,.stay-price-row button{padding:11px 15px;font-size:11px}
+ .simple-grid,.business-grid{grid-template-columns:minmax(0,1fr)}
+ .info-card img{height:190px}
+ .embedded-map{height:340px}
+ .map-panel{padding:8px}
+ .map-panel-top{flex-wrap:wrap}
+ .map-popup-image{height:120px}
+ .leaflet-popup-content{width:min(245px,calc(100vw - 90px))!important}
+ .business-intro{padding:22px;flex-direction:column;align-items:stretch}
+ .business-intro h2{font-size:24px}
+ .business-toolbar{display:grid;grid-template-columns:minmax(0,1fr)}
+ .business-toolbar input,.business-toolbar select{min-width:0;width:100%}
+ .partner-layout{grid-template-columns:minmax(0,1fr)}
+ .partner-hero{padding:30px 0}
+ .partner-intro h1{font-size:32px}
+ .auth-card,.signin-card{padding:20px}
+ .dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .dashboard-form{grid-template-columns:minmax(0,1fr)}
+ .full-field{grid-column:1}
+ .dashboard-panel{padding:16px}
+ .dashboard-business-item{flex-wrap:wrap}
+ .dashboard-business-item .item-info{flex:1 1 calc(100% - 120px)}
+ .item-actions{width:100%}
+ .dashboard-tabs button{flex:1}
+ .product-row{grid-template-columns:minmax(0,1fr) 85px}
+ .product-row input:nth-child(3){grid-column:1}
+ .product-row button{grid-column:2;grid-row:2}
+ .product-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+ .modal{padding:15px;max-height:95dvh}
+ .modal-main-image{height:190px}
+ .detail-info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .detail-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .detail-map{height:245px}
+}
+@media(max-width:390px){
+ .logo{font-size:12px;letter-spacing:-.4px}
+ .logo b{font-size:19px}
+ .nav{gap:5px}
+ .menu-btn{width:36px;flex-basis:36px;height:36px}
+ .signin-btn{font-size:10px;padding:4px 6px 4px 4px;gap:4px}
+ .signin-icon{width:23px;height:23px}
+ .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .category-tile{height:145px}
+ .category-tile div{left:10px;bottom:10px}
+ .category-tile h3{font-size:14px}
+ .benefit-grid,.partner-steps{grid-template-columns:minmax(0,1fr)}
+}
+
+
+@media(max-width:950px){.nav-links .mobile-partner-link,.nav-links .mobile-signin-link{display:block!important}}
 </style>
 </head>
 
@@ -727,7 +836,7 @@ footer a{display:block;color:#d3e1e5;font-size:12px;margin:12px 0}
 <header>
 <div class="container nav">
  <a class="logo" onclick="showPage('home')"><b>✿</b>My<span>Catanduanes</span>Guide</a>
- <button class="menu-btn" id="menuBtn">☰</button>
+ <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
  <nav class="nav-links" id="navLinks">
   <a data-nav="home" onclick="showPage('home')">Home</a>
   <a data-nav="destinations" onclick="showPage('destinations')">Destinations</a>
@@ -1768,6 +1877,8 @@ function showPage(page){
  });
 
  document.getElementById("navLinks").classList.remove("open");
+ document.getElementById("menuBtn").setAttribute("aria-expanded","false");
+ document.getElementById("menuBtn").textContent="☰";
  history.replaceState(null,"","#"+page);
  window.scrollTo(0,0);
 
@@ -3415,7 +3526,10 @@ document.getElementById("businessCategoryFilter").addEventListener("change",rend
 document.getElementById("businessLocationFilter").addEventListener("change",renderBusinesses);
 
 document.getElementById("menuBtn").addEventListener("click",()=>{
- document.getElementById("navLinks").classList.toggle("open");
+ const nav=document.getElementById("navLinks");
+ const open=nav.classList.toggle("open");
+ document.getElementById("menuBtn").setAttribute("aria-expanded",String(open));
+ document.getElementById("menuBtn").textContent=open?"✕":"☰";
 });
 
 document.getElementById("detailModal").addEventListener("click",e=>{
