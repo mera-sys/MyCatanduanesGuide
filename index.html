@@ -4,18 +4,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
 <title>MyCatanduanesGuide | Explore & Support Local</title>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
 :root{
-  --pink:#e51b80;
-  --teal:#009fb2;
-  --dark:#14252d;
-  --muted:#72808a;
-  --line:#e6eaee;
-  --light:#f5f7f9;
+ --pink:#e51b80;
+ --teal:#009fb2;
+ --dark:#14252d;
+ --muted:#72808a;
+ --line:#e6eaee;
+ --light:#f5f7f9;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -23,15 +24,22 @@ body{margin:0;font-family:"DM Sans",sans-serif;color:var(--dark)}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none;cursor:pointer}
-img{display:block;max-width:100%}
 .container{width:min(1250px,94%);margin:auto}
 .hidden{display:none!important}
 h1,h2,h3{font-family:Outfit,sans-serif}
 .pink-btn{
-  border:0;border-radius:25px;padding:12px 20px;
-  background:var(--pink);color:white;font-size:12px;font-weight:800;
+ border:0;border-radius:25px;padding:12px 20px;
+ background:var(--pink);color:white;font-size:12px;font-weight:800
 }
 .pink-btn:hover{background:#bf1066}
+.teal-btn{
+ border:0;border-radius:25px;padding:12px 20px;
+ background:var(--teal);color:white;font-size:12px;font-weight:800
+}
+.outline-btn{
+ border:1px solid var(--line);border-radius:25px;
+ padding:11px 19px;background:white;font-size:12px;font-weight:800
+}
 .section{padding:55px 0}
 .gray{background:var(--light)}
 .eyebrow{font-size:10px;font-weight:900;letter-spacing:1.5px;color:var(--teal)}
@@ -40,12 +48,12 @@ h1,h2,h3{font-family:Outfit,sans-serif}
 
 /* HEADER */
 header{
-  position:sticky;top:0;z-index:1000;height:68px;
-  background:white;box-shadow:0 2px 12px #00000012;
+ position:sticky;top:0;z-index:1000;height:68px;
+ background:white;box-shadow:0 2px 12px #00000012
 }
 .nav{
-  height:100%;display:flex;align-items:center;
-  justify-content:space-between;gap:15px;
+ height:100%;display:flex;align-items:center;
+ justify-content:space-between;gap:15px
 }
 .logo{font:900 19px Outfit;white-space:nowrap}
 .logo b{font-size:27px;color:var(--pink)}
@@ -56,2204 +64,3393 @@ header{
 .nav-actions{display:flex;align-items:center;gap:10px}
 .nav-actions .pink-btn{white-space:nowrap}
 .signin-btn{
-  display:flex;align-items:center;gap:8px;
-  background:white;border:1px solid var(--line);
-  padding:7px 15px 7px 8px;border-radius:25px;
-  font-size:12px;font-weight:800;white-space:nowrap;
+ display:flex;align-items:center;gap:8px;
+ background:white;border:1px solid var(--line);
+ padding:7px 15px 7px 8px;border-radius:25px;
+ font-size:12px;font-weight:800;white-space:nowrap
 }
 .signin-icon{
-  width:29px;height:29px;background:var(--teal);
-  color:white;border-radius:50%;display:grid;place-items:center;
+ width:29px;height:29px;background:var(--teal);
+ color:white;border-radius:50%;display:grid;place-items:center
 }
 .menu-btn{display:none;border:0;background:none;font-size:25px}
-.mobile-menu-actions{display:none}
 
-/* HOME HERO */
+/* HOME */
 .hero{
-  height:520px;position:relative;
-  background:
-    linear-gradient(90deg,#082b3dcc,#082b3d22),
-    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800")
-    center/cover;
+ height:520px;position:relative;
+ background:linear-gradient(90deg,#082b3dcc,#082b3d22),
+ url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800") center/cover
 }
 .hero-inner{padding-top:95px;color:white}
 .hero-badge{
-  display:inline-block;background:#ffffff33;border:1px solid #ffffff55;
-  border-radius:20px;padding:8px 13px;font-size:10px;font-weight:800;
+ background:#ffffff33;border:1px solid #ffffff55;
+ border-radius:20px;padding:8px 13px;font-size:10px;font-weight:800
 }
 .hero h1{
-  font:900 clamp(42px,6vw,76px)/1.02 Outfit;
-  letter-spacing:-2px;margin:25px 0;
+ font:900 clamp(42px,6vw,76px)/1.02 Outfit;
+ letter-spacing:-2px;margin:25px 0
 }
 .hero h1 span{color:#ffce27}
 .hero p{font-size:15px;line-height:1.8;max-width:530px}
 .search-box{
-  position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);
-  width:min(1100px,92%);display:flex;align-items:center;
-  background:white;padding:13px;border-radius:16px;
-  box-shadow:0 12px 35px #0002;gap:10px;z-index:5;
+ position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);
+ width:min(1100px,92%);display:flex;align-items:center;
+ background:white;padding:13px;border-radius:16px;
+ box-shadow:0 12px 35px #0002;gap:10px;z-index:10
 }
-.search-field{
-  flex:1;min-width:0;padding:7px 12px;
-  border-right:1px solid var(--line);
-}
-.search-field label{
-  display:block;font-size:9px;font-weight:900;
-  color:var(--muted);margin-bottom:7px;
-}
+.search-field{flex:1;min-width:0;padding:7px 12px;border-right:1px solid var(--line)}
+.search-field label{display:block;font-size:9px;font-weight:900;color:var(--muted);margin-bottom:7px}
 .search-field select,.search-field input{
-  width:100%;border:0;outline:0;background:white;
-  font-size:12px;font-weight:800;color:var(--dark);
+ width:100%;border:0;outline:0;background:white;font-size:12px;font-weight:800
 }
 .search-box .pink-btn{padding:16px 26px}
 .stats{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  text-align:center;gap:15px;padding:95px 0 45px;
+ display:grid;grid-template-columns:repeat(4,1fr);
+ text-align:center;gap:15px;padding:95px 0 45px
 }
 .stats strong{display:block;font:900 24px Outfit}
 .stats span{font-size:12px;color:var(--muted)}
-.category-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:15px;margin-top:25px;
-}
-.category-tile{
-  height:225px;position:relative;overflow:hidden;
-  border-radius:12px;cursor:pointer;
-}
+.category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:25px}
+.category-tile{height:225px;position:relative;overflow:hidden;border-radius:12px;cursor:pointer}
 .category-tile img{width:100%;height:100%;object-fit:cover}
-.category-tile:after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(transparent 30%,#000b);
-}
-.category-tile div{
-  position:absolute;bottom:17px;left:16px;
-  color:white;z-index:1;
-}
+.category-tile:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,#000b)}
+.category-tile div{position:absolute;bottom:17px;left:16px;color:white;z-index:1}
 .category-tile h3{font-size:19px;margin:0 0 5px}
 .category-tile p{font-size:11px;margin:0}
 
-/* LISTING PAGES */
+/* LISTING */
 .listing-page{background:var(--light);min-height:75vh}
-.page-top{
-  background:white;border-bottom:1px solid var(--line);
-  padding:18px 0;
-}
+.page-top{background:white;border-bottom:1px solid var(--line);padding:18px 0}
 .breadcrumb{font-size:11px;color:var(--muted);margin-bottom:14px}
 .breadcrumb a{color:var(--teal);font-weight:800}
 .page-search{display:flex;gap:10px;flex-wrap:wrap}
 .page-search input,.page-search select{
-  border:1px solid var(--line);border-radius:9px;
-  padding:12px;font-size:12px;background:white;
+ border:1px solid var(--line);border-radius:9px;
+ padding:12px;font-size:12px;background:white
 }
 .page-search input{flex:2;min-width:170px}
 .page-search select{flex:1;min-width:120px}
 .page-search button{
-  border:0;border-radius:9px;background:var(--pink);
-  color:white;padding:12px 22px;font-size:12px;font-weight:800;
+ border:0;border-radius:9px;background:var(--pink);
+ color:white;padding:12px 22px;font-size:12px;font-weight:800
 }
 .page-layout{
-  display:grid;grid-template-columns:215px minmax(0,1fr);
-  gap:24px;padding-top:30px;padding-bottom:65px;
+ display:grid;grid-template-columns:215px minmax(0,1fr);
+ gap:24px;padding-top:30px;padding-bottom:65px
 }
 .sidebar{align-self:start;position:sticky;top:90px}
 .sidebar h2{font-size:19px;margin:0 0 8px}
 .sidebar p{color:var(--muted);font-size:12px;line-height:1.7}
 .filter-group{border-top:1px solid var(--line);padding:20px 0}
 .filter-group h3{font-size:12px;margin:0 0 14px}
-.filter-option{
-  display:flex;gap:9px;align-items:center;
-  font-size:12px;margin:12px 0;cursor:pointer;
-}
+.filter-option{display:flex;gap:9px;align-items:center;font-size:12px;margin:12px 0;cursor:pointer}
 .filter-option input{accent-color:var(--teal)}
 .clear-btn{
-  width:100%;border:1px solid var(--line);background:white;
-  padding:11px;border-radius:8px;font-size:12px;font-weight:800;
+ width:100%;border:1px solid var(--line);background:white;
+ padding:11px;border-radius:8px;font-size:12px;font-weight:800
 }
-.mobile-filter-toggle{display:none}
 .results-heading{
-  display:flex;justify-content:space-between;
-  align-items:center;gap:15px;margin-bottom:20px;
+ display:flex;justify-content:space-between;
+ align-items:center;gap:15px;margin-bottom:20px
 }
 .results-heading h1{font-size:26px;margin:0 0 7px}
 .results-heading p{font-size:12px;color:var(--muted);margin:0}
-.results-heading select{
-  border:1px solid var(--line);border-radius:8px;
-  padding:10px;background:white;font-size:12px;
+.results-actions{display:flex;align-items:center;gap:9px}
+.results-actions select{
+ border:1px solid var(--line);border-radius:8px;
+ padding:11px;background:white;font-size:12px
 }
+.map-toggle{
+ display:flex;align-items:center;gap:7px;
+ background:white;border:1px solid var(--line);
+ padding:10px 15px;border-radius:9px;
+ font-size:12px;font-weight:800;white-space:nowrap
+}
+.map-toggle.active{background:var(--teal);color:white;border-color:var(--teal)}
 .destination-grid,.stays-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px
 }
 .card,.stay-card{
-  background:white;border:1px solid var(--line);
-  border-radius:12px;overflow:hidden;transition:.2s;
+ background:white;border:1px solid var(--line);
+ border-radius:12px;overflow:hidden;transition:.2s
 }
-.card:hover,.stay-card:hover{
-  transform:translateY(-2px);box-shadow:0 10px 25px #00000012;
-}
-.card-image,.stay-photo{
-  height:170px;position:relative;background:#e9eef1;
-}
-.card-image img,.stay-photo img{
-  width:100%;height:100%;object-fit:cover;
-}
+.card:hover,.stay-card:hover{transform:translateY(-2px);box-shadow:0 10px 25px #00000012}
+.card-image,.stay-photo{height:170px;position:relative;background:#e9eef1}
+.card-image img,.stay-photo img{width:100%;height:100%;object-fit:cover}
 .badge{
-  position:absolute;top:10px;left:10px;background:#ffcf27;
-  border-radius:5px;padding:5px 8px;font-size:9px;font-weight:900;
+ position:absolute;top:10px;left:10px;background:#ffcf27;
+ border-radius:5px;padding:5px 8px;font-size:9px;font-weight:900
 }
 .heart{
-  position:absolute;top:10px;right:10px;width:30px;height:30px;
-  border:0;border-radius:50%;background:#ffffffed;
-  color:var(--pink);font-size:19px;z-index:2;
+ position:absolute;top:10px;right:10px;width:30px;height:30px;
+ border:0;border-radius:50%;background:#ffffffed;
+ color:var(--pink);font-size:19px;z-index:2
 }
 .heart.saved{background:var(--pink);color:white}
 .card-body,.stay-body{padding:13px}
 .card-body h3,.stay-body h3{font-size:15px;margin:5px 0 8px}
-.card-body p,.stay-body p{
-  font-size:11px;color:var(--muted);line-height:1.6;
-}
+.card-body p,.stay-body p{font-size:11px;color:var(--muted);line-height:1.6}
 .card-location{color:var(--teal)!important;font-weight:800}
 .card-bottom,.stay-price-row{
-  display:flex;justify-content:space-between;
-  align-items:center;gap:8px;margin-top:13px;
+ display:flex;justify-content:space-between;align-items:center;
+ gap:8px;margin-top:13px
 }
 .card-bottom small{font-size:10px;color:var(--muted)}
 .card-bottom button,.stay-price-row button{
-  border:0;background:var(--pink);color:white;
-  padding:9px 13px;border-radius:20px;font-size:10px;font-weight:800;
+ border:0;background:var(--pink);color:white;
+ padding:9px 13px;border-radius:20px;font-size:10px;font-weight:800
 }
-.stay-categories{
-  display:flex;flex-wrap:wrap;gap:8px;padding:18px 0 0;
-}
+.stay-categories{display:flex;flex-wrap:wrap;gap:8px;padding:18px 0 0}
 .stay-categories button{
-  background:white;border:1px solid var(--line);
-  padding:9px 16px;border-radius:20px;font-size:11px;font-weight:800;
+ background:white;border:1px solid var(--line);
+ padding:9px 16px;border-radius:20px;font-size:11px;font-weight:800
 }
 .stay-categories button.active{background:var(--teal);color:white}
-.stay-badges{
-  position:absolute;top:10px;left:10px;display:flex;gap:5px;
-}
-.stay-badges span{
-  background:#ffcf27;padding:5px 8px;
-  border-radius:5px;font-size:9px;font-weight:900;
-}
+.stay-badges{position:absolute;top:10px;left:10px;display:flex;gap:5px}
+.stay-badges span{background:#ffcf27;padding:5px 8px;border-radius:5px;font-size:9px;font-weight:900}
 .stay-badges .promo{background:var(--pink);color:white}
 .photo-prev,.photo-next{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:26px;height:26px;border:0;border-radius:50%;
-  background:#ffffffd9;font-size:16px;
+ position:absolute;top:50%;transform:translateY(-50%);
+ width:26px;height:26px;border:0;border-radius:50%;
+ background:#ffffffd9;font-size:16px
 }
-.photo-prev{left:8px}
-.photo-next{right:8px}
+.photo-prev{left:8px}.photo-next{right:8px}
 .stay-type{font-size:9px;color:var(--muted);font-weight:900}
 .stay-rating{color:#f2a000;font-size:11px;font-weight:800}
 .stay-rating span{color:var(--muted);font-weight:500}
 .stay-features{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
 .stay-features span{font-size:10px;color:var(--muted)}
-.stay-price-row{
-  border-top:1px solid var(--line);padding-top:12px;
-}
+.stay-price-row{border-top:1px solid var(--line);padding-top:12px}
 .price{font:900 18px Outfit;color:var(--pink)}
 .price small{font:500 10px "DM Sans";color:var(--muted)}
 .demo-note{font-size:10px;color:var(--muted);margin-top:8px}
-.pagination{
-  display:flex;justify-content:center;gap:8px;margin-top:30px;
-}
-.pagination button{
-  background:white;border:1px solid var(--line);
-  border-radius:8px;padding:10px 14px;font-size:12px;font-weight:800;
-}
+.pagination{display:flex;justify-content:center;gap:8px;margin-top:30px}
+.pagination button{background:white;border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:800}
 .pagination button.active{background:var(--teal);color:white}
-.empty{
-  grid-column:1/-1;padding:40px;background:white;
-  color:var(--muted);text-align:center;border-radius:12px;
+.empty{padding:40px;background:white;color:var(--muted);text-align:center;grid-column:1/-1}
+
+/* EMBEDDED INTERACTIVE MAP */
+.map-panel{
+ background:white;border:1px solid var(--line);
+ border-radius:17px;padding:12px;margin-bottom:23px;
+ box-shadow:0 10px 30px #12334412
+}
+.map-panel-top{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;padding:8px 9px 15px
+}
+.map-panel-top h3{font-size:16px;margin:0 0 5px}
+.map-panel-top p{font-size:11px;color:var(--muted);margin:0}
+.map-count{
+ background:#e6f8fb;color:#007d8e;border-radius:20px;
+ padding:8px 12px;font-size:10px;font-weight:900
+}
+.embedded-map{
+ width:100%;height:470px;border-radius:12px;
+ overflow:hidden;z-index:1;background:#e4edf0
+}
+.map-caption{
+ font-size:10px;color:var(--muted);
+ padding:12px 8px 3px;line-height:1.7
+}
+
+/* MODERN PHOTO MARKERS */
+.photo-pin{
+ width:66px;height:83px;position:relative;
+ cursor:pointer;filter:drop-shadow(0 5px 8px #0004)
+}
+.photo-pin-image{
+ position:relative;z-index:2;
+ width:64px;height:64px;border-radius:50%;
+ border:4px solid white;overflow:hidden;
+ box-shadow:0 0 0 3px var(--pink);
+ background:white;transition:.2s
+}
+.photo-pin-image img{width:100%;height:100%;object-fit:cover}
+.photo-pin-tip{
+ position:absolute;top:52px;left:22px;
+ width:20px;height:20px;transform:rotate(45deg);
+ background:var(--pink);border-radius:3px;z-index:1
+}
+.photo-pin-dot{
+ position:absolute;bottom:0;left:28px;
+ width:9px;height:9px;background:var(--pink);
+ opacity:.3;border-radius:50%
+}
+.photo-pin:hover .photo-pin-image{
+ transform:translateY(-5px) scale(1.12)
+}
+.photo-pin.stay .photo-pin-image{box-shadow:0 0 0 3px var(--teal)}
+.photo-pin.stay .photo-pin-tip,
+.photo-pin.stay .photo-pin-dot{background:var(--teal)}
+.photo-pin.business .photo-pin-image{box-shadow:0 0 0 3px #ff9d23}
+.photo-pin.business .photo-pin-tip,
+.photo-pin.business .photo-pin-dot{background:#ff9d23}
+.photo-pin-label{
+ position:absolute;bottom:88px;left:50%;
+ transform:translateX(-50%);
+ background:white;border-radius:15px;
+ box-shadow:0 3px 12px #0002;
+ padding:6px 9px;font-size:10px;
+ font-weight:900;white-space:nowrap
+}
+
+/* LEAFLET POPUPS */
+.leaflet-popup-content-wrapper{
+ padding:0!important;border-radius:15px!important;
+ overflow:hidden;box-shadow:0 12px 35px #0003!important
+}
+.leaflet-popup-content{margin:0!important;width:265px!important}
+.leaflet-popup-close-button{
+ background:#fff!important;border-radius:50%;
+ top:9px!important;right:9px!important;
+ width:28px!important;height:28px!important;
+ line-height:27px!important;z-index:5
+}
+.map-popup-image{width:100%;height:145px;object-fit:cover;display:block}
+.map-popup-body{padding:15px}
+.map-popup-body h3{font-size:18px;margin:0 0 7px}
+.map-popup-body p{font-size:11px;color:var(--muted);line-height:1.7}
+.map-popup-body .location{color:var(--teal);font-weight:800}
+.map-popup-actions{display:flex;gap:8px;margin-top:12px}
+.map-popup-actions button{
+ flex:1;background:var(--pink);border:0;color:white;
+ border-radius:20px;padding:10px;font-size:10px;font-weight:800
+}
+.map-popup-actions button:last-child{background:var(--teal)}
+.map-popup-scroll{max-height:190px;overflow-y:auto}
+.map-popup-item{padding:10px 0;border-bottom:1px solid var(--line)}
+.map-popup-item strong{display:block;font-size:11px}
+.map-popup-item small{display:block;color:var(--muted);margin:5px 0}
+.map-popup-item button{
+ background:var(--pink);color:white;border:0;
+ border-radius:15px;padding:7px 10px;font-size:10px
 }
 
 /* OTHER PAGES */
 .simple-page{background:var(--light);min-height:65vh;padding:55px 0}
-.simple-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:17px;margin-top:25px;
-}
-.info-card{
-  background:white;border:1px solid var(--line);
-  border-radius:12px;overflow:hidden;
-}
+.simple-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:25px}
+.info-card{background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .info-card img{width:100%;height:190px;object-fit:cover}
 .info-card div{padding:17px}
 .info-card h3{font-size:17px;margin:0 0 9px}
 .info-card p{font-size:12px;color:var(--muted);line-height:1.7}
-.info-card button{
-  background:var(--pink);border:0;color:white;
-  padding:10px 16px;border-radius:20px;font-size:11px;font-weight:800;
-}
-.extra-filters{
-  display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;
-}
-.extra-filters input,.extra-filters select{
-  background:white;border:1px solid var(--line);
-  padding:12px;border-radius:9px;font-size:12px;
-}
-.extra-filters input{flex:2;min-width:180px}
-.extra-filters select{flex:1;min-width:130px}
-.result-note{font-size:12px;color:var(--muted);margin-top:12px}
+.info-card button{background:var(--pink);border:0;color:white;padding:10px 16px;border-radius:20px;font-size:11px;font-weight:800}
 
-/* PARTNER PAGE */
+/* PARTNER */
 .partner-hero{
-  background:
-    radial-gradient(circle at 96% 4%,#58744555,transparent 24%),
-    radial-gradient(circle at 5% 95%,#58497555,transparent 25%),
-    linear-gradient(125deg,#061a20,#003b49 60%,#006774);
-  padding:45px 0;min-height:590px;
+ background:linear-gradient(125deg,#061a20,#003b49 60%,#006774);
+ padding:45px 0;min-height:590px
 }
-.partner-layout{
-  display:grid;grid-template-columns:1.12fr .95fr;
-  gap:55px;align-items:center;
-}
+.partner-layout{display:grid;grid-template-columns:1.12fr .95fr;gap:55px;align-items:center}
 .partner-intro{color:white}
 .partner-label{
-  display:inline-flex;align-items:center;gap:8px;
-  background:#ffffff17;border:1px solid #ffffff35;
-  border-radius:25px;padding:9px 14px;font-size:11px;font-weight:800;
+ display:inline-flex;background:#ffffff17;border:1px solid #ffffff35;
+ border-radius:25px;padding:9px 14px;font-size:11px;font-weight:800
 }
-.partner-intro h1{
-  font:900 clamp(33px,4vw,49px)/1.12 Outfit;
-  letter-spacing:-1.5px;margin:22px 0 15px;
-}
-.partner-intro h1 span{
-  background:linear-gradient(90deg,#f32394,#ff873b);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.partner-intro>p{
-  max-width:520px;font-size:14px;line-height:1.85;color:#d5e6e9;
-}
-.partner-benefits{margin:25px 0}
-.partner-benefit{
-  display:flex;align-items:center;gap:11px;
-  margin:15px 0;font-size:13px;
-}
+.partner-intro h1{font:900 clamp(33px,4vw,49px)/1.12 Outfit;letter-spacing:-1.5px}
+.partner-intro h1 span{color:#ffcf27}
+.partner-intro>p{font-size:14px;line-height:1.85;color:#d5e6e9}
+.partner-benefit{margin:16px 0;font-size:13px}
 .partner-benefit b{color:#25d78a;font-size:18px}
-.partner-trust{
-  border-top:1px solid #ffffff26;margin-top:25px;padding-top:22px;
-  display:flex;flex-wrap:wrap;gap:18px;color:#c7e0e4;font-size:11px;
-}
 .auth-card{
-  background:white;border-radius:17px;padding:30px;
-  box-shadow:0 15px 45px #00000018;
+ background:white;border-radius:17px;padding:30px;
+ box-shadow:0 15px 45px #00000018
 }
-.auth-card h2{font:900 23px Outfit;margin:0 0 6px}
-.auth-subtitle{font-size:12px;color:var(--muted);margin:0 0 22px}
-.auth-form{display:grid;gap:15px}
-.auth-field label{
-  display:block;font-size:10px;font-weight:900;
-  letter-spacing:.8px;margin-bottom:8px;
+.auth-card h2{font-size:23px;margin:0 0 6px}
+.auth-subtitle{font-size:12px;color:var(--muted)}
+.auth-form{display:grid;gap:15px;margin-top:20px}
+.auth-field label{display:block;font-size:10px;font-weight:900;margin-bottom:8px}
+.auth-field input,.auth-field select,.auth-field textarea{
+ width:100%;min-height:46px;border:1px solid var(--line);
+ border-radius:10px;padding:12px 13px;font-size:13px;background:white
 }
-.auth-field input{
-  width:100%;height:46px;border:1px solid var(--line);
-  border-radius:10px;padding:0 13px;font-size:13px;outline:none;
-}
-.auth-field input:focus{
-  border-color:var(--teal);box-shadow:0 0 0 3px #00a4b81a;
-}
+.auth-field textarea{min-height:100px;resize:vertical}
 .password-wrap{position:relative}
-.password-wrap input{padding-right:55px}
+.password-wrap input{padding-right:60px}
 .password-toggle{
-  position:absolute;right:8px;top:7px;border:0;background:none;
-  padding:7px;color:var(--muted);font-size:12px;
+ position:absolute;right:8px;top:8px;
+ border:0;background:none;color:var(--muted);font-size:12px
 }
-.agreement{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:11px;line-height:1.7;color:#59646d;
-}
-.agreement input{accent-color:var(--pink);margin-top:3px}
-.agreement a{color:var(--teal);font-weight:700}
+.agreement{display:flex;gap:9px;font-size:11px;line-height:1.7}
+.agreement input{accent-color:var(--pink)}
 .auth-submit{
-  width:100%;border:0;background:var(--pink);color:white;
-  padding:16px;border-radius:25px;font-size:13px;font-weight:900;
-  box-shadow:0 7px 18px #e51b8033;
+ width:100%;border:0;background:var(--pink);color:white;
+ padding:16px;border-radius:25px;font-size:13px;font-weight:900
 }
-.auth-switch{
-  text-align:center;font-size:11px;
-  color:var(--muted);margin-top:18px;
-}
+.auth-switch{text-align:center;font-size:11px;color:var(--muted);margin-top:18px}
 .auth-switch a{color:var(--pink);font-weight:900}
-.form-message{
-  font-size:12px;padding:12px;border-radius:8px;
-  background:#fff0f4;color:#ac125b;line-height:1.6;
-}
+.form-message{font-size:12px;padding:12px;border-radius:8px;background:#fff0f4;color:#ac125b}
 .form-message.success{background:#e8f9f1;color:#08744a}
-.partner-why{padding:65px 0;background:white;text-align:center}
-.partner-why h2{font-size:33px;margin:10px 0 25px}
-.partner-cards{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:17px;text-align:left;
-}
-.partner-card{
-  background:#f6f7f8;border:1px solid #edf0f1;
-  border-radius:15px;padding:28px;
-}
-.partner-card-icon{
-  width:48px;height:48px;border-radius:12px;background:#e3f7fa;
-  display:grid;place-items:center;color:var(--teal);font-size:24px;
-}
-.partner-card h3{font-size:17px;margin:18px 0 8px}
-.partner-card p{
-  font-size:13px;color:var(--muted);line-height:1.8;margin:0;
-}
-.partner-help{
-  background:#e5f8fb;text-align:center;
-  padding:24px;font-size:12px;color:#52666d;
-}
-.partner-help a{color:var(--pink);font-weight:800}
-
-/* SIGN IN */
 .signin-page{
-  min-height:100vh;
-  background:#f4f6f8;
-  display:grid;
-  grid-template-columns:1fr 1fr;
+ min-height:75vh;background:linear-gradient(125deg,#061a20,#00596a);
+ padding:70px 15px;display:flex;align-items:center;justify-content:center
 }
-.signin-visual{
-  position:relative;
-  background:
-    linear-gradient(135deg,#002d41d9,#007d8a70),
-    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200")
-    center/cover;
-  color:white;padding:65px;
-  display:flex;flex-direction:column;justify-content:center;
-}
-.signin-visual h1{
-  font:900 clamp(35px,4vw,62px)/1.08 Outfit;
-  margin:25px 0;
-}
-.signin-visual p{line-height:1.9;color:#e3f4f6}
-.signin-highlights{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:10px;margin-top:30px;
-}
-.signin-highlights div{
-  background:#ffffff25;border:1px solid #ffffff35;
-  border-radius:12px;padding:15px;font-size:11px;
-}
-.signin-form-side{
-  display:flex;align-items:center;justify-content:center;padding:35px;
-}
-.signin-card{
-  width:min(450px,100%);background:white;
-  padding:35px;border-radius:17px;
-  box-shadow:0 15px 45px #0000000b;
-}
-.signin-card h1{font-size:30px;margin:0 0 8px}
-.signin-card>p{font-size:13px;color:var(--muted);margin-bottom:25px}
-.signin-back{
-  border:0;background:transparent;color:var(--teal);
-  font-size:12px;font-weight:800;margin-bottom:20px;
-}
+.signin-card{width:min(440px,100%);background:white;padding:35px;border-radius:17px}
+.signin-card h1{font-size:29px;margin:0 0 8px}
+.signin-card>p{font-size:13px;color:var(--muted)}
 
-/* MODAL */
+/* DETAILS MODAL */
 .modal-bg{
-  position:fixed;inset:0;background:#061b2dc9;z-index:2000;
-  display:flex;align-items:center;justify-content:center;padding:20px;
+ position:fixed;inset:0;background:#061b2dd9;z-index:2000;
+ display:flex;align-items:center;justify-content:center;padding:15px
 }
 .modal{
-  width:min(550px,100%);max-height:90vh;overflow:auto;
-  background:white;border-radius:15px;padding:25px;position:relative;
+ width:min(680px,100%);max-height:94vh;overflow:auto;
+ background:white;border-radius:18px;padding:23px;position:relative
 }
 .modal-close{
-  position:absolute;top:12px;right:13px;border:0;border-radius:50%;
-  background:#f0f1f2;width:34px;height:34px;font-size:22px;
+ position:sticky;top:0;float:right;z-index:3;
+ border:0;border-radius:50%;background:#f0f1f2;
+ width:35px;height:35px;font-size:22px
 }
-.modal img{width:100%;height:230px;object-fit:cover;border-radius:10px}
-.modal h2{font-size:25px}
+.modal-main-image{
+ width:100%;height:240px;object-fit:cover;border-radius:11px
+}
+.modal h2{font-size:26px;margin:17px 0 7px}
 .modal p{font-size:13px;color:var(--muted);line-height:1.8}
-.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.modal-actions a{
-  background:var(--pink);color:white;padding:11px 16px;
-  border-radius:20px;font-size:12px;font-weight:800;
+.detail-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:17px 0}
+.detail-info{
+ background:var(--light);padding:13px;border-radius:10px
 }
+.detail-info small{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}
+.detail-info strong{font-size:12px}
+.detail-tags{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.detail-tags span{
+ background:#e5f8fb;color:#087d8c;border-radius:20px;
+ padding:8px 11px;font-size:11px;font-weight:800
+}
+.detail-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.detail-gallery img{width:100%;height:95px;object-fit:cover;border-radius:8px}
+.detail-map{
+ height:300px;width:100%;border-radius:12px;
+ overflow:hidden;z-index:1;margin-top:12px
+}
+.detail-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+.detail-actions button{
+ border:0;background:var(--pink);color:white;
+ padding:12px 17px;border-radius:22px;font-size:12px;font-weight:800
+}
+.detail-actions button:last-child{background:var(--teal)}
 
 /* FOOTER */
 footer{background:#08171b;color:white;padding:55px 0 20px}
-.footer-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:30px;
-}
-footer h4{
-  color:#ff983e;font-size:11px;
-  letter-spacing:1px;margin:0 0 20px;
-}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+footer h4{color:#ff983e;font-size:11px;letter-spacing:1px;margin:0 0 20px}
 footer a{display:block;color:#d3e1e5;font-size:12px;margin:12px 0}
-footer p{color:#d3e1e5;font-size:12px;line-height:1.8}
 .footer-bottom{
-  border-top:1px solid #2b3b40;margin-top:40px;
-  padding-top:25px;text-align:center;color:#9db2ba;font-size:11px;
+ border-top:1px solid #2b3b40;margin-top:40px;
+ padding-top:25px;text-align:center;color:#9db2ba;font-size:11px
 }
 .footer-bottom .logo{margin-bottom:12px}
 
-/* TABLET */
+/* ==========================================
+   NEW LOCAL BUSINESS SYSTEM STYLES
+========================================== */
+.business-intro{
+ background:linear-gradient(125deg,#062d37,#007b8d);
+ color:white;border-radius:20px;padding:35px;
+ display:flex;align-items:center;justify-content:space-between;gap:25px
+}
+.business-intro h2{font-size:29px;margin:9px 0}
+.business-intro p{font-size:13px;line-height:1.8;color:#d7f0f4}
+.business-intro .pink-btn{white-space:nowrap}
+.business-toolbar{
+ display:flex;flex-wrap:wrap;gap:10px;margin:25px 0
+}
+.business-toolbar input,.business-toolbar select{
+ border:1px solid var(--line);border-radius:10px;
+ padding:13px;background:white;font-size:12px
+}
+.business-toolbar input{flex:2;min-width:190px}
+.business-toolbar select{flex:1;min-width:150px}
+.business-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px
+}
+.business-card{
+ background:white;border:1px solid var(--line);
+ border-radius:16px;overflow:hidden;transition:.2s
+}
+.business-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0001}
+.business-cover{height:195px;position:relative}
+.business-cover img{width:100%;height:100%;object-fit:cover}
+.business-category{
+ position:absolute;top:12px;left:12px;
+ background:white;border-radius:20px;padding:7px 11px;
+ font-size:10px;font-weight:900
+}
+.business-card-body{padding:18px}
+.business-card-body h3{margin:5px 0;font-size:19px}
+.business-card-body p{font-size:12px;color:var(--muted);line-height:1.7}
+.business-card-body .location{color:var(--teal);font-weight:800}
+.promo-chip{
+ display:inline-block;background:#fff0d9;color:#a15c00;
+ border-radius:8px;padding:8px;font-size:10px;font-weight:800
+}
+.business-card-actions{display:flex;gap:8px;margin-top:16px}
+.business-card-actions button{
+ flex:1;border:0;border-radius:9px;padding:11px 7px;
+ font-size:11px;font-weight:800
+}
+.business-card-actions button:first-child{background:var(--pink);color:white}
+.business-card-actions button:last-child{background:#e5f8fb;color:#007b8d}
+.business-map{margin-top:25px}
+.business-empty{
+ text-align:center;background:white;border:1px dashed #cbd9df;
+ padding:55px 20px;border-radius:15px;color:var(--muted)
+}
+
+/* Partner benefits */
+.partner-extra{
+ padding:60px 0;background:white
+}
+.benefit-grid{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:25px
+}
+.benefit-card{
+ border:1px solid var(--line);border-radius:15px;
+ padding:25px;background:white
+}
+.benefit-icon{
+ width:48px;height:48px;border-radius:14px;
+ background:#e4f8fa;color:var(--teal);
+ display:grid;place-items:center;font-size:24px
+}
+.benefit-card h3{font-size:17px}
+.benefit-card p{font-size:12px;color:var(--muted);line-height:1.8}
+.partner-steps{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:25px
+}
+.partner-step{
+ background:var(--light);padding:22px;border-radius:13px
+}
+.partner-step strong{
+ display:grid;place-items:center;width:35px;height:35px;
+ border-radius:50%;background:var(--pink);color:white
+}
+.partner-step h3{font-size:15px}
+.partner-step p{font-size:12px;color:var(--muted);line-height:1.7}
+
+/* Dashboard */
+.dashboard-page{background:#f4f7f9;min-height:80vh;padding:35px 0 70px}
+.dashboard-heading{
+ display:flex;justify-content:space-between;align-items:center;
+ gap:15px;flex-wrap:wrap;margin-bottom:25px
+}
+.dashboard-heading h1{font-size:29px;margin:5px 0}
+.dashboard-heading p{font-size:12px;color:var(--muted)}
+.dashboard-actions{display:flex;gap:8px;flex-wrap:wrap}
+.dashboard-stats{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:25px
+}
+.stat-card{
+ background:white;border:1px solid var(--line);
+ border-radius:15px;padding:22px
+}
+.stat-card .stat-icon{font-size:24px;margin-bottom:12px}
+.stat-card strong{display:block;font:900 27px Outfit}
+.stat-card span{font-size:11px;color:var(--muted)}
+.dashboard-panel{
+ background:white;border:1px solid var(--line);
+ border-radius:17px;padding:25px;margin-bottom:22px
+}
+.dashboard-panel h2{font-size:21px;margin:0 0 8px}
+.dashboard-panel>p{font-size:12px;color:var(--muted);line-height:1.7}
+.dashboard-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.dashboard-tabs button{
+ border:1px solid var(--line);background:white;
+ padding:12px 18px;border-radius:10px;font-size:12px;font-weight:800
+}
+.dashboard-tabs button.active{background:var(--teal);border-color:var(--teal);color:white}
+.status-pill{
+ display:inline-block;border-radius:20px;
+ padding:7px 11px;font-size:10px;font-weight:900
+}
+.status-pending{background:#fff3d7;color:#986000}
+.status-approved{background:#dcf8e8;color:#167744}
+.status-rejected{background:#ffe3e6;color:#b5233a}
+.dashboard-list{
+ display:grid;gap:13px;margin-top:20px
+}
+.dashboard-business-item{
+ border:1px solid var(--line);border-radius:13px;
+ padding:15px;display:flex;align-items:center;gap:16px
+}
+.dashboard-business-item img{
+ width:100px;height:85px;object-fit:cover;border-radius:10px
+}
+.dashboard-business-item .item-info{flex:1;min-width:0}
+.dashboard-business-item h3{font-size:16px;margin:0 0 6px}
+.dashboard-business-item p{font-size:11px;color:var(--muted);margin:5px 0}
+.item-actions{display:flex;gap:7px;flex-wrap:wrap}
+.item-actions button{
+ border:1px solid var(--line);background:white;
+ padding:9px 12px;border-radius:8px;font-size:11px;font-weight:800
+}
+.item-actions .approve{background:#0a9e65;color:white;border:0}
+.item-actions .reject{background:#e33b54;color:white;border:0}
+.item-actions .edit{background:var(--teal);color:white;border:0}
+.item-actions .delete{color:#c72c48}
+.dashboard-form{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-top:22px
+}
+.dashboard-field label{
+ display:block;font-size:11px;font-weight:900;margin-bottom:8px
+}
+.dashboard-field input,.dashboard-field select,.dashboard-field textarea{
+ width:100%;border:1px solid var(--line);
+ border-radius:10px;padding:13px;font-size:12px;background:white
+}
+.dashboard-field textarea{min-height:110px;resize:vertical}
+.full-field{grid-column:1/-1}
+.form-hint{font-size:10px;color:var(--muted);line-height:1.7;margin-top:6px}
+.upload-preview{
+ width:140px;height:100px;object-fit:cover;
+ border:1px solid var(--line);border-radius:10px;margin-top:10px
+}
+.location-picker-map{
+ width:100%;height:300px;border-radius:12px;
+ border:1px solid var(--line);z-index:1
+}
+.product-list{display:grid;gap:12px}
+.product-row{
+ display:grid;grid-template-columns:1fr 100px 1fr 40px;
+ gap:9px;align-items:center
+}
+.product-row input{min-width:0;width:100%;border:1px solid var(--line);border-radius:9px;padding:12px;font-size:12px}
+.product-row button{height:42px;border:0;background:#ffe6eb;color:#b31d3f;border-radius:9px}
+.product-gallery{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0
+}
+.product-tile{
+ background:var(--light);border-radius:10px;padding:10px
+}
+.product-tile img{width:100%;height:100px;object-fit:cover;border-radius:8px}
+.product-tile strong{display:block;font-size:12px;margin:7px 0}
+.product-tile span{font-size:11px;color:var(--pink);font-weight:800}
+.admin-note{
+ background:#fff7e6;border:1px solid #f5dca3;
+ border-radius:10px;padding:13px;font-size:12px;line-height:1.7
+}
+.demo-warning{
+ background:#fff8e8;border:1px solid #f0d5a0;
+ border-radius:12px;padding:15px;font-size:11px;line-height:1.8;
+ color:#75520e;margin:15px 0
+}
+.nearby-box{
+ background:#f0fafb;border-radius:12px;padding:16px;margin-top:17px
+}
+.nearby-box h3{margin:0 0 10px;font-size:16px}
+.nearby-box button{
+ display:block;width:100%;text-align:left;border:0;
+ background:white;padding:11px;margin-top:7px;
+ border-radius:8px;font-size:12px;font-weight:800
+}
+
+/* RESPONSIVE */
 @media(max-width:1100px){
-  .nav-links{gap:9px}
-  .nav-links a{font-size:10px}
-  .logo{font-size:16px}
+ .nav-links{gap:9px}
+ .nav-links a{font-size:10px}
+ .logo{font-size:16px}
 }
 @media(max-width:950px){
-  .menu-btn{display:block}
-  .nav-links{
-    display:none;position:absolute;top:68px;left:0;right:0;
-    background:white;flex-direction:column;align-items:stretch;
-    padding:20px;box-shadow:0 12px 20px #0002;
-    max-height:calc(100vh - 68px);overflow-y:auto;
-  }
-  .nav-links.open{display:flex}
-  .nav-links a{padding:11px;font-size:13px;border-bottom:1px solid var(--line)}
-  .partner-layout{gap:25px}
-  .page-layout{grid-template-columns:180px minmax(0,1fr)}
-  .destination-grid,.stays-grid{grid-template-columns:repeat(2,1fr)}
+ .menu-btn{display:block}
+ .nav-links{
+  display:none;position:absolute;top:68px;left:0;right:0;
+  background:white;flex-direction:column;align-items:stretch;
+  padding:20px;box-shadow:0 12px 20px #0002
+ }
+ .nav-links.open{display:flex}
+ .partner-layout{gap:25px}
+ .page-layout{grid-template-columns:180px minmax(0,1fr)}
+ .destination-grid,.stays-grid{grid-template-columns:repeat(2,1fr)}
+ .business-grid{grid-template-columns:repeat(2,1fr)}
+ .dashboard-stats{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:700px){
-  .partner-layout{grid-template-columns:1fr}
-  .partner-hero{padding:45px 0}
-  .partner-intro h1{font-size:37px}
-  .auth-card{padding:23px}
-  .partner-cards{grid-template-columns:1fr}
-  .category-grid{grid-template-columns:repeat(2,1fr)}
-  .simple-grid{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:repeat(2,1fr)}
-  .signin-page{grid-template-columns:1fr}
-  .signin-visual{padding:35px;min-height:260px}
-  .signin-visual h1{font-size:32px}
-  .signin-highlights{display:none}
+ .partner-layout{grid-template-columns:1fr}
+ .auth-card{padding:23px}
+ .category-grid{grid-template-columns:repeat(2,1fr)}
+ .simple-grid{grid-template-columns:repeat(2,1fr)}
+ .footer-grid{grid-template-columns:repeat(2,1fr)}
+ .benefit-grid{grid-template-columns:repeat(2,1fr)}
+ .partner-steps{grid-template-columns:repeat(2,1fr)}
+ .business-intro{flex-direction:column;align-items:flex-start}
 }
-
-/* PHONE DESIGN */
 @media(max-width:600px){
-  .container{width:92%}
-
-  header{height:58px}
-  .nav{gap:8px}
-  .logo{font-size:13px;letter-spacing:-.4px}
-  .logo b{font-size:20px}
-  .nav-actions{margin-left:auto;gap:7px}
-  .nav-actions>.pink-btn{display:none}
-  .signin-btn{
-    padding:4px;border:0;background:transparent;
-    font-size:0;gap:0;
-  }
-  .signin-icon{
-    width:30px;height:30px;font-size:15px;
-  }
-  .menu-btn{
-    display:grid;place-items:center;
-    width:34px;height:34px;
-    border-radius:50%;background:#f0f3f4;
-    font-size:19px;order:3;
-  }
-  .nav-links{
-    top:58px;padding:12px 4%;
-    gap:0;max-height:calc(100dvh - 58px);
-  }
-  .nav-links a{
-    font-size:13px;padding:13px 9px;
-    border-bottom:1px solid var(--line);
-  }
-  .mobile-menu-actions{display:grid;gap:9px;margin-top:12px}
-  .mobile-menu-actions button{width:100%}
-
-  .hero{
-    height:auto;min-height:0;
-    padding-bottom:24px;
-    background:
-      linear-gradient(135deg,#083849d9,#007d8b55),
-      url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900")
-      center/cover;
-  }
-  .hero-inner{padding-top:46px}
-  .hero-badge{font-size:8px;padding:7px 10px}
-  .hero h1{
-    font-size:clamp(35px,9.3vw,49px);
-    letter-spacing:-1.3px;line-height:1.05;
-    margin:19px 0;
-  }
-  .hero p{
-    font-size:12px;line-height:1.8;
-    max-width:390px;margin-bottom:10px;
-  }
-  .search-box{
-    position:relative;bottom:auto;left:auto;
-    transform:none;width:92%;margin:25px auto 0;
-    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:9px;padding:14px;border-radius:15px;
-  }
-  .search-field{
-    padding:11px 9px;border:1px solid var(--line);
-    border-radius:9px;min-width:0;
-  }
-  .search-field label{font-size:8px;margin-bottom:7px}
-  .search-field select,.search-field input{
-    font-size:11px;min-width:0;
-  }
-  .search-box .pink-btn{
-    grid-column:1/-1;padding:14px;font-size:12px;
-  }
-
-  .stats{
-    padding:30px 0;grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:5px;
-  }
-  .stats strong{font-size:13px}
-  .stats span{font-size:9px;line-height:1.5;display:block;margin-top:5px}
-
-  .section{padding:35px 0}
-  .section-title{font-size:25px;line-height:1.12}
-  .section-desc{font-size:12px}
-  .category-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .category-tile{height:170px}
-  .category-tile div{bottom:12px;left:12px}
-  .category-tile h3{font-size:17px}
-  .category-tile p{font-size:10px}
-
-  .destination-grid,.stays-grid{
-    grid-template-columns:1fr;gap:15px;
-  }
-  .card-image,.stay-photo{height:205px}
-  .card-body,.stay-body{padding:14px}
-  .card-body h3,.stay-body h3{font-size:17px}
-  .card-body p,.stay-body p{font-size:12px}
-  .card-bottom button,.stay-price-row button{
-    font-size:11px;padding:10px 15px;
-  }
-  .page-layout{display:block;padding-top:18px}
-  .sidebar{
-    position:static;background:white;
-    padding:16px;border-radius:12px;margin-bottom:20px;
-    border:1px solid var(--line);
-  }
-  .mobile-filter-toggle{
-    display:flex;width:100%;justify-content:space-between;
-    align-items:center;background:white;
-    border:1px solid var(--line);border-radius:10px;
-    padding:13px 15px;font-weight:800;font-size:13px;
-    margin-bottom:14px;
-  }
-  .sidebar.mobile-collapsed{display:none}
-  .results-heading{flex-direction:column;align-items:start}
-  .results-heading h1{font-size:23px}
-  .page-search{display:grid;grid-template-columns:1fr 1fr}
-  .page-search input{grid-column:1/-1;min-width:0;width:100%}
-  .page-search select{min-width:0;width:100%}
-  .page-search button{grid-column:1/-1}
-  .stay-categories{
-    flex-wrap:nowrap;overflow-x:auto;padding-bottom:5px;
-    scrollbar-width:none;
-  }
-  .stay-categories button{flex-shrink:0}
-  .simple-grid{grid-template-columns:1fr}
-  .info-card img{height:210px}
-  .extra-filters{display:grid;grid-template-columns:1fr 1fr}
-  .extra-filters input{grid-column:1/-1;min-width:0}
-  .extra-filters select{min-width:0;width:100%}
-  .footer-grid{grid-template-columns:repeat(2,1fr);gap:22px}
-  footer{padding-top:35px}
-  .partner-intro h1{font-size:33px}
-  .partner-why h2{font-size:26px}
-  .signin-form-side{padding:20px 15px 40px}
-  .signin-card{padding:25px 20px}
-  .modal{padding:17px}
-  .modal img{height:190px}
+ .hero{height:680px}
+ .hero-inner{padding-top:65px}
+ .hero h1{font-size:43px}
+ .search-box{bottom:-185px;display:grid;grid-template-columns:repeat(2,1fr)}
+ .search-field{border:1px solid var(--line);border-radius:8px}
+ .search-box .pink-btn{grid-column:1/-1}
+ .stats{padding-top:215px;grid-template-columns:repeat(2,1fr)}
+ .page-layout{display:block}
+ .sidebar{
+  position:static;background:white;padding:16px;
+  border-radius:12px;margin-bottom:20px
+ }
+ .destination-grid,.stays-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .card-image,.stay-photo{height:135px}
+ .results-heading{flex-direction:column;align-items:start}
+ .results-actions{width:100%;justify-content:space-between}
+ .embedded-map{height:420px}
+ .detail-map{height:250px}
+ .nav-actions .pink-btn{padding:10px;font-size:10px}
+ .signin-btn{font-size:10px;padding:5px 9px 5px 5px}
+ .signin-icon{width:25px;height:25px}
+ .dashboard-form{grid-template-columns:1fr}
+ .full-field{grid-column:1}
+ .dashboard-business-item{flex-wrap:wrap}
+ .dashboard-business-item .item-info{flex-basis:calc(100% - 120px)}
+ .item-actions{width:100%}
+ .business-grid{grid-template-columns:1fr}
+ .product-row{grid-template-columns:1fr 75px}
+ .product-row input:nth-child(3){grid-column:1}
+ .product-row button{grid-column:2;grid-row:2}
+ .product-gallery{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:360px){
-  .logo{font-size:11px}
-  .logo b{font-size:17px}
-  .category-tile{height:145px}
-  .hero h1{font-size:34px}
-  .stats strong{font-size:11px}
+@media(max-width:390px){
+ .destination-grid,.stays-grid,.simple-grid{grid-template-columns:1fr}
+ .card-image,.stay-photo{height:200px}
+ .logo{font-size:14px}
+ .detail-info-grid{grid-template-columns:1fr}
+ .benefit-grid,.partner-steps{grid-template-columns:1fr}
+ .dashboard-stats{grid-template-columns:1fr 1fr}
+ .stat-card{padding:13px}
 }
 </style>
 </head>
 
 <body>
 
-<header id="mainHeader">
+<header>
 <div class="container nav">
-
-  <a class="logo" onclick="showPage('home')">
-    <b>✿</b>My<span>Catanduanes</span>Guide
-  </a>
-
-  <nav class="nav-links" id="navLinks">
-    <a data-nav="home" onclick="showPage('home')">Home</a>
-    <a data-nav="destinations" onclick="showPage('destinations')">Destinations</a>
-    <a data-nav="stays" onclick="showPage('stays')">Stays</a>
-    <a data-nav="activities" onclick="showPage('activities')">Activities</a>
-    <a data-nav="transport" onclick="showPage('transport')">Transportation</a>
-    <a data-nav="businesses" onclick="showPage('businesses')">Local Businesses</a>
-    <a data-nav="about" onclick="showPage('about')">About</a>
-
-    <div class="mobile-menu-actions">
-      <button class="pink-btn" onclick="showPage('partner')">
-        List Your Business ↗
-      </button>
-      <button class="signin-btn" style="font-size:12px;justify-content:center"
-        onclick="showPage('signin')">
-        <span class="signin-icon">●</span> Sign In
-      </button>
-    </div>
-  </nav>
-
-  <div class="nav-actions">
-    <button class="pink-btn" onclick="showPage('partner')">
-      List Your Business ↗
-    </button>
-    <button class="signin-btn" onclick="showPage('signin')" aria-label="Sign In">
-      <span class="signin-icon">●</span> Sign In
-    </button>
-  </div>
-
-  <button class="menu-btn" id="menuBtn"
-    aria-label="Toggle navigation" aria-expanded="false">☰</button>
-
+ <a class="logo" onclick="showPage('home')"><b>✿</b>My<span>Catanduanes</span>Guide</a>
+ <button class="menu-btn" id="menuBtn">☰</button>
+ <nav class="nav-links" id="navLinks">
+  <a data-nav="home" onclick="showPage('home')">Home</a>
+  <a data-nav="destinations" onclick="showPage('destinations')">Destinations</a>
+  <a data-nav="stays" onclick="showPage('stays')">Stays</a>
+  <a data-nav="activities" onclick="showPage('activities')">Activities</a>
+  <a data-nav="transport" onclick="showPage('transport')">Transportation</a>
+  <a data-nav="businesses" onclick="showPage('businesses')">Local Businesses</a>
+  <a data-nav="about" onclick="showPage('about')">About</a>
+ </nav>
+ <div class="nav-actions">
+  <button class="pink-btn" id="partnerNavBtn" onclick="openPartnerArea()">List Your Business ↗</button>
+  <button class="signin-btn" id="signinNavBtn" onclick="openSignInArea()">
+   <span class="signin-icon">●</span>
+   <span id="signinNavText">Sign In</span>
+  </button>
+ </div>
 </div>
 </header>
 
 <!-- HOME -->
 <div id="homePage">
-
 <section class="hero">
-  <div class="container hero-inner">
-    <span class="hero-badge">
-      🌴 EXPLORE THE HAPPY ISLAND • CATANDUANES
-    </span>
+ <div class="container hero-inner">
+  <span class="hero-badge">🌴 EXPLORE THE HAPPY ISLAND • CATANDUANES</span>
+  <h1>Your Catanduanes<br>island adventure,<br><span>starts here.</span></h1>
+  <p>Discover beautiful beaches, scenic viewpoints, accommodations, local experiences and businesses across Catanduanes.</p>
+  <p>★★★★★ &nbsp; Discover more. Explore local. Support Catandunganons.</p>
+ </div>
 
-    <h1>
-      Your Catanduanes<br>
-      island adventure,<br>
-      <span>starts here.</span>
-    </h1>
-
-    <p>
-      Discover beautiful beaches, scenic viewpoints,
-      accommodations, local experiences and businesses
-      across Catanduanes.
-    </p>
-
-    <p>★★★★★ &nbsp; Discover more. Explore local. Support Catandunganons.</p>
+ <form class="search-box" id="homeSearch">
+  <div class="search-field">
+   <label>WHAT ARE YOU LOOKING FOR?</label>
+   <select id="homeCategory">
+    <option value="all">All destinations</option>
+    <option value="beach">Beaches</option>
+    <option value="waterfall">Waterfalls</option>
+    <option value="viewpoint">Viewpoints</option>
+    <option value="culture">Heritage & Culture</option>
+   </select>
   </div>
-
-  <form class="search-box" id="homeSearch">
-    <div class="search-field">
-      <label for="homeCategory">WHAT ARE YOU LOOKING FOR?</label>
-      <select id="homeCategory">
-        <option value="all">All destinations</option>
-        <option value="beach">Beaches</option>
-        <option value="waterfall">Waterfalls</option>
-        <option value="viewpoint">Viewpoints</option>
-        <option value="culture">Heritage & Culture</option>
-      </select>
-    </div>
-
-    <div class="search-field">
-      <label for="homeLocation">LOCATION</label>
-      <select id="homeLocation">
-        <option value="all">Anywhere in Catanduanes</option>
-        <option>Baras</option>
-        <option>Virac</option>
-        <option>San Andres</option>
-        <option>Bagamanoc</option>
-        <option>Gigmoto</option>
-        <option>Pandan</option>
-        <option>Caramoran</option>
-        <option>Bato</option>
-        <option>San Miguel</option>
-        <option>Viga</option>
-        <option>Panganiban</option>
-      </select>
-    </div>
-
-    <div class="search-field">
-      <label for="travelDate">TRAVEL DATE</label>
-      <input type="date" id="travelDate">
-    </div>
-
-    <div class="search-field">
-      <label for="travelers">TRAVELERS</label>
-      <select id="travelers">
-        <option>1 traveler</option>
-        <option selected>2 travelers</option>
-        <option>3 travelers</option>
-        <option>4+ travelers</option>
-      </select>
-    </div>
-
-    <button class="pink-btn" type="submit">⌕ Explore</button>
-  </form>
+  <div class="search-field">
+   <label>LOCATION</label>
+   <select id="homeLocation">
+    <option value="all">Anywhere in Catanduanes</option>
+    <option>Baras</option><option>Virac</option>
+    <option>San Andres</option><option>Bagamanoc</option>
+    <option>Gigmoto</option><option>Pandan</option>
+    <option>Caramoran</option><option>Bato</option>
+    <option>San Miguel</option><option>Viga</option>
+    <option>Panganiban</option>
+   </select>
+  </div>
+  <div class="search-field">
+   <label>TRAVEL DATE</label>
+   <input type="date" id="travelDate">
+  </div>
+  <div class="search-field">
+   <label>TRAVELERS</label>
+   <select id="travelers">
+    <option>1 traveler</option>
+    <option selected>2 travelers</option>
+    <option>3 travelers</option>
+    <option>4+ travelers</option>
+   </select>
+  </div>
+  <button class="pink-btn">⌕ Explore</button>
+ </form>
 </section>
 
 <div class="container stats">
-  <div><strong>11</strong><span>Municipalities</span></div>
-  <div><strong>Happy Island</strong><span>Explore Catanduanes</span></div>
-  <div><strong>Nature</strong><span>Beautiful destinations</span></div>
-  <div><strong>Support Local</strong><span>Help island businesses</span></div>
+ <div><strong>11</strong><span>Municipalities</span></div>
+ <div><strong>Happy Island</strong><span>Explore Catanduanes</span></div>
+ <div><strong>Nature</strong><span>Beautiful destinations</span></div>
+ <div><strong>Support Local</strong><span>Help island businesses</span></div>
 </div>
 
 <section class="section gray">
 <div class="container">
-  <span class="eyebrow">EXPLORE YOUR WAY</span>
-  <h2 class="section-title">
-    Discover everything Catanduanes has to offer.
-  </h2>
-
-  <div class="category-grid">
-    <div class="category-tile" onclick="categoryShortcut('beach')">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Beach">
-      <div><h3>Beaches</h3><p>Explore the coast</p></div>
-    </div>
-
-    <div class="category-tile" onclick="categoryShortcut('waterfall')">
-      <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600" alt="Waterfall">
-      <div><h3>Waterfalls</h3><p>Discover nature</p></div>
-    </div>
-
-    <div class="category-tile" onclick="categoryShortcut('viewpoint')">
-      <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600" alt="Viewpoint">
-      <div><h3>Viewpoints</h3><p>Scenic landscapes</p></div>
-    </div>
-
-    <div class="category-tile" onclick="showPage('businesses')">
-      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600" alt="Local businesses">
-      <div><h3>Local Businesses</h3><p>Support local</p></div>
-    </div>
+ <span class="eyebrow">EXPLORE YOUR WAY</span>
+ <h2 class="section-title">Discover everything Catanduanes has to offer.</h2>
+ <div class="category-grid">
+  <div class="category-tile" onclick="categoryShortcut('beach')">
+   <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Beach">
+   <div><h3>Beaches</h3><p>Explore the coast</p></div>
   </div>
+  <div class="category-tile" onclick="categoryShortcut('waterfall')">
+   <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600" alt="Waterfall">
+   <div><h3>Waterfalls</h3><p>Discover nature</p></div>
+  </div>
+  <div class="category-tile" onclick="categoryShortcut('viewpoint')">
+   <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600" alt="Viewpoint">
+   <div><h3>Viewpoints</h3><p>Scenic landscapes</p></div>
+  </div>
+  <div class="category-tile" onclick="showPage('businesses')">
+   <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600" alt="Business">
+   <div><h3>Local Businesses</h3><p>Support local</p></div>
+  </div>
+ </div>
 </div>
 </section>
 
 <section class="section">
 <div class="container">
-  <span class="eyebrow">POPULAR DESTINATIONS</span>
-  <h2 class="section-title">Find your favorite island spots.</h2>
-  <div class="destination-grid" id="homeDestinations"></div>
-
-  <div style="text-align:center;margin-top:25px">
-    <button class="pink-btn" onclick="showPage('destinations')">
-      View All Destinations ↗
-    </button>
-  </div>
+ <span class="eyebrow">POPULAR DESTINATIONS</span>
+ <h2 class="section-title">Find your favorite island spots.</h2>
+ <div class="destination-grid" id="homeDestinations"></div>
+ <div style="text-align:center;margin-top:25px">
+  <button class="pink-btn" onclick="showPage('destinations')">View All Destinations ↗</button>
+ </div>
 </div>
 </section>
 
 <section class="section gray">
 <div class="container">
-  <span class="eyebrow">ACCOMMODATIONS</span>
-  <h2 class="section-title">Find your perfect island stay.</h2>
-  <div class="stays-grid" id="homeStays"></div>
-
-  <div style="text-align:center;margin-top:25px">
-    <button class="pink-btn" onclick="showPage('stays')">
-      View All Stays ↗
-    </button>
-  </div>
+ <span class="eyebrow">ACCOMMODATIONS</span>
+ <h2 class="section-title">Find your perfect island stay.</h2>
+ <div class="stays-grid" id="homeStays"></div>
+ <div style="text-align:center;margin-top:25px">
+  <button class="pink-btn" onclick="showPage('stays')">View All Stays ↗</button>
+ </div>
 </div>
 </section>
 
+<!-- NEW: HOME BUSINESS PROMOTION -->
+<section class="section">
+<div class="container">
+ <span class="eyebrow">SUPPORT CATANDUNGANON ENTREPRENEURS</span>
+ <h2 class="section-title">Discover local businesses.</h2>
+ <p class="section-desc">Explore approved local businesses, products and services across Catanduanes.</p>
+ <div class="business-grid" id="homeBusinesses" style="margin-top:22px"></div>
+ <div style="text-align:center;margin-top:25px">
+  <button class="pink-btn" onclick="showPage('businesses')">Explore Local Businesses ↗</button>
+ </div>
+</div>
+</section>
 </div>
 
 <!-- DESTINATIONS -->
 <div id="destinationsPage" class="listing-page hidden">
-
 <div class="page-top">
 <div class="container">
-  <div class="breadcrumb">
-    <a onclick="showPage('home')">Home</a> / Destinations
-  </div>
-
-  <div class="page-search">
-    <input id="destinationSearch" placeholder="Search tourist spots...">
-
-    <select id="topCategory">
-      <option value="all">All categories</option>
-      <option value="beach">Beaches</option>
-      <option value="waterfall">Waterfalls</option>
-      <option value="viewpoint">Viewpoints</option>
-      <option value="culture">Heritage & Culture</option>
-    </select>
-
-    <select id="topLocation">
-      <option value="all">All municipalities</option>
-      <option>Baras</option>
-      <option>Virac</option>
-      <option>Bato</option>
-      <option>Pandan</option>
-      <option>San Andres</option>
-      <option>Caramoran</option>
-      <option>Bagamanoc</option>
-      <option>Gigmoto</option>
-      <option>Viga</option>
-      <option>San Miguel</option>
-      <option>Panganiban</option>
-    </select>
-
-    <button onclick="applyDestinationFilters()">⌕ Search</button>
-  </div>
+ <div class="breadcrumb"><a onclick="showPage('home')">Home</a> / Destinations</div>
+ <div class="page-search">
+  <input id="destinationSearch" placeholder="Search tourist spots...">
+  <select id="topCategory">
+   <option value="all">All categories</option>
+   <option value="beach">Beaches</option>
+   <option value="waterfall">Waterfalls</option>
+   <option value="viewpoint">Viewpoints</option>
+   <option value="culture">Heritage & Culture</option>
+  </select>
+  <select id="topLocation">
+   <option value="all">All municipalities</option>
+   <option>Baras</option><option>Virac</option>
+   <option>Bato</option><option>Pandan</option>
+   <option>San Andres</option><option>Caramoran</option>
+   <option>Bagamanoc</option><option>Gigmoto</option>
+   <option>Viga</option><option>San Miguel</option>
+   <option>Panganiban</option>
+  </select>
+  <button onclick="applyDestinationFilters()">⌕ Search</button>
+ </div>
 </div>
 </div>
 
 <div class="container page-layout">
+<aside class="sidebar">
+ <h2>Explore Catanduanes</h2>
+ <p>Find your next island destination.</p>
+ <div class="filter-group">
+  <h3>DESTINATION TYPE</h3>
+  <div id="destinationCategoryFilters"></div>
+ </div>
+ <div class="filter-group">
+  <h3>MUNICIPALITY</h3>
+  <div id="destinationLocationFilters"></div>
+ </div>
+ <button class="clear-btn" onclick="clearDestinationFilters()">Clear Filters ×</button>
+</aside>
+
+<div>
+ <div class="results-heading">
   <div>
-    <button class="mobile-filter-toggle"
-      onclick="toggleMobileFilters('destinationSidebar',this)"
-      aria-expanded="false">
-      ☷ Filter Destinations <span>＋</span>
-    </button>
-
-    <aside class="sidebar mobile-collapsed" id="destinationSidebar">
-      <h2>Explore Catanduanes</h2>
-      <p>Find your next island destination.</p>
-
-      <div class="filter-group">
-        <h3>DESTINATION TYPE</h3>
-        <div id="destinationCategoryFilters"></div>
-      </div>
-
-      <div class="filter-group">
-        <h3>MUNICIPALITY</h3>
-        <div id="destinationLocationFilters"></div>
-      </div>
-
-      <button class="clear-btn" onclick="clearDestinationFilters()">
-        Clear Filters ×
-      </button>
-    </aside>
+   <h1>Catanduanes Tourist Destinations</h1>
+   <p id="destinationCount"></p>
   </div>
-
-  <div>
-    <div class="results-heading">
-      <div>
-        <h1>Catanduanes Tourist Destinations</h1>
-        <p id="destinationCount"></p>
-      </div>
-
-      <select id="destinationSort" onchange="applyDestinationFilters()">
-        <option value="default">Recommended</option>
-        <option value="name">Name A–Z</option>
-        <option value="location">Municipality</option>
-      </select>
-    </div>
-
-    <div class="destination-grid" id="destinationResults"></div>
-    <div class="pagination" id="destinationPagination"></div>
+  <div class="results-actions">
+   <select id="destinationSort" onchange="applyDestinationFilters()">
+    <option value="default">Recommended</option>
+    <option value="name">Name A–Z</option>
+    <option value="location">Municipality</option>
+   </select>
+   <button class="map-toggle" id="destinationMapBtn" onclick="toggleMap('destination')">
+    📍 <span>Show Map</span>
+   </button>
   </div>
+ </div>
+
+ <div class="map-panel hidden" id="destinationMapPanel">
+  <div class="map-panel-top">
+   <div>
+    <h3>🗺️ Interactive Catanduanes Map</h3>
+    <p>Tap a circular photo pin to view destination details.</p>
+   </div>
+   <span class="map-count" id="destinationMapCount">0 PLACES</span>
+  </div>
+  <div id="destinationMap" class="embedded-map"></div>
+  <div class="map-caption">
+   Pink photo markers indicate approximate tourist destinations.
+   All map interactions happen inside this website.
+  </div>
+ </div>
+
+ <div class="destination-grid" id="destinationResults"></div>
+ <div class="pagination" id="destinationPagination"></div>
+</div>
 </div>
 </div>
 
 <!-- STAYS -->
 <div id="staysPage" class="listing-page hidden">
-
 <div class="page-top">
 <div class="container">
-  <div class="breadcrumb">
-    <a onclick="showPage('home')">Home</a> / Stays
-  </div>
-
-  <div class="page-search">
-    <input id="staySearch" placeholder="Search hotels, resorts, villas...">
-
-    <select id="stayLocation">
-      <option value="all">All municipalities</option>
-      <option>Virac</option>
-      <option>Baras</option>
-      <option>San Andres</option>
-      <option>Pandan</option>
-      <option>Caramoran</option>
-      <option>Bato</option>
-    </select>
-
-    <select id="staySort">
-      <option value="default">Recommended</option>
-      <option value="low">Price: Low to High</option>
-      <option value="high">Price: High to Low</option>
-      <option value="rating">Highest Rated</option>
-    </select>
-
-    <button onclick="applyStayFilters()">⌕ Search</button>
-  </div>
+ <div class="breadcrumb"><a onclick="showPage('home')">Home</a> / Stays</div>
+ <div class="page-search">
+  <input id="staySearch" placeholder="Search hotels, resorts, villas...">
+  <select id="stayLocation">
+   <option value="all">All municipalities</option>
+   <option>Virac</option><option>Baras</option>
+   <option>San Andres</option><option>Pandan</option>
+   <option>Caramoran</option><option>Bato</option>
+  </select>
+  <select id="staySort">
+   <option value="default">Recommended</option>
+   <option value="low">Price: Low to High</option>
+   <option value="high">Price: High to Low</option>
+   <option value="rating">Highest Rated</option>
+  </select>
+  <button onclick="applyStayFilters()">⌕ Search</button>
+ </div>
 </div>
 </div>
 
 <div class="container">
-  <div class="stay-categories">
-    <button class="active" data-stay-type="all">All Stays</button>
-    <button data-stay-type="Hotel">Hotels</button>
-    <button data-stay-type="Resort">Resorts</button>
-    <button data-stay-type="Villa">Villas</button>
-    <button data-stay-type="Homestay">Homestays</button>
-    <button data-stay-type="Beachfront">Beachfront</button>
-  </div>
+ <div class="stay-categories">
+  <button class="active" data-stay-type="all">All Stays</button>
+  <button data-stay-type="Hotel">Hotels</button>
+  <button data-stay-type="Resort">Resorts</button>
+  <button data-stay-type="Villa">Villas</button>
+  <button data-stay-type="Homestay">Homestays</button>
+  <button data-stay-type="Beachfront">Beachfront</button>
+ </div>
 </div>
 
 <div class="container page-layout">
+<aside class="sidebar">
+ <h2>Catanduanes Stays</h2>
+ <p>Find hotels, resorts and homestays across the island.</p>
+ <div class="filter-group">
+  <h3>PROPERTY TYPE</h3>
+  <div id="stayTypeFilters"></div>
+ </div>
+ <div class="filter-group">
+  <h3>PRICE PER NIGHT</h3>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="all" checked> Any price</label>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="budget"> Under ₱2,000</label>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="mid"> ₱2,000 – ₱4,000</label>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="premium"> Above ₱4,000</label>
+ </div>
+ <div class="filter-group">
+  <h3>AMENITIES</h3>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="WiFi"> WiFi</label>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="Pool"> Swimming Pool</label>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="Parking"> Parking</label>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="Beach Access"> Beach Access</label>
+ </div>
+ <button class="clear-btn" onclick="clearStayFilters()">Clear All Filters ×</button>
+</aside>
+
+<div>
+ <div class="results-heading">
   <div>
-    <button class="mobile-filter-toggle"
-      onclick="toggleMobileFilters('staySidebar',this)"
-      aria-expanded="false">
-      ☷ Filter Accommodations <span>＋</span>
-    </button>
-
-    <aside class="sidebar mobile-collapsed" id="staySidebar">
-      <h2>Catanduanes Stays</h2>
-      <p>Find hotels, resorts and homestays across the island.</p>
-
-      <div class="filter-group">
-        <h3>PROPERTY TYPE</h3>
-        <div id="stayTypeFilters"></div>
-      </div>
-
-      <div class="filter-group">
-        <h3>PRICE PER NIGHT</h3>
-        <label class="filter-option">
-          <input type="radio" name="priceFilter" value="all" checked> Any price
-        </label>
-        <label class="filter-option">
-          <input type="radio" name="priceFilter" value="budget"> Under ₱2,000
-        </label>
-        <label class="filter-option">
-          <input type="radio" name="priceFilter" value="mid"> ₱2,000 – ₱4,000
-        </label>
-        <label class="filter-option">
-          <input type="radio" name="priceFilter" value="premium"> Above ₱4,000
-        </label>
-      </div>
-
-      <div class="filter-group">
-        <h3>AMENITIES</h3>
-        <label class="filter-option">
-          <input type="checkbox" name="amenity" value="WiFi"> WiFi
-        </label>
-        <label class="filter-option">
-          <input type="checkbox" name="amenity" value="Pool"> Swimming Pool
-        </label>
-        <label class="filter-option">
-          <input type="checkbox" name="amenity" value="Parking"> Parking
-        </label>
-        <label class="filter-option">
-          <input type="checkbox" name="amenity" value="Beach Access"> Beach Access
-        </label>
-      </div>
-
-      <button class="clear-btn" onclick="clearStayFilters()">
-        Clear All Filters ×
-      </button>
-    </aside>
+   <h1>Hotels, Resorts & Villas in Catanduanes</h1>
+   <p id="stayCount"></p>
   </div>
-
-  <div>
-    <div class="results-heading">
-      <div>
-        <h1>Hotels, Resorts & Villas in Catanduanes</h1>
-        <p id="stayCount"></p>
-      </div>
-    </div>
-
-    <div class="stays-grid" id="stayResults"></div>
-    <div class="pagination" id="stayPagination"></div>
+  <div class="results-actions">
+   <button class="map-toggle" id="stayMapBtn" onclick="toggleMap('stay')">
+    📍 <span>Show Map</span>
+   </button>
   </div>
+ </div>
+
+ <div class="map-panel hidden" id="stayMapPanel">
+  <div class="map-panel-top">
+   <div>
+    <h3>🏨 Explore Accommodations on Map</h3>
+    <p>Tap a teal photo pin to view available example stays.</p>
+   </div>
+   <span class="map-count" id="stayMapCount">0 STAYS</span>
+  </div>
+  <div id="stayMap" class="embedded-map"></div>
+  <div class="map-caption">
+   Teal markers show sample accommodations at municipality reference
+   locations, not verified property addresses.
+  </div>
+ </div>
+
+ <div class="stays-grid" id="stayResults"></div>
+ <div class="pagination" id="stayPagination"></div>
+</div>
 </div>
 </div>
 
 <!-- ACTIVITIES -->
 <div id="activitiesPage" class="simple-page hidden">
 <div class="container">
-  <span class="eyebrow">THINGS TO DO</span>
-  <h1 class="section-title">Activities in Catanduanes</h1>
-
-  <div class="extra-filters">
-    <input id="activitySearch" placeholder="Search activities...">
-    <select id="activityType">
-      <option value="all">All activities</option>
-      <option value="surfing">Surfing</option>
-      <option value="nature">Nature</option>
-      <option value="sightseeing">Sightseeing</option>
-    </select>
-    <select id="activityLocation">
-      <option value="all">All municipalities</option>
-      <option>Baras</option>
-      <option>Bato</option>
-      <option>Virac</option>
-    </select>
-  </div>
-
-  <p class="result-note" id="activityCount"></p>
-  <div class="simple-grid" id="activitiesGrid"></div>
+ <span class="eyebrow">THINGS TO DO</span>
+ <h1 class="section-title">Activities in Catanduanes</h1>
+ <div class="simple-grid" id="activitiesGrid"></div>
 </div>
 </div>
 
-<!-- TRANSPORTATION -->
+<!-- TRANSPORT -->
 <div id="transportPage" class="simple-page hidden">
 <div class="container">
-  <span class="eyebrow">TRANSPORTATION</span>
-  <h1 class="section-title">Getting Around Catanduanes</h1>
-
-  <div class="extra-filters">
-    <input id="transportSearch" placeholder="Search transportation...">
-    <select id="transportType">
-      <option value="all">All transportation</option>
-      <option value="airport">Airport Transfers</option>
-      <option value="local">Local Transportation</option>
-      <option value="ferry">Ferry Travel</option>
-    </select>
-  </div>
-
-  <p class="result-note" id="transportCount"></p>
-  <div class="simple-grid" id="transportGrid"></div>
+ <span class="eyebrow">TRANSPORTATION</span>
+ <h1 class="section-title">Getting Around Catanduanes</h1>
+ <div class="simple-grid" id="transportGrid"></div>
 </div>
 </div>
 
-<!-- BUSINESSES -->
+<!-- NEW LOCAL BUSINESS LISTING -->
 <div id="businessesPage" class="simple-page hidden">
 <div class="container">
-  <span class="eyebrow">SUPPORT LOCAL</span>
-  <h1 class="section-title">Local Businesses in Catanduanes</h1>
 
-  <p class="section-desc">
-    Discover local businesses and support Catandunganon entrepreneurs.
-  </p>
-
-  <button class="pink-btn" onclick="showPage('partner')">
-    + List Your Business
-  </button>
-
-  <div class="extra-filters">
-    <input id="businessSearch" placeholder="Search local businesses...">
-
-    <select id="businessType">
-      <option value="all">All businesses</option>
-      <option value="Restaurant">Restaurants</option>
-      <option value="Shop">Shops</option>
-      <option value="Accommodation">Accommodations</option>
-    </select>
-
-    <select id="businessLocation">
-      <option value="all">All municipalities</option>
-      <option>Virac</option>
-      <option>Baras</option>
-      <option>Bato</option>
-      <option>San Andres</option>
-      <option>Pandan</option>
-      <option>Caramoran</option>
-    </select>
+ <div class="business-intro">
+  <div>
+   <span class="eyebrow" style="color:#ffcf27">SUPPORT LOCAL</span>
+   <h2>Discover Catanduanes Local Businesses</h2>
+   <p>Explore local restaurants, shops, accommodations, transportation and services. Help local entrepreneurs grow through tourism.</p>
   </div>
+  <button class="pink-btn" onclick="openPartnerArea()">+ List Your Business ↗</button>
+ </div>
 
-  <p class="result-note" id="businessCount"></p>
-  <div class="simple-grid" id="businessGrid"></div>
+ <div class="business-toolbar">
+  <input id="businessSearch" placeholder="⌕ Search businesses, products or services...">
+  <select id="businessCategoryFilter">
+   <option value="all">All Business Categories</option>
+   <option>Restaurant & Food</option>
+   <option>Souvenirs & Handicrafts</option>
+   <option>Accommodation</option>
+   <option>Transportation</option>
+   <option>Tourism & Activities</option>
+   <option>Retail & Shopping</option>
+   <option>Other Services</option>
+  </select>
+  <select id="businessLocationFilter">
+   <option value="all">All Municipalities</option>
+   <option>Baras</option><option>Virac</option>
+   <option>San Andres</option><option>Bagamanoc</option>
+   <option>Gigmoto</option><option>Pandan</option>
+   <option>Caramoran</option><option>Bato</option>
+   <option>San Miguel</option><option>Viga</option>
+   <option>Panganiban</option>
+  </select>
+  <button class="pink-btn" onclick="renderBusinesses()">Search</button>
+ </div>
+
+ <div class="results-heading">
+  <div>
+   <h1>Local Business Directory</h1>
+   <p id="businessCount">Approved business listings</p>
+  </div>
+  <button class="map-toggle" id="businessMapBtn" onclick="toggleMap('business')">
+   📍 <span>Show Map</span>
+  </button>
+ </div>
+
+ <div class="map-panel business-map hidden" id="businessMapPanel">
+  <div class="map-panel-top">
+   <div>
+    <h3>🗺️ Local Businesses on the Map</h3>
+    <p>Tap an orange circular photo marker to view a business.</p>
+   </div>
+   <span class="map-count" id="businessMapCount">0 BUSINESSES</span>
+  </div>
+  <div id="businessMap" class="embedded-map"></div>
+  <div class="map-caption">
+   Business pins use owner-selected coordinates. Map locations are not independently verified in this prototype.
+  </div>
+ </div>
+
+ <div class="business-grid" id="businessGrid"></div>
+
 </div>
 </div>
 
 <!-- ABOUT -->
 <div id="aboutPage" class="simple-page hidden">
 <div class="container">
-  <span class="eyebrow">ABOUT OUR PLATFORM</span>
-  <h1 class="section-title">Discover. Explore. Support Local.</h1>
-
-  <p class="section-desc" style="max-width:750px">
-    MyCatanduanesGuide is a proposed tourism and business promotion
-    platform that helps visitors discover destinations, accommodations,
-    transportation options and local businesses throughout Catanduanes.
-  </p>
-
-  <div class="partner-cards" style="margin-top:30px">
-    <div class="partner-card">
-      <div class="partner-card-icon">📍</div>
-      <h3>Discover Destinations</h3>
-      <p>Find beaches, waterfalls, viewpoints and cultural attractions.</p>
-    </div>
-
-    <div class="partner-card">
-      <div class="partner-card-icon">🏨</div>
-      <h3>Plan Your Visit</h3>
-      <p>Explore accommodation, transportation and activity information.</p>
-    </div>
-
-    <div class="partner-card">
-      <div class="partner-card-icon">🤝</div>
-      <h3>Support Local</h3>
-      <p>Help local businesses connect with visitors and promote their services.</p>
-    </div>
-  </div>
+ <span class="eyebrow">ABOUT OUR PLATFORM</span>
+ <h1 class="section-title">Discover. Explore. Support Local.</h1>
+ <p class="section-desc" style="max-width:750px">
+  MyCatanduanesGuide is a proposed tourism and business promotion
+  platform that helps visitors discover destinations, accommodations,
+  transportation options and local businesses throughout Catanduanes.
+ </p>
 </div>
 </div>
 
 <!-- PARTNER REGISTRATION -->
 <div id="partnerPage" class="hidden">
-
 <section class="partner-hero">
 <div class="container partner-layout">
 
-  <div class="partner-intro">
-    <span class="partner-label">
-      🟡 Partner with us • Catanduanes Tourism
-    </span>
+ <div class="partner-intro">
+  <span class="partner-label">🌴 Partner with us • Catanduanes Tourism</span>
+  <h1>Grow your Catanduanes business with <span>MyCatanduanesGuide</span></h1>
+  <p>Reach more tourists, showcase your products and services,
+  and manage your business information through a platform
+  designed to promote tourism and support local entrepreneurs.</p>
 
-    <h1>
-      Grow your Catanduanes business with
-      <span>MyCatanduanesGuide</span>
-    </h1>
+  <div class="partner-benefit"><b>✓</b> Free business registration</div>
+  <div class="partner-benefit"><b>✓</b> Your own business profile and dashboard</div>
+  <div class="partner-benefit"><b>✓</b> Showcase products, services and photos</div>
+  <div class="partner-benefit"><b>✓</b> Display your business on the interactive map</div>
+  <div class="partner-benefit"><b>✓</b> Publish special offers and promotions</div>
+  <div class="partner-benefit"><b>✓</b> Receive direct customer inquiries</div>
+  <div class="partner-benefit"><b>✓</b> Track views and customer contact clicks</div>
+ </div>
 
-    <p>
-      Reach more tourists, showcase your products and services,
-      and manage your business information through a platform
-      designed to promote tourism and support local entrepreneurs
-      across Catanduanes.
-    </p>
+ <div class="auth-card">
+  <h2>Create your partner account</h2>
+  <p class="auth-subtitle">Register to start showcasing your business.</p>
 
-    <div class="partner-benefits">
-      <div class="partner-benefit"><b>✓</b> Create your partner account in minutes</div>
-      <div class="partner-benefit"><b>✓</b> Start preparing your business listing</div>
-      <div class="partner-benefit"><b>✓</b> Showcase your products, services and location</div>
-      <div class="partner-benefit"><b>✓</b> Help tourists discover and contact your business</div>
+  <form class="auth-form" id="partnerForm">
+   <div class="auth-field">
+    <label>FULL NAME</label>
+    <input id="partnerName" type="text" required minlength="2">
+   </div>
+   <div class="auth-field">
+    <label>EMAIL ADDRESS</label>
+    <input id="partnerEmail" type="email" required>
+   </div>
+   <div class="auth-field">
+    <label>PHONE (OPTIONAL)</label>
+    <input id="partnerPhone" type="tel">
+   </div>
+   <div class="auth-field">
+    <label>PASSWORD (DEMO ONLY)</label>
+    <div class="password-wrap">
+     <input id="partnerPassword" type="password" required minlength="8">
+     <button class="password-toggle" type="button" onclick="togglePassword('partnerPassword',this)">Show</button>
     </div>
-
-    <div class="partner-trust">
-      <span>🔒 Your data matters</span>
-      <span>⚡ Easy registration</span>
-      <span>📍 Supporting Catanduanes businesses</span>
+   </div>
+   <div class="auth-field">
+    <label>CONFIRM PASSWORD</label>
+    <div class="password-wrap">
+     <input id="partnerConfirm" type="password" required minlength="8">
+     <button class="password-toggle" type="button" onclick="togglePassword('partnerConfirm',this)">Show</button>
     </div>
+   </div>
+   <label class="agreement">
+    <input type="checkbox" id="partnerAgree" required>
+    <span>I agree to participate in this demonstration of the Partner Agreement, Terms of Service and Privacy Policy.</span>
+   </label>
+   <div id="partnerMessage" class="form-message hidden"></div>
+   <button class="auth-submit" type="submit">Create partner account →</button>
+  </form>
+
+  <div class="auth-switch">
+   Already have an account? <a onclick="showPage('signin')">Sign in</a>
   </div>
-
-  <div class="auth-card">
-    <h2>Create your partner account</h2>
-    <p class="auth-subtitle">Register to start showcasing your business.</p>
-
-    <form class="auth-form" id="partnerForm">
-
-      <div class="auth-field">
-        <label for="partnerName">FULL NAME</label>
-        <input id="partnerName" type="text" autocomplete="name" required minlength="2">
-      </div>
-
-      <div class="auth-field">
-        <label for="partnerEmail">EMAIL ADDRESS</label>
-        <input id="partnerEmail" type="email" autocomplete="email" required>
-      </div>
-
-      <div class="auth-field">
-        <label for="partnerPhone">PHONE (OPTIONAL)</label>
-        <input id="partnerPhone" type="tel" autocomplete="tel">
-      </div>
-
-      <div class="auth-field">
-        <label for="partnerPassword">PASSWORD</label>
-        <div class="password-wrap">
-          <input id="partnerPassword" type="password"
-            autocomplete="new-password" required minlength="8">
-          <button class="password-toggle" type="button"
-            onclick="togglePassword('partnerPassword',this)">Show</button>
-        </div>
-      </div>
-
-      <div class="auth-field">
-        <label for="partnerConfirm">CONFIRM PASSWORD</label>
-        <div class="password-wrap">
-          <input id="partnerConfirm" type="password"
-            autocomplete="new-password" required minlength="8">
-          <button class="password-toggle" type="button"
-            onclick="togglePassword('partnerConfirm',this)">Show</button>
-        </div>
-      </div>
-
-      <label class="agreement">
-        <input type="checkbox" id="partnerAgree" required>
-        <span>
-          I agree to the
-          <a onclick="showLegal('Partner Agreement')">Partner Agreement</a>,
-          <a onclick="showLegal('Terms of Service')">Terms of Service</a>,
-          and <a onclick="showLegal('Privacy Policy')">Privacy Policy</a>.
-        </span>
-      </label>
-
-      <div id="partnerMessage" class="form-message hidden" role="status"></div>
-
-      <button type="submit" class="auth-submit">
-        Create partner account →
-      </button>
-    </form>
-
-    <div class="auth-switch">
-      Already have an account?
-      <a onclick="showPage('signin')">Sign in</a>
-    </div>
-  </div>
-
+ </div>
 </div>
 </section>
 
-<section class="partner-why">
+<!-- NEW PARTNER BENEFITS -->
+<section class="partner-extra">
 <div class="container">
-  <span class="eyebrow">WHY PARTNER WITH MYCATANDUANESGUIDE</span>
-  <h2>More visibility. Easy management. Local support.</h2>
+ <span class="eyebrow">WHY PARTNER WITH US?</span>
+ <h2 class="section-title">Everything you need to promote your business.</h2>
+ <p class="section-desc">Tools designed to help small and growing businesses become more visible to visitors.</p>
 
-  <div class="partner-cards">
-    <div class="partner-card">
-      <div class="partner-card-icon">◎</div>
-      <h3>More Visibility</h3>
-      <p>Help tourists discover your business when searching for accommodations, restaurants, transportation and local services in Catanduanes.</p>
-    </div>
-
-    <div class="partner-card">
-      <div class="partner-card-icon">▦</div>
-      <h3>Easy Management</h3>
-      <p>Prepare your business information, showcase photos and provide contact details for travelers interested in your services.</p>
-    </div>
-
-    <div class="partner-card">
-      <div class="partner-card-icon">♧</div>
-      <h3>Local Partnership</h3>
-      <p>Support the province's tourism development by connecting local businesses with visitors and helping promote Catanduanes.</p>
-    </div>
+ <div class="benefit-grid">
+  <div class="benefit-card">
+   <div class="benefit-icon">🏪</div>
+   <h3>Business Profile</h3>
+   <p>Create a professional listing with your business name, description, location and contact details.</p>
   </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">📍</div>
+   <h3>Interactive Map</h3>
+   <p>Let tourists discover your business through an embedded Catanduanes map.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">🛍️</div>
+   <h3>Products & Services</h3>
+   <p>Showcase your products, services and prices in a dedicated gallery.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">📢</div>
+   <h3>Special Promotions</h3>
+   <p>Promote discounts, seasonal offers and tourism-related packages.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">💬</div>
+   <h3>Direct Inquiries</h3>
+   <p>Help customers reach your business through phone, email or Messenger.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">📊</div>
+   <h3>Business Analytics</h3>
+   <p>View basic counts of profile views, map clicks and contact clicks in the demo dashboard.</p>
+  </div>
+ </div>
 </div>
 </section>
 
-<div class="partner-help">
-  Need assistance with your business listing?
-  <a onclick="showPage('about')">Learn more about the project.</a>
+<section class="section gray">
+<div class="container">
+ <span class="eyebrow">HOW IT WORKS</span>
+ <h2 class="section-title">Four simple steps to get started.</h2>
+ <div class="partner-steps">
+  <div class="partner-step">
+   <strong>1</strong><h3>Create an Account</h3>
+   <p>Register as a local business partner.</p>
+  </div>
+  <div class="partner-step">
+   <strong>2</strong><h3>Add Your Business</h3>
+   <p>Submit your business details, photos, products and location.</p>
+  </div>
+  <div class="partner-step">
+   <strong>3</strong><h3>Admin Approval</h3>
+   <p>Wait for the administrator to review your listing.</p>
+  </div>
+  <div class="partner-step">
+   <strong>4</strong><h3>Reach Tourists</h3>
+   <p>Your approved business appears in the directory and map.</p>
+  </div>
+ </div>
 </div>
+</section>
 </div>
 
 <!-- SIGN IN -->
 <div id="signinPage" class="signin-page hidden">
+<div class="signin-card">
+ <div class="logo" style="margin-bottom:25px"><b>✿</b>My<span>Catanduanes</span>Guide</div>
+ <h1>Welcome back!</h1>
+ <p>Sign in to your MyCatanduanesGuide partner account.</p>
 
-  <div class="signin-visual">
-    <div class="logo"><b>✿</b>My<span>Catanduanes</span>Guide</div>
+ <div class="demo-warning">
+  Local demonstration only. Do not enter real account credentials.
+ </div>
 
-    <h1>Manage your business, all in one place.</h1>
+ <form class="auth-form" id="signinForm">
+  <div class="auth-field">
+   <label>EMAIL ADDRESS</label>
+   <input id="signinEmail" type="email" required>
+  </div>
+  <div class="auth-field">
+   <label>PASSWORD</label>
+   <div class="password-wrap">
+    <input id="signinPassword" type="password" required>
+    <button type="button" class="password-toggle" onclick="togglePassword('signinPassword',this)">Show</button>
+   </div>
+  </div>
+  <div id="signinMessage" class="form-message hidden"></div>
+  <button class="auth-submit" type="submit">Sign In →</button>
+ </form>
+ <div class="auth-switch">
+  Don't have an account? <a onclick="showPage('partner')">Create partner account</a>
+ </div>
+ <div class="auth-switch">
+  <a onclick="fillAdminDemo()">Use demo administrator credentials</a>
+ </div>
+</div>
+</div>
 
-    <p>
-      Connect your Catanduanes business with travelers,
-      showcase your services and become part of the island's
-      growing tourism community.
-    </p>
+<!-- NEW BUSINESS OWNER DASHBOARD -->
+<div id="dashboardPage" class="dashboard-page hidden">
+<div class="container">
+ <div class="dashboard-heading">
+  <div>
+   <span class="eyebrow">BUSINESS PARTNER PORTAL</span>
+   <h1>Welcome, <span id="dashboardUserName">Partner</span>!</h1>
+   <p>Manage your business listings, products, promotions and customer interactions.</p>
+  </div>
+  <div class="dashboard-actions">
+   <button class="outline-btn" onclick="showPage('businesses')">View Directory</button>
+   <button class="outline-btn" onclick="logout()">Sign Out</button>
+  </div>
+ </div>
 
-    <div class="signin-highlights">
-      <div>📍<br><strong>Local Reach</strong><br>Promote your location</div>
-      <div>🏨<br><strong>Business Listings</strong><br>Showcase your services</div>
-      <div>🤝<br><strong>Community</strong><br>Support local tourism</div>
+ <div class="dashboard-stats">
+  <div class="stat-card"><div class="stat-icon">🏪</div><strong id="ownerTotal">0</strong><span>My Businesses</span></div>
+  <div class="stat-card"><div class="stat-icon">👁️</div><strong id="ownerViews">0</strong><span>Profile Views</span></div>
+  <div class="stat-card"><div class="stat-icon">💬</div><strong id="ownerContacts">0</strong><span>Contact Clicks</span></div>
+  <div class="stat-card"><div class="stat-icon">📍</div><strong id="ownerMapViews">0</strong><span>Map Interactions</span></div>
+ </div>
+
+ <div class="dashboard-tabs">
+  <button class="active" data-owner-tab="list" onclick="showOwnerTab('list')">My Businesses</button>
+  <button data-owner-tab="form" onclick="showOwnerTab('form')">+ Add Business</button>
+  <button data-owner-tab="analytics" onclick="showOwnerTab('analytics')">Analytics</button>
+ </div>
+
+ <div id="ownerListTab" class="dashboard-panel">
+  <h2>My Business Listings</h2>
+  <p>Manage submitted businesses and monitor their approval status.</p>
+  <div id="ownerBusinessList" class="dashboard-list"></div>
+ </div>
+
+ <div id="ownerFormTab" class="dashboard-panel hidden">
+  <h2 id="businessFormTitle">Add Your Business</h2>
+  <p>Complete the form below. New or edited listings will be submitted for administrator review.</p>
+
+  <form id="businessSubmissionForm" class="dashboard-form">
+   <input type="hidden" id="editBusinessId">
+
+   <div class="dashboard-field">
+    <label>BUSINESS NAME *</label>
+    <input id="bizName" required maxlength="100" placeholder="Enter business name">
+   </div>
+
+   <div class="dashboard-field">
+    <label>BUSINESS CATEGORY *</label>
+    <select id="bizCategory" required>
+     <option value="">Select category</option>
+     <option>Restaurant & Food</option>
+     <option>Souvenirs & Handicrafts</option>
+     <option>Accommodation</option>
+     <option>Transportation</option>
+     <option>Tourism & Activities</option>
+     <option>Retail & Shopping</option>
+     <option>Other Services</option>
+    </select>
+   </div>
+
+   <div class="dashboard-field">
+    <label>MUNICIPALITY *</label>
+    <select id="bizMunicipality" required>
+     <option value="">Select municipality</option>
+     <option>Baras</option><option>Virac</option>
+     <option>San Andres</option><option>Bagamanoc</option>
+     <option>Gigmoto</option><option>Pandan</option>
+     <option>Caramoran</option><option>Bato</option>
+     <option>San Miguel</option><option>Viga</option>
+     <option>Panganiban</option>
+    </select>
+   </div>
+
+   <div class="dashboard-field">
+    <label>BARANGAY / ADDRESS *</label>
+    <input id="bizAddress" required maxlength="180" placeholder="Barangay, street or landmark">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>BUSINESS DESCRIPTION *</label>
+    <textarea id="bizDescription" required maxlength="1000" placeholder="Describe your business, products and services..."></textarea>
+   </div>
+
+   <div class="dashboard-field">
+    <label>CONTACT NUMBER</label>
+    <input id="bizPhone" type="tel" placeholder="09XXXXXXXXX">
+   </div>
+
+   <div class="dashboard-field">
+    <label>CONTACT EMAIL</label>
+    <input id="bizEmail" type="email" placeholder="business@example.com">
+   </div>
+
+   <div class="dashboard-field">
+    <label>MESSENGER PAGE URL</label>
+    <input id="bizMessenger" type="url" placeholder="https://www.facebook.com/...">
+   </div>
+
+   <div class="dashboard-field">
+    <label>OPERATING HOURS</label>
+    <input id="bizHours" placeholder="Example: 8:00 AM - 6:00 PM">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>BUSINESS COVER PHOTO</label>
+    <input id="bizPhoto" type="file" accept="image/jpeg,image/png,image/webp">
+    <p class="form-hint">Use a small JPG, PNG or WebP image. Images are compressed and stored in this browser for demonstration.</p>
+    <img id="bizPhotoPreview" class="upload-preview hidden" alt="Business preview">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>PRODUCTS OR SERVICES</label>
+    <p class="form-hint">Add products or services, prices and an optional image URL.</p>
+    <div class="product-list" id="productRows"></div>
+    <button type="button" class="outline-btn" style="margin-top:12px" onclick="addProductRow()">+ Add Product / Service</button>
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>SPECIAL PROMOTION / OFFER</label>
+    <input id="bizPromo" maxlength="150" placeholder="Example: 10% off for tourists this month">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>BUSINESS LOCATION ON MAP *</label>
+    <p class="form-hint">Select a municipality first, then tap the map to position your business marker. Confirm the exact location before submitting.</p>
+    <div id="businessLocationPicker" class="location-picker-map"></div>
+   </div>
+
+   <div class="dashboard-field">
+    <label>LATITUDE *</label>
+    <input id="bizLat" type="number" step="any" min="-90" max="90" required>
+   </div>
+   <div class="dashboard-field">
+    <label>LONGITUDE *</label>
+    <input id="bizLng" type="number" step="any" min="-180" max="180" required>
+   </div>
+
+   <div class="full-field">
+    <div class="admin-note">
+     📋 <strong>Admin Approval Required:</strong> Your business will appear publicly only after it is approved. Editing an approved listing will send it back for review.
     </div>
+   </div>
+
+   <div id="businessSubmitMessage" class="form-message hidden full-field"></div>
+
+   <div class="full-field" style="display:flex;gap:10px;flex-wrap:wrap">
+    <button type="submit" class="pink-btn">Submit Business for Approval →</button>
+    <button type="button" class="outline-btn" onclick="resetBusinessForm();showOwnerTab('list')">Cancel</button>
+   </div>
+  </form>
+ </div>
+
+ <div id="ownerAnalyticsTab" class="dashboard-panel hidden">
+  <h2>Business Analytics</h2>
+  <p>Demonstration activity counts recorded in this browser. These are not verified visitors or unique users.</p>
+  <div id="ownerAnalyticsContent"></div>
+ </div>
+</div>
+</div>
+
+<!-- NEW ADMIN DASHBOARD -->
+<div id="adminPage" class="dashboard-page hidden">
+<div class="container">
+ <div class="dashboard-heading">
+  <div>
+   <span class="eyebrow">ADMINISTRATOR PORTAL • DEMONSTRATION</span>
+   <h1>Business Approval Dashboard</h1>
+   <p>Review business submissions and manage directory visibility.</p>
+  </div>
+  <div class="dashboard-actions">
+   <button class="outline-btn" onclick="showPage('businesses')">Public Directory</button>
+   <button class="outline-btn" onclick="logout()">Sign Out</button>
+  </div>
+ </div>
+
+ <div class="demo-warning">
+  This administrator dashboard is a front-end simulation. It does not enforce real access control. Do not deploy this demonstration as a production admin system.
+ </div>
+
+ <div class="dashboard-stats">
+  <div class="stat-card"><div class="stat-icon">📋</div><strong id="adminTotal">0</strong><span>Total Submissions</span></div>
+  <div class="stat-card"><div class="stat-icon">⏳</div><strong id="adminPending">0</strong><span>Pending Approval</span></div>
+  <div class="stat-card"><div class="stat-icon">✅</div><strong id="adminApproved">0</strong><span>Approved</span></div>
+  <div class="stat-card"><div class="stat-icon">❌</div><strong id="adminRejected">0</strong><span>Rejected</span></div>
+ </div>
+
+ <div class="dashboard-panel">
+  <h2>Submitted Businesses</h2>
+  <p>Approve or reject business listings submitted by local partners.</p>
+
+  <div class="dashboard-tabs" style="margin-top:20px">
+   <button class="active" data-admin-filter="all" onclick="setAdminFilter('all')">All</button>
+   <button data-admin-filter="pending" onclick="setAdminFilter('pending')">Pending</button>
+   <button data-admin-filter="approved" onclick="setAdminFilter('approved')">Approved</button>
+   <button data-admin-filter="rejected" onclick="setAdminFilter('rejected')">Rejected</button>
   </div>
 
-  <div class="signin-form-side">
-    <div class="signin-card">
-      <button class="signin-back" onclick="showPage('home')">
-        ← Back to website
-      </button>
-
-      <div class="logo" style="margin-bottom:25px">
-        <b>✿</b>My<span>Catanduanes</span>Guide
-      </div>
-
-      <h1>Welcome back.</h1>
-      <p>Sign in to your MyCatanduanesGuide partner account.</p>
-
-      <form class="auth-form" id="signinForm">
-        <div class="auth-field">
-          <label for="signinEmail">EMAIL ADDRESS</label>
-          <input id="signinEmail" type="email"
-            autocomplete="email" required>
-        </div>
-
-        <div class="auth-field">
-          <label for="signinPassword">PASSWORD</label>
-          <div class="password-wrap">
-            <input id="signinPassword" type="password"
-              autocomplete="current-password" required>
-            <button type="button" class="password-toggle"
-              onclick="togglePassword('signinPassword',this)">
-              Show
-            </button>
-          </div>
-        </div>
-
-        <label class="agreement">
-          <input type="checkbox" id="keepSignedIn">
-          <span>Keep me signed in</span>
-        </label>
-
-        <div id="signinMessage" class="form-message hidden" role="status"></div>
-
-        <button class="auth-submit" type="submit">
-          Sign In →
-        </button>
-      </form>
-
-      <div class="auth-switch">
-        Don't have an account?
-        <a onclick="showPage('partner')">Create partner account</a>
-      </div>
-
-      <div class="auth-switch">
-        <a onclick="showLegal('Terms of Service')">Terms</a>
-        &nbsp; • &nbsp;
-        <a onclick="showLegal('Privacy Policy')">Privacy</a>
-      </div>
-    </div>
-  </div>
-
+  <div id="adminBusinessList" class="dashboard-list"></div>
+ </div>
+</div>
 </div>
 
 <!-- FOOTER -->
-<footer id="mainFooter">
+<footer>
 <div class="container">
-
-  <div class="footer-grid">
-    <div>
-      <h4>TOURISM GUIDE</h4>
-      <a onclick="showPage('destinations')">All Destinations</a>
-      <a onclick="showPage('stays')">Hotels & Resorts</a>
-      <a onclick="showPage('stays')">Villas & Homestays</a>
-      <a onclick="showPage('businesses')">Local Businesses</a>
-    </div>
-
-    <div>
-      <h4>TRANSPORTATION</h4>
-      <a onclick="showPage('transport')">Airport Transfers</a>
-      <a onclick="showPage('transport')">Local Transportation</a>
-      <a onclick="showPage('transport')">Ferry Travel</a>
-      <a onclick="showPage('transport')">Getting Around</a>
-    </div>
-
-    <div>
-      <h4>ACTIVITIES</h4>
-      <a onclick="showPage('activities')">All Activities</a>
-      <a onclick="showPage('activities')">Surfing</a>
-      <a onclick="showPage('activities')">Sightseeing</a>
-      <a onclick="showPage('activities')">Nature Adventures</a>
-    </div>
-
-    <div>
-      <h4>INFORMATION</h4>
-      <a onclick="showPage('about')">About Us</a>
-      <a onclick="showPage('partner')">List Your Business</a>
-      <a onclick="showPage('signin')">Partner Sign In</a>
-      <a onclick="showLegal('Privacy Policy')">Privacy Policy</a>
-    </div>
+ <div class="footer-grid">
+  <div>
+   <h4>TOURISM GUIDE</h4>
+   <a onclick="showPage('destinations')">All Destinations</a>
+   <a onclick="showPage('stays')">Hotels & Resorts</a>
+   <a onclick="showPage('stays')">Villas & Homestays</a>
+   <a onclick="showPage('businesses')">Local Businesses</a>
   </div>
-
-  <div class="footer-bottom">
-    <div class="logo">
-      <b>✿</b>My<span>Catanduanes</span>Guide
-    </div>
-    © <span id="year"></span> MyCatanduanesGuide • Tourism and Local Business Platform Prototype
+  <div>
+   <h4>TRANSPORTATION</h4>
+   <a onclick="showPage('transport')">Airport Transfers</a>
+   <a onclick="showPage('transport')">Local Transportation</a>
+   <a onclick="showPage('transport')">Ferry Travel</a>
+   <a onclick="showPage('transport')">Getting Around</a>
   </div>
-
+  <div>
+   <h4>ACTIVITIES</h4>
+   <a onclick="showPage('activities')">All Activities</a>
+   <a onclick="showPage('activities')">Surfing</a>
+   <a onclick="showPage('activities')">Sightseeing</a>
+   <a onclick="showPage('activities')">Nature Adventures</a>
+  </div>
+  <div>
+   <h4>INFORMATION</h4>
+   <a onclick="showPage('about')">About Us</a>
+   <a onclick="openPartnerArea()">List Your Business</a>
+   <a onclick="openSignInArea()">Partner Sign In</a>
+  </div>
+ </div>
+ <div class="footer-bottom">
+  <div class="logo"><b>✿</b>My<span>Catanduanes</span>Guide</div>
+  © <span id="year"></span> MyCatanduanesGuide • Tourism and Local Business Platform Prototype
+ </div>
 </div>
 </footer>
 
 <!-- DETAILS MODAL -->
 <div class="modal-bg hidden" id="detailModal">
-  <div class="modal" role="dialog" aria-modal="true">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
-    <div id="detailContent"></div>
-  </div>
+ <div class="modal">
+  <button class="modal-close" onclick="closeModal()">×</button>
+  <div id="detailContent"></div>
+ </div>
 </div>
 
-<script>
-"use strict";
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-/* IMAGE REFERENCES — illustrative photos */
+<script>
+/* =====================================
+   ORIGINAL IMAGE LIBRARY
+===================================== */
 const img={
-  beach:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700",
-  sea:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=700",
-  coast:"https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=700",
-  falls:"https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=700",
-  hills:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700",
-  nature:"https://images.unsplash.com/photo-1500534623283-312aade485b7?w=700",
-  hotel:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700",
-  resort:"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700",
-  room:"https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=700",
-  villa:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700",
-  pool:"https://images.unsplash.com/photo-1572331165267-854da2b10ccc?w=700",
-  restaurant:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700",
-  shop:"https://images.unsplash.com/photo-1473181488821-2d23949a045a?w=700",
-  surf:"https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=700",
-  road:"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=700",
-  boat:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700"
+ beach:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700",
+ sea:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=700",
+ coast:"https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=700",
+ falls:"https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=700",
+ hills:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=700",
+ nature:"https://images.unsplash.com/photo-1500534623283-312aade485b7?w=700",
+ hotel:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700",
+ resort:"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700",
+ room:"https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=700",
+ villa:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700",
+ pool:"https://images.unsplash.com/photo-1572331165267-854da2b10ccc?w=700",
+ restaurant:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700",
+ shop:"https://images.unsplash.com/photo-1473181488821-2d23949a045a?w=700",
+ surf:"https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=700",
+ road:"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=700",
+ boat:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700"
 };
 
-/* DESTINATIONS */
+/* =====================================
+   ORIGINAL DESTINATIONS
+===================================== */
 const destinations=[
-  {id:1,name:"Puraran Beach",location:"Baras",category:"beach",image:img.beach,description:"A popular surfing destination with beautiful coastal scenery."},
-  {id:2,name:"Binurong Point",location:"Baras",category:"viewpoint",image:img.hills,description:"Rolling green hills overlooking the Pacific Ocean."},
-  {id:3,name:"Balacay Point",location:"Baras",category:"viewpoint",image:img.coast,description:"A scenic coastal viewpoint with ocean views."},
-  {id:4,name:"Maribina Falls",location:"Bato",category:"waterfall",image:img.falls,description:"A natural waterfall surrounded by lush vegetation."},
-  {id:5,name:"Bato Church",location:"Bato",category:"culture",image:img.nature,description:"A historic church reflecting the island's cultural heritage."},
-  {id:6,name:"Twin Rock Beach",location:"Virac",category:"beach",image:img.sea,description:"A coastal destination known for its rock formations."},
-  {id:7,name:"Mamangal Beach",location:"Virac",category:"beach",image:img.beach,description:"A relaxing beach with beautiful sea views."},
-  {id:8,name:"Talisoy Beach",location:"Virac",category:"beach",image:img.coast,description:"A scenic beach with distinctive coastal rocks."},
-  {id:9,name:"Cagnipa Rolling Hills",location:"Pandan",category:"viewpoint",image:img.hills,description:"Beautiful rolling hills and coastal scenery."},
-  {id:10,name:"Caramoran Coast",location:"Caramoran",category:"beach",image:img.sea,description:"Explore coastal scenery around Caramoran."},
-  {id:11,name:"Pandan Coast",location:"Pandan",category:"beach",image:img.beach,description:"Explore the coastline of Pandan."},
-  {id:12,name:"Bagamanoc Coast",location:"Bagamanoc",category:"beach",image:img.coast,description:"Discover coastal landscapes in Bagamanoc."}
+ {id:1,name:"Puraran Beach",location:"Baras",category:"beach",lat:13.689,lng:124.376,image:img.beach,description:"A popular surfing destination with beautiful coastal scenery.",highlights:["Surfing","Beach","Photography"]},
+ {id:2,name:"Binurong Point",location:"Baras",category:"viewpoint",lat:13.670,lng:124.386,image:img.hills,description:"Rolling green hills overlooking the Pacific Ocean.",highlights:["Hiking","Ocean Views","Photography"]},
+ {id:3,name:"Balacay Point",location:"Baras",category:"viewpoint",lat:13.678,lng:124.377,image:img.coast,description:"A scenic coastal viewpoint with ocean views.",highlights:["Viewpoint","Sightseeing"]},
+ {id:4,name:"Maribina Falls",location:"Bato",category:"waterfall",lat:13.602,lng:124.318,image:img.falls,description:"A natural waterfall surrounded by lush vegetation.",highlights:["Waterfall","Nature"]},
+ {id:5,name:"Bato Church",location:"Bato",category:"culture",lat:13.610,lng:124.299,image:img.nature,description:"A historic church reflecting the island's cultural heritage.",highlights:["History","Culture"]},
+ {id:6,name:"Twin Rock Beach",location:"Virac",category:"beach",lat:13.570,lng:124.214,image:img.sea,description:"A coastal destination known for its rock formations.",highlights:["Beach","Photography"]},
+ {id:7,name:"Mamangal Beach",location:"Virac",category:"beach",lat:13.586,lng:124.181,image:img.beach,description:"A relaxing beach with beautiful sea views.",highlights:["Beach","Relaxation"]},
+ {id:8,name:"Talisoy Beach",location:"Virac",category:"beach",lat:13.580,lng:124.235,image:img.coast,description:"A scenic beach with distinctive coastal rocks.",highlights:["Beach","Rock Formations"]},
+ {id:9,name:"Cagnipa Rolling Hills",location:"Pandan",category:"viewpoint",lat:14.020,lng:124.170,image:img.hills,description:"Beautiful rolling hills and coastal scenery.",highlights:["Hills","Nature"]},
+ {id:10,name:"Caramoran Coast",location:"Caramoran",category:"beach",lat:13.850,lng:124.100,image:img.sea,description:"Explore coastal scenery around Caramoran.",highlights:["Coast","Sightseeing"]},
+ {id:11,name:"Pandan Coast",location:"Pandan",category:"beach",lat:14.040,lng:124.170,image:img.beach,description:"Explore the coastline of Pandan.",highlights:["Coast","Photography"]},
+ {id:12,name:"Bagamanoc Coast",location:"Bagamanoc",category:"beach",lat:13.940,lng:124.290,image:img.coast,description:"Discover coastal landscapes in Bagamanoc.",highlights:["Coast","Nature"]}
 ];
 
-/* SAMPLE ACCOMMODATIONS */
+/* =====================================
+   ORIGINAL SAMPLE STAYS
+===================================== */
 const stays=[
-  {id:101,name:"Puraran Beach Resort — Sample",location:"Baras",type:"Resort",price:2500,rating:4.7,amenities:["WiFi","Beach Access","Parking"],photos:[img.resort,img.pool,img.room]},
-  {id:102,name:"Virac Island Hotel — Sample",location:"Virac",type:"Hotel",price:1800,rating:4.5,amenities:["WiFi","Parking"],photos:[img.hotel,img.room]},
-  {id:103,name:"Catanduanes Beach Villa — Sample",location:"Virac",type:"Villa",price:4200,rating:4.8,amenities:["WiFi","Pool","Beach Access"],photos:[img.villa,img.pool]},
-  {id:104,name:"Happy Island Homestay — Sample",location:"San Andres",type:"Homestay",price:1200,rating:4.6,amenities:["WiFi","Parking"],photos:[img.room,img.villa]},
-  {id:105,name:"Coastal View Resort — Sample",location:"Pandan",type:"Resort",price:3200,rating:4.7,amenities:["Pool","Parking"],photos:[img.resort,img.pool]},
-  {id:106,name:"Baras Surf Lodge — Sample",location:"Baras",type:"Beachfront",price:2100,rating:4.6,amenities:["WiFi","Beach Access"],photos:[img.beach,img.room]},
-  {id:107,name:"Virac Garden Villa — Sample",location:"Virac",type:"Villa",price:4800,rating:4.9,amenities:["WiFi","Pool"],photos:[img.villa,img.pool]},
-  {id:108,name:"Caramoran Nature Stay — Sample",location:"Caramoran",type:"Homestay",price:1400,rating:4.4,amenities:["Parking"],photos:[img.room,img.nature]},
-  {id:109,name:"Pandan Seaside Stay — Sample",location:"Pandan",type:"Beachfront",price:2800,rating:4.7,amenities:["WiFi","Beach Access"],photos:[img.sea,img.resort]}
+ {id:101,name:"Puraran Beach Resort — Sample",location:"Baras",type:"Resort",price:2500,rating:4.7,lat:13.665,lng:124.365,amenities:["WiFi","Beach Access","Parking"],photos:[img.resort,img.pool,img.room]},
+ {id:102,name:"Virac Island Hotel — Sample",location:"Virac",type:"Hotel",price:1800,rating:4.5,lat:13.584,lng:124.237,amenities:["WiFi","Parking"],photos:[img.hotel,img.room]},
+ {id:103,name:"Catanduanes Beach Villa — Sample",location:"Virac",type:"Villa",price:4200,rating:4.8,lat:13.584,lng:124.237,amenities:["WiFi","Pool","Beach Access"],photos:[img.villa,img.pool]},
+ {id:104,name:"Happy Island Homestay — Sample",location:"San Andres",type:"Homestay",price:1200,rating:4.6,lat:13.598,lng:124.100,amenities:["WiFi","Parking"],photos:[img.room,img.villa]},
+ {id:105,name:"Coastal View Resort — Sample",location:"Pandan",type:"Resort",price:3200,rating:4.7,lat:14.045,lng:124.170,amenities:["Pool","Parking"],photos:[img.resort,img.pool]},
+ {id:106,name:"Baras Surf Lodge — Sample",location:"Baras",type:"Beachfront",price:2100,rating:4.6,lat:13.665,lng:124.365,amenities:["WiFi","Beach Access"],photos:[img.beach,img.room]},
+ {id:107,name:"Virac Garden Villa — Sample",location:"Virac",type:"Villa",price:4800,rating:4.9,lat:13.584,lng:124.237,amenities:["WiFi","Pool"],photos:[img.villa,img.pool]},
+ {id:108,name:"Caramoran Nature Stay — Sample",location:"Caramoran",type:"Homestay",price:1400,rating:4.4,lat:13.850,lng:124.100,amenities:["Parking"],photos:[img.room,img.nature]},
+ {id:109,name:"Pandan Seaside Stay — Sample",location:"Pandan",type:"Beachfront",price:2800,rating:4.7,lat:14.045,lng:124.170,amenities:["WiFi","Beach Access"],photos:[img.sea,img.resort]}
 ];
 
 const activities=[
-  {name:"Surfing at Puraran",location:"Baras",type:"surfing",image:img.surf,description:"Discover surfing opportunities on the coast."},
-  {name:"Waterfall Exploration",location:"Bato",type:"nature",image:img.falls,description:"Explore beautiful natural waterfalls."},
-  {name:"Coastal Sightseeing",location:"Baras",type:"sightseeing",image:img.hills,description:"Visit scenic viewpoints and coastal landscapes."}
+ {name:"Surfing at Puraran",location:"Baras",image:img.surf,description:"Discover surfing opportunities on the coast."},
+ {name:"Waterfall Exploration",location:"Bato",image:img.falls,description:"Explore beautiful natural waterfalls."},
+ {name:"Coastal Sightseeing",location:"Baras",image:img.hills,description:"Visit scenic viewpoints and coastal landscapes."}
 ];
-
 const transport=[
-  {name:"Airport Transfer Information",location:"Virac",type:"airport",image:img.road,description:"Find airport transportation options."},
-  {name:"Tricycle Transportation",location:"Virac",type:"local",image:img.road,description:"Explore local transportation services."},
-  {name:"Ferry Travel Information",location:"San Andres",type:"ferry",image:img.boat,description:"Check routes and schedules with ferry operators."}
+ {name:"Airport Transfer Information",location:"Virac",image:img.road,description:"Find airport transportation options."},
+ {name:"Tricycle Transportation",location:"Virac",image:img.road,description:"Explore local transportation services."},
+ {name:"Ferry Travel Information",location:"San Andres",image:img.boat,description:"Check routes and schedules with ferry operators."}
 ];
 
-const businesses=[
-  {name:"Sample Local Restaurant",location:"Virac",type:"Restaurant",image:img.restaurant,description:"Demonstration restaurant listing."},
-  {name:"Sample Souvenir Shop",location:"Virac",type:"Shop",image:img.shop,description:"Demonstration local products listing."},
-  {name:"Sample Island Resort",location:"Baras",type:"Accommodation",image:img.resort,description:"Demonstration accommodation listing."}
-];
+/* ORIGINAL DEMO BUSINESS ITEMS ARE NOT PUBLIC LISTINGS.
+   Public directory displays approved submissions only. */
 
-const municipalities=[
-  "all","Baras","Virac","San Andres","Bagamanoc","Gigmoto",
-  "Pandan","Caramoran","Bato","San Miguel","Viga","Panganiban"
-];
+const municipalities=["all","Baras","Virac","San Andres","Bagamanoc","Gigmoto","Pandan","Caramoran","Bato","San Miguel","Viga","Panganiban"];
 const categories=["all","beach","waterfall","viewpoint","culture"];
+
+const municipalityCoords={
+ "Baras":[13.67,124.36],
+ "Virac":[13.584,124.237],
+ "San Andres":[13.598,124.10],
+ "Bagamanoc":[13.94,124.29],
+ "Gigmoto":[13.78,124.39],
+ "Pandan":[14.04,124.17],
+ "Caramoran":[13.85,124.10],
+ "Bato":[13.61,124.30],
+ "San Miguel":[13.65,124.28],
+ "Viga":[13.87,124.31],
+ "Panganiban":[13.90,124.30]
+};
 
 let destinationFiltered=[...destinations];
 let stayFiltered=[...stays];
+let businessFiltered=[];
 let destinationPage=1;
 let stayPage=1;
 const pageSize=9;
 const photoIndexes={};
 
-/* UTILITIES */
+let destinationMap=null;
+let stayMap=null;
+let businessMap=null;
+let detailMap=null;
+let destinationMarkers=null;
+let stayMarkers=null;
+let businessMarkers=null;
+let pickerMap=null;
+let pickerMarker=null;
+let currentBusinessPhoto="";
+let adminFilter="all";
+
+/* =====================================
+   UTILITIES
+===================================== */
 function esc(s){
-  return String(s??"").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",
-    '"':"&quot;","'":"&#39;"
-  }[c]));
+ return String(s??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
 }
 
 function getStored(key){
-  try{
-    const v=JSON.parse(localStorage.getItem(key)||"[]");
-    return Array.isArray(v)?v:[];
-  }catch{
-    return [];
-  }
+ try{
+  const v=JSON.parse(localStorage.getItem(key)||"[]");
+  return Array.isArray(v)?v:[];
+ }catch{return []}
 }
 
 function setStored(key,value){
-  try{
-    localStorage.setItem(key,JSON.stringify(value));
-    return true;
-  }catch{
-    return false;
-  }
+ try{
+  localStorage.setItem(key,JSON.stringify(value));
+  return true;
+ }catch{
+  alert("Browser storage is full or unavailable. Try using smaller photos.");
+  return false;
+ }
 }
 
-function mapURL(item){
-  return "https://www.google.com/maps/search/?api=1&query="+
-    encodeURIComponent(item.name+", "+item.location+", Catanduanes, Philippines");
+function readObject(key){
+ try{return JSON.parse(sessionStorage.getItem(key)||"null")}
+ catch{return null}
 }
 
-/* PAGE NAVIGATION */
+function safeImage(url,fallback=img.shop){
+ const value=String(url||"").trim();
+ if(value.startsWith("data:image/jpeg;base64,")||
+    value.startsWith("data:image/png;base64,")||
+    value.startsWith("data:image/webp;base64,"))return value;
+ try{
+  const u=new URL(value);
+  if(u.protocol==="https:"||u.protocol==="http:")return u.href;
+ }catch{}
+ return fallback;
+}
+
+function safeLink(url){
+ try{
+  const u=new URL(String(url));
+  return ["https:","http:"].includes(u.protocol)?u.href:"";
+ }catch{return ""}
+}
+
+function businessImage(b){
+ return safeImage(b.image,img.shop);
+}
+
+function getSession(){
+ return readObject("mcgSession");
+}
+
+function isAdmin(){
+ return getSession()?.role==="admin";
+}
+
+function isOwner(){
+ return getSession()?.role==="owner";
+}
+
+function allBusinesses(){
+ return getStored("mcgBusinesses");
+}
+
+function saveBusinesses(data){
+ return setStored("mcgBusinesses",data);
+}
+
+function updateNav(){
+ const user=getSession();
+ document.getElementById("signinNavText").textContent=
+  user?(user.role==="admin"?"Admin":"Dashboard"):"Sign In";
+ document.getElementById("partnerNavBtn").textContent=
+  user?(user.role==="admin"?"Admin Panel ↗":"My Business ↗"):"List Your Business ↗";
+}
+
 function showPage(page){
-  const pages=[
-    "home","destinations","stays","activities",
-    "transport","businesses","about","partner","signin"
-  ];
+ const pages=[
+  "home","destinations","stays","activities","transport",
+  "businesses","about","partner","signin","dashboard","admin"
+ ];
 
-  if(!pages.includes(page))page="home";
+ if(!pages.includes(page))page="home";
 
-  pages.forEach(p=>{
-    document.getElementById(p+"Page")
-      .classList.toggle("hidden",p!==page);
-  });
+ if(page==="dashboard"&&!isOwner())page="signin";
+ if(page==="admin"&&!isAdmin())page="signin";
 
-  document.querySelectorAll("[data-nav]").forEach(a=>{
-    a.classList.toggle("active",a.dataset.nav===page);
-  });
+ pages.forEach(p=>{
+  document.getElementById(p+"Page").classList.toggle("hidden",p!==page);
+ });
 
-  document.getElementById("navLinks").classList.remove("open");
-  document.getElementById("menuBtn").textContent="☰";
-  document.getElementById("menuBtn").setAttribute("aria-expanded","false");
+ document.querySelectorAll("[data-nav]").forEach(a=>{
+  a.classList.toggle("active",a.dataset.nav===page);
+ });
 
-  const isSignin=page==="signin";
-  document.getElementById("mainHeader").classList.toggle("hidden",isSignin);
-  document.getElementById("mainFooter").classList.toggle("hidden",isSignin);
+ document.getElementById("navLinks").classList.remove("open");
+ history.replaceState(null,"","#"+page);
+ window.scrollTo(0,0);
 
-  if(location.hash!=="#"+page){
-    history.replaceState(null,"","#"+page);
+ if(page==="destinations"&&destinationMap){
+  setTimeout(()=>destinationMap.invalidateSize(),100);
+ }
+ if(page==="stays"&&stayMap){
+  setTimeout(()=>stayMap.invalidateSize(),100);
+ }
+ if(page==="businesses"){
+  renderBusinesses();
+  if(businessMap){
+   setTimeout(()=>businessMap.invalidateSize(),100);
   }
-
-  window.scrollTo({top:0,behavior:"instant"});
+ }
+ if(page==="dashboard")renderOwnerDashboard();
+ if(page==="admin")renderAdminDashboard();
+ updateNav();
 }
 
-function toggleMobileFilters(id,button){
-  const sidebar=document.getElementById(id);
-  sidebar.classList.toggle("mobile-collapsed");
-  const expanded=!sidebar.classList.contains("mobile-collapsed");
-  button.setAttribute("aria-expanded",String(expanded));
-  button.querySelector("span").textContent=expanded?"−":"＋";
+function openPartnerArea(){
+ if(isAdmin())showPage("admin");
+ else if(isOwner())showPage("dashboard");
+ else showPage("partner");
 }
 
+function openSignInArea(){
+ if(isAdmin())showPage("admin");
+ else if(isOwner())showPage("dashboard");
+ else showPage("signin");
+}
+
+/* =====================================
+   ORIGINAL EMBEDDED MAP ENGINE
+===================================== */
+function createMap(id,zoom=10){
+ const map=L.map(id,{
+  scrollWheelZoom:false,
+  zoomControl:true
+ }).setView([13.78,124.25],zoom);
+
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   attribution:'&copy; OpenStreetMap contributors',
+   maxZoom:19
+  }
+ ).addTo(map);
+
+ return map;
+}
+
+function photoMarker(item,isStay=false,label=null){
+ const photo=isStay?item.photos[0]:item.image;
+ const text=label||item.name;
+
+ return L.divIcon({
+  className:"",
+  html:`
+   <div class="photo-pin ${isStay?"stay":""}">
+    <div class="photo-pin-label">${esc(text)}</div>
+    <div class="photo-pin-image">
+     <img src="${esc(safeImage(photo,img.beach))}" alt="">
+    </div>
+    <div class="photo-pin-tip"></div>
+    <div class="photo-pin-dot"></div>
+   </div>
+  `,
+  iconSize:[66,83],
+  iconAnchor:[32,77],
+  popupAnchor:[0,-80]
+ });
+}
+
+function businessPhotoMarker(b){
+ return L.divIcon({
+  className:"",
+  html:`
+   <div class="photo-pin business">
+    <div class="photo-pin-label">${esc(b.name)}</div>
+    <div class="photo-pin-image">
+     <img src="${esc(businessImage(b))}" alt="">
+    </div>
+    <div class="photo-pin-tip"></div>
+    <div class="photo-pin-dot"></div>
+   </div>
+  `,
+  iconSize:[66,83],
+  iconAnchor:[32,77],
+  popupAnchor:[0,-80]
+ });
+}
+
+function fitMap(map,points){
+ if(!points.length){
+  map.setView([13.78,124.25],10);
+ }else if(points.length===1){
+  map.setView(points[0],12);
+ }else{
+  map.fitBounds(points,{padding:[65,65],maxZoom:12});
+ }
+}
+
+function destinationPopup(d){
+ return `
+  <img class="map-popup-image" src="${d.image}" alt="${esc(d.name)}">
+  <div class="map-popup-body">
+   <h3>${esc(d.name)}</h3>
+   <p class="location">📍 ${esc(d.location)}, Catanduanes</p>
+   <p>${esc(d.description)}</p>
+   <div class="map-popup-actions">
+    <button onclick="openDestination(${d.id})">View Full Details</button>
+    <button onclick="focusLocation('destination',${d.id})">Focus Pin</button>
+   </div>
+  </div>
+ `;
+}
+
+function stayPopup(items,location){
+ return `
+  <img class="map-popup-image" src="${items[0].photos[0]}" alt="Sample stays">
+  <div class="map-popup-body">
+   <h3>Sample Stays in ${esc(location)}</h3>
+   <p class="location">📍 ${esc(location)}, Catanduanes</p>
+   <p>Example accommodation listings for this municipality.</p>
+   <div class="map-popup-scroll">
+    ${items.map(s=>`
+     <div class="map-popup-item">
+      <strong>${esc(s.name)}</strong>
+      <small>₱${s.price.toLocaleString()} / night • Demo price</small>
+      <button onclick="openStay(${s.id})">View Full Details</button>
+     </div>
+    `).join("")}
+   </div>
+  </div>
+ `;
+}
+
+function updateDestinationMap(){
+ if(!destinationMap||!destinationMarkers)return;
+ destinationMarkers.clearLayers();
+
+ const points=[];
+
+ destinationFiltered.forEach(d=>{
+  const point=[d.lat,d.lng];
+  L.marker(point,{
+   icon:photoMarker(d),
+   title:d.name
+  })
+  .bindPopup(destinationPopup(d),{
+   minWidth:265,
+   maxWidth:265
+  })
+  .addTo(destinationMarkers);
+
+  points.push(point);
+ });
+
+ fitMap(destinationMap,points);
+ document.getElementById("destinationMapCount").textContent=
+  destinationFiltered.length+" PLACES";
+}
+
+function updateStayMap(){
+ if(!stayMap||!stayMarkers)return;
+ stayMarkers.clearLayers();
+
+ const groups={};
+
+ stayFiltered.forEach(s=>{
+  if(!groups[s.location])groups[s.location]=[];
+  groups[s.location].push(s);
+ });
+
+ const points=[];
+
+ Object.entries(groups).forEach(([location,items])=>{
+  const first=items[0];
+  const point=[first.lat,first.lng];
+
+  L.marker(point,{
+   icon:photoMarker(first,true,items.length+" stays"),
+   title:"Sample stays in "+location
+  })
+  .bindPopup(stayPopup(items,location),{
+   minWidth:265,
+   maxWidth:265
+  })
+  .addTo(stayMarkers);
+
+  points.push(point);
+ });
+
+ fitMap(stayMap,points);
+ document.getElementById("stayMapCount").textContent=
+  stayFiltered.length+" SAMPLE STAYS";
+}
+
+function businessPopup(b){
+ return `
+  <img class="map-popup-image" src="${esc(businessImage(b))}" alt="${esc(b.name)}">
+  <div class="map-popup-body">
+   <h3>${esc(b.name)}</h3>
+   <p class="location">📍 ${esc(b.municipality)}, Catanduanes</p>
+   <p>${esc(b.category)}</p>
+   <div class="map-popup-actions">
+    <button onclick="openBusiness('${esc(b.id)}')">View Business</button>
+    <button onclick="focusBusiness('${esc(b.id)}')">Focus Pin</button>
+   </div>
+  </div>
+ `;
+}
+
+function updateBusinessMap(){
+ if(!businessMap||!businessMarkers)return;
+
+ businessMarkers.clearLayers();
+ const points=[];
+
+ businessFiltered.forEach(b=>{
+  if(!Number.isFinite(Number(b.lat))||
+     !Number.isFinite(Number(b.lng)))return;
+
+  const point=[Number(b.lat),Number(b.lng)];
+
+  L.marker(point,{
+   icon:businessPhotoMarker(b),
+   title:b.name
+  })
+  .bindPopup(businessPopup(b),{
+   minWidth:265,maxWidth:265
+  })
+  .addTo(businessMarkers);
+
+  points.push(point);
+ });
+
+ fitMap(businessMap,points);
+ document.getElementById("businessMapCount").textContent=
+  businessFiltered.length+" BUSINESSES";
+}
+
+function toggleMap(type){
+ const destination=type==="destination";
+ const stay=type==="stay";
+ const prefix=destination?"destination":stay?"stay":"business";
+ const panel=document.getElementById(prefix+"MapPanel");
+ const button=document.getElementById(prefix+"MapBtn");
+ const opening=panel.classList.contains("hidden");
+
+ panel.classList.toggle("hidden",!opening);
+ button.classList.toggle("active",opening);
+ button.querySelector("span").textContent=opening?"Hide Map":"Show Map";
+
+ if(!opening)return;
+
+ if(typeof L==="undefined"){
+  panel.querySelector(".embedded-map").innerHTML=
+   '<p style="padding:20px">Map unavailable. Check your internet connection.</p>';
+  return;
+ }
+
+ if(destination){
+  if(!destinationMap){
+   destinationMap=createMap("destinationMap");
+   destinationMarkers=L.layerGroup().addTo(destinationMap);
+  }
+  setTimeout(()=>{
+   destinationMap.invalidateSize();
+   updateDestinationMap();
+  },120);
+ }else if(stay){
+  if(!stayMap){
+   stayMap=createMap("stayMap");
+   stayMarkers=L.layerGroup().addTo(stayMap);
+  }
+  setTimeout(()=>{
+   stayMap.invalidateSize();
+   updateStayMap();
+  },120);
+ }else{
+  if(!businessMap){
+   businessMap=createMap("businessMap");
+   businessMarkers=L.layerGroup().addTo(businessMap);
+  }
+  setTimeout(()=>{
+   businessMap.invalidateSize();
+   updateBusinessMap();
+  },120);
+ }
+}
+
+function focusLocation(type,id){
+ const isStay=type==="stay";
+ const item=(isStay?stays:destinations).find(x=>x.id===id);
+ if(!item)return;
+
+ showPage(isStay?"stays":"destinations");
+
+ const panel=document.getElementById(isStay?"stayMapPanel":"destinationMapPanel");
+
+ if(panel.classList.contains("hidden")){
+  toggleMap(type);
+ }
+
+ setTimeout(()=>{
+  const map=isStay?stayMap:destinationMap;
+  if(!map)return;
+
+  map.invalidateSize();
+  map.setView([item.lat,item.lng],14,{animate:true});
+
+  const layer=isStay?stayMarkers:destinationMarkers;
+  layer.eachLayer(marker=>{
+   const latlng=marker.getLatLng();
+   if(Math.abs(latlng.lat-item.lat)<0.0001&&
+      Math.abs(latlng.lng-item.lng)<0.0001){
+    marker.openPopup();
+   }
+  });
+
+  panel.scrollIntoView({behavior:"smooth",block:"center"});
+ },250);
+}
+
+function focusBusiness(id){
+ const b=allBusinesses().find(x=>x.id===id&&x.status==="approved");
+ if(!b)return;
+
+ showPage("businesses");
+
+ document.getElementById("businessSearch").value="";
+ document.getElementById("businessCategoryFilter").value="all";
+ document.getElementById("businessLocationFilter").value="all";
+ renderBusinesses();
+
+ const panel=document.getElementById("businessMapPanel");
+ if(panel.classList.contains("hidden"))toggleMap("business");
+
+ trackBusinessEvent(id,"mapViews");
+
+ setTimeout(()=>{
+  if(!businessMap)return;
+  businessMap.invalidateSize();
+  businessMap.setView([Number(b.lat),Number(b.lng)],15);
+
+  businessMarkers.eachLayer(marker=>{
+   const p=marker.getLatLng();
+   if(Math.abs(p.lat-Number(b.lat))<0.000001&&
+      Math.abs(p.lng-Number(b.lng))<0.000001){
+    marker.openPopup();
+   }
+  });
+
+  panel.scrollIntoView({behavior:"smooth",block:"center"});
+ },300);
+}
+
+/* =====================================
+   ORIGINAL DETAILS MODAL
+===================================== */
 function closeModal(){
-  document.getElementById("detailModal").classList.add("hidden");
+ document.getElementById("detailModal").classList.add("hidden");
+
+ if(detailMap){
+  detailMap.remove();
+  detailMap=null;
+ }
 }
 
-function showLegal(title){
-  document.getElementById("detailContent").innerHTML=`
-    <h2>${esc(title)}</h2>
-    <p>
-      This is a demonstration website.
-      A complete ${esc(title)} must be prepared and
-      published before accepting real user registrations.
-    </p>
-  `;
-  document.getElementById("detailModal").classList.remove("hidden");
-}
+function openDetailMap(item,isStay,isBusiness=false){
+ if(typeof L==="undefined")return;
 
-function togglePassword(id,button){
-  const field=document.getElementById(id);
-  field.type=field.type==="password"?"text":"password";
-  button.textContent=field.type==="password"?"Show":"Hide";
-}
+ if(detailMap){
+  detailMap.remove();
+  detailMap=null;
+ }
 
-function showFormMessage(id,message,success=false){
-  const el=document.getElementById(id);
-  el.textContent=message;
-  el.className="form-message"+(success?" success":"");
-}
+ detailMap=L.map("detailMap",{
+  scrollWheelZoom:false
+ }).setView([Number(item.lat),Number(item.lng)],13);
 
-/* PARTNER REGISTRATION — PROTOTYPE */
-document.getElementById("partnerForm").addEventListener("submit",function(e){
-  e.preventDefault();
-
-  const name=document.getElementById("partnerName").value.trim();
-  const email=document.getElementById("partnerEmail").value.trim();
-  const password=document.getElementById("partnerPassword").value;
-  const confirm=document.getElementById("partnerConfirm").value;
-
-  if(password.length<8){
-    showFormMessage("partnerMessage","Password must contain at least 8 characters.");
-    return;
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   attribution:'&copy; OpenStreetMap contributors',
+   maxZoom:19
   }
+ ).addTo(detailMap);
 
-  if(password!==confirm){
-    showFormMessage("partnerMessage","Passwords do not match.");
-    return;
-  }
+ L.marker([Number(item.lat),Number(item.lng)],{
+  icon:isBusiness?businessPhotoMarker(item):photoMarker(item,isStay)
+ }).addTo(detailMap)
+ .bindPopup(`<strong>${esc(item.name)}</strong><br>${esc(item.municipality||item.location)}, Catanduanes`)
+ .openPopup();
 
-  if(!document.getElementById("partnerAgree").checked){
-    showFormMessage("partnerMessage","Please accept the agreements.");
-    return;
-  }
-
-  showFormMessage(
-    "partnerMessage",
-    "Registration form validated for "+name+" ("+email+
-    "). This prototype does not create real accounts. Connect secure authentication before launch.",
-    true
-  );
-});
-
-document.getElementById("signinForm").addEventListener("submit",function(e){
-  e.preventDefault();
-
-  showFormMessage(
-    "signinMessage",
-    "Sign in is currently a demonstration. A secure authentication backend must be connected."
-  );
-});
-
-/* DESTINATION CARDS */
-function destinationCard(d){
-  const saved=getStored("catFavorites").includes(d.id);
-
-  return `
-  <article class="card">
-    <div class="card-image">
-      <img src="${d.image}" alt="${esc(d.name)}" loading="lazy">
-      <span class="badge">${esc(d.category.toUpperCase())}</span>
-      <button class="heart ${saved?"saved":""}"
-        aria-label="Toggle favorite"
-        onclick="toggleFavorite(${d.id})">${saved?"♥":"♡"}</button>
-    </div>
-
-    <div class="card-body">
-      <h3>${esc(d.name)}</h3>
-      <p class="card-location">📍 ${esc(d.location)}, Catanduanes</p>
-      <p>${esc(d.description)}</p>
-
-      <div class="card-bottom">
-        <small>Explore destination</small>
-        <button onclick="openDestination(${d.id})">
-          View Details ↗
-        </button>
-      </div>
-    </div>
-  </article>`;
+ setTimeout(()=>detailMap.invalidateSize(),150);
 }
 
-function pagination(total,current,type){
-  let html="";
-  const pages=Math.ceil(total/pageSize);
+function renderDetail(item,isStay){
+ if(detailMap){
+  detailMap.remove();
+  detailMap=null;
+ }
 
-  for(let i=1;i<=pages;i++){
-    html+=`
-      <button class="${i===current?"active":""}"
-        onclick="changePage('${type}',${i})">${i}</button>
-    `;
-  }
+ const photos=isStay?item.photos:[item.image,img.coast,img.nature];
+ const tags=isStay?item.amenities:item.highlights;
 
-  return html;
-}
+ document.getElementById("detailContent").innerHTML=`
+  <img class="modal-main-image" src="${photos[0]}" alt="${esc(item.name)}">
+  <h2>${esc(item.name)}</h2>
+  <p style="color:var(--teal);font-weight:800">
+   📍 ${esc(item.location)}, Catanduanes
+  </p>
 
-function changePage(type,page){
-  if(type==="destination"){
-    destinationPage=page;
-    renderDestinations();
-  }else{
-    stayPage=page;
-    renderStays();
-  }
+  <p>${isStay
+   ?"Sample accommodation listing for demonstration purposes."
+   :esc(item.description)}</p>
 
-  window.scrollTo({top:0,behavior:"smooth"});
-}
+  <h3>${isStay?"Accommodation Information":"Destination Information"}</h3>
 
-function renderDestinations(){
-  const start=(destinationPage-1)*pageSize;
-  const list=destinationFiltered.slice(start,start+pageSize);
+  <div class="detail-info-grid">
+   <div class="detail-info">
+    <small>TYPE</small>
+    <strong>${esc(isStay?item.type:item.category)}</strong>
+   </div>
+   <div class="detail-info">
+    <small>MUNICIPALITY</small>
+    <strong>${esc(item.location)}</strong>
+   </div>
+   <div class="detail-info">
+    <small>${isStay?"SAMPLE PRICE":"REGION"}</small>
+    <strong>${isStay?"₱"+item.price.toLocaleString()+" / night":"Bicol Region"}</strong>
+   </div>
+   <div class="detail-info">
+    <small>${isStay?"SAMPLE RATING":"LOCATION"}</small>
+    <strong>${isStay?"★ "+item.rating:"Approximate location"}</strong>
+   </div>
+  </div>
 
-  document.getElementById("destinationResults").innerHTML=
-    list.length
-      ?list.map(destinationCard).join("")
-      :'<div class="empty">No destinations found. Try changing your filters.</div>';
+  <h3>${isStay?"Amenities":"Highlights"}</h3>
+  <div class="detail-tags">
+   ${tags.map(t=>`<span>✓ ${esc(t)}</span>`).join("")}
+  </div>
 
-  document.getElementById("destinationCount").textContent=
-    `Showing ${destinationFiltered.length?start+1:0}–`+
-    `${Math.min(start+pageSize,destinationFiltered.length)} `+
-    `of ${destinationFiltered.length} destinations`;
+  <h3>Photo Gallery</h3>
+  <div class="detail-gallery">
+   ${photos.map(p=>`<img src="${p}" alt="Illustrative photo">`).join("")}
+  </div>
 
-  document.getElementById("destinationPagination").innerHTML=
-    pagination(destinationFiltered.length,destinationPage,"destination");
-}
+  <h3 style="margin-top:23px">📍 Location Map</h3>
+  <p>Explore the location directly below. Zoom, drag and tap the marker.</p>
 
-function renderDestinationSidebar(){
-  document.getElementById("destinationCategoryFilters").innerHTML=
-    categories.map(c=>`
-      <label class="filter-option">
-        <input type="radio" name="sideCategory"
-          value="${c}" ${c==="all"?"checked":""}
-          onchange="destinationSidebarFilter()">
-        ${c==="all"?"All destinations":c.charAt(0).toUpperCase()+c.slice(1)}
-      </label>
-    `).join("");
+  <div id="detailMap" class="detail-map"></div>
 
-  document.getElementById("destinationLocationFilters").innerHTML=
-    municipalities.map(c=>`
-      <label class="filter-option">
-        <input type="radio" name="sideLocation"
-          value="${c}" ${c==="all"?"checked":""}
-          onchange="destinationSidebarFilter()">
-        ${c==="all"?"All municipalities":c}
-      </label>
-    `).join("");
-}
+  <div class="detail-actions">
+   <button onclick="closeModal();focusLocation('${isStay?"stay":"destination"}',${item.id})">
+    📍 View on Main Map
+   </button>
+   <button onclick="closeModal()">Close Details</button>
+  </div>
 
-function destinationSidebarFilter(){
-  document.getElementById("topCategory").value=
-    document.querySelector('[name="sideCategory"]:checked').value;
+  <p style="font-size:10px">
+   ${isStay
+    ?"Sample property: coordinates, photos, prices and ratings are not verified."
+    :"Destination coordinates are approximate and photos are illustrative. Verify access routes before traveling."}
+  </p>
+ `;
 
-  document.getElementById("topLocation").value=
-    document.querySelector('[name="sideLocation"]:checked').value;
-
-  applyDestinationFilters();
-}
-
-function applyDestinationFilters(){
-  const q=document.getElementById("destinationSearch").value.trim().toLowerCase();
-  const c=document.getElementById("topCategory").value;
-  const l=document.getElementById("topLocation").value;
-
-  destinationFiltered=destinations.filter(d=>
-    (c==="all"||d.category===c)&&
-    (l==="all"||d.location===l)&&
-    (d.name+" "+d.location+" "+d.description).toLowerCase().includes(q)
-  );
-
-  const sort=document.getElementById("destinationSort").value;
-
-  if(sort==="name"){
-    destinationFiltered.sort((a,b)=>a.name.localeCompare(b.name));
-  }
-  if(sort==="location"){
-    destinationFiltered.sort((a,b)=>a.location.localeCompare(b.location));
-  }
-
-  document.querySelectorAll('[name="sideCategory"]').forEach(x=>{
-    x.checked=x.value===c;
-  });
-
-  document.querySelectorAll('[name="sideLocation"]').forEach(x=>{
-    x.checked=x.value===l;
-  });
-
-  destinationPage=1;
-  renderDestinations();
-}
-
-function clearDestinationFilters(){
-  document.getElementById("destinationSearch").value="";
-  document.getElementById("topCategory").value="all";
-  document.getElementById("topLocation").value="all";
-  document.getElementById("destinationSort").value="default";
-  applyDestinationFilters();
-}
-
-function categoryShortcut(c){
-  showPage("destinations");
-  document.getElementById("topCategory").value=c;
-  document.getElementById("topLocation").value="all";
-  applyDestinationFilters();
-}
-
-function toggleFavorite(id){
-  const list=getStored("catFavorites");
-  const updated=list.includes(id)
-    ?list.filter(x=>x!==id)
-    :[...list,id];
-
-  if(setStored("catFavorites",updated)){
-    renderDestinations();
-    renderHomeDestinations();
-  }
-}
-
-function renderHomeDestinations(){
-  document.getElementById("homeDestinations").innerHTML=
-    destinations.slice(0,6).map(destinationCard).join("");
+ document.getElementById("detailModal").classList.remove("hidden");
+ setTimeout(()=>openDetailMap(item,isStay),80);
 }
 
 function openDestination(id){
-  const d=destinations.find(x=>x.id===id);
-  if(!d)return;
-
-  document.getElementById("detailContent").innerHTML=`
-    <img src="${d.image}" alt="${esc(d.name)}">
-    <h2>${esc(d.name)}</h2>
-    <p>📍 ${esc(d.location)}, Catanduanes</p>
-    <p>${esc(d.description)}</p>
-    <p>Confirm travel conditions, entrance fees and transportation locally.</p>
-    <div class="modal-actions">
-      <a href="${mapURL(d)}" target="_blank" rel="noopener noreferrer">
-        📍 View on Google Maps
-      </a>
-    </div>
-  `;
-
-  document.getElementById("detailModal").classList.remove("hidden");
-}
-
-/* STAY CARDS */
-function stayCard(s){
-  const index=photoIndexes[s.id]||0;
-  const saved=getStored("stayFavorites").includes(s.id);
-
-  return `
-  <article class="stay-card">
-    <div class="stay-photo">
-      <img id="stayPhoto${s.id}" src="${s.photos[index]}"
-        alt="${esc(s.name)}" loading="lazy">
-
-      <div class="stay-badges">
-        <span>FEATURED</span>
-        <span class="promo">DEMO</span>
-      </div>
-
-      <button class="heart ${saved?"saved":""}"
-        aria-label="Toggle favorite"
-        onclick="toggleStayFavorite(${s.id})">${saved?"♥":"♡"}</button>
-
-      <button class="photo-prev" aria-label="Previous photo"
-        onclick="changeStayPhoto(${s.id},-1)">‹</button>
-      <button class="photo-next" aria-label="Next photo"
-        onclick="changeStayPhoto(${s.id},1)">›</button>
-    </div>
-
-    <div class="stay-body">
-      <div class="stay-type">${esc(s.type.toUpperCase())} • ★★★★☆</div>
-      <h3>${esc(s.name)}</h3>
-      <p class="card-location">📍 ${esc(s.location)}, Catanduanes</p>
-
-      <div class="stay-rating">
-        ★ ${s.rating.toFixed(1)} <span>Sample rating</span>
-      </div>
-
-      <div class="stay-features">
-        ${s.amenities.map(a=>`<span>✓ ${esc(a)}</span>`).join("")}
-      </div>
-
-      <div class="stay-price-row">
-        <div class="price">
-          ₱${s.price.toLocaleString()}
-          <small>/ night</small>
-        </div>
-        <button onclick="openStay(${s.id})">View Details</button>
-      </div>
-
-      <div class="demo-note">Illustrative rates and ratings only.</div>
-    </div>
-  </article>`;
-}
-
-function renderStays(){
-  const start=(stayPage-1)*pageSize;
-  const list=stayFiltered.slice(start,start+pageSize);
-
-  document.getElementById("stayResults").innerHTML=
-    list.length
-      ?list.map(stayCard).join("")
-      :'<div class="empty">No stays match your filters.</div>';
-
-  document.getElementById("stayCount").textContent=
-    `Showing ${stayFiltered.length?start+1:0}–`+
-    `${Math.min(start+pageSize,stayFiltered.length)} `+
-    `of ${stayFiltered.length} example stays`;
-
-  document.getElementById("stayPagination").innerHTML=
-    pagination(stayFiltered.length,stayPage,"stay");
-}
-
-function renderHomeStays(){
-  document.getElementById("homeStays").innerHTML=
-    stays.slice(0,3).map(stayCard).join("");
-}
-
-function changeStayPhoto(id,direction){
-  const s=stays.find(x=>x.id===id);
-  if(!s)return;
-
-  photoIndexes[id]=
-    ((photoIndexes[id]||0)+direction+s.photos.length)%s.photos.length;
-
-  document.querySelectorAll('[id="stayPhoto'+id+'"]').forEach(el=>{
-    el.src=s.photos[photoIndexes[id]];
-  });
-}
-
-function toggleStayFavorite(id){
-  const list=getStored("stayFavorites");
-  const updated=list.includes(id)
-    ?list.filter(x=>x!==id)
-    :[...list,id];
-
-  if(setStored("stayFavorites",updated)){
-    renderStays();
-    renderHomeStays();
-  }
-}
-
-function renderStaySidebar(){
-  const types=["all","Hotel","Resort","Villa","Homestay","Beachfront"];
-
-  document.getElementById("stayTypeFilters").innerHTML=
-    types.map(t=>`
-      <label class="filter-option">
-        <input type="radio" name="stayType"
-          value="${t}" ${t==="all"?"checked":""}
-          onchange="applyStayFilters()">
-        ${t==="all"?"All property types":t}
-      </label>
-    `).join("");
-}
-
-function selectStayType(t){
-  document.querySelectorAll('[name="stayType"]').forEach(x=>{
-    x.checked=x.value===t;
-  });
-  applyStayFilters();
-}
-
-function applyStayFilters(){
-  const q=document.getElementById("staySearch").value.trim().toLowerCase();
-  const location=document.getElementById("stayLocation").value;
-  const type=document.querySelector('[name="stayType"]:checked')?.value||"all";
-  const price=document.querySelector('[name="priceFilter"]:checked')?.value||"all";
-  const amenities=[
-    ...document.querySelectorAll('[name="amenity"]:checked')
-  ].map(x=>x.value);
-
-  stayFiltered=stays.filter(s=>{
-    if(q&&!(`${s.name} ${s.location} ${s.type} ${s.amenities.join(" ")}`)
-      .toLowerCase().includes(q))return false;
-
-    if(location!=="all"&&s.location!==location)return false;
-    if(type!=="all"&&s.type!==type)return false;
-
-    if(price==="budget"&&s.price>=2000)return false;
-    if(price==="mid"&&(s.price<2000||s.price>4000))return false;
-    if(price==="premium"&&s.price<=4000)return false;
-
-    return amenities.every(a=>s.amenities.includes(a));
-  });
-
-  const sort=document.getElementById("staySort").value;
-
-  if(sort==="low")stayFiltered.sort((a,b)=>a.price-b.price);
-  if(sort==="high")stayFiltered.sort((a,b)=>b.price-a.price);
-  if(sort==="rating")stayFiltered.sort((a,b)=>b.rating-a.rating);
-
-  document.querySelectorAll("[data-stay-type]").forEach(b=>{
-    b.classList.toggle("active",b.dataset.stayType===type);
-  });
-
-  stayPage=1;
-  renderStays();
-}
-
-function clearStayFilters(){
-  document.getElementById("staySearch").value="";
-  document.getElementById("stayLocation").value="all";
-  document.getElementById("staySort").value="default";
-
-  document.querySelector('[name="stayType"][value="all"]').checked=true;
-  document.querySelector('[name="priceFilter"][value="all"]').checked=true;
-
-  document.querySelectorAll('[name="amenity"]').forEach(x=>{
-    x.checked=false;
-  });
-
-  applyStayFilters();
+ const d=destinations.find(x=>x.id===id);
+ if(d)renderDetail(d,false);
 }
 
 function openStay(id){
-  const s=stays.find(x=>x.id===id);
-  if(!s)return;
-
-  document.getElementById("detailContent").innerHTML=`
-    <img src="${s.photos[0]}" alt="${esc(s.name)}">
-    <h2>${esc(s.name)}</h2>
-    <p>📍 ${esc(s.location)}, Catanduanes</p>
-    <p>Property Type: ${esc(s.type)}</p>
-    <p>Facilities: ${esc(s.amenities.join(", "))}</p>
-    <p>Illustrative rate: ₱${s.price.toLocaleString()} per night.</p>
-    <p>This is a demonstration property, not a verified accommodation listing.</p>
-
-    <div class="modal-actions">
-      <a href="${mapURL(s)}" target="_blank" rel="noopener noreferrer">
-        📍 Search on Google Maps
-      </a>
-    </div>
-  `;
-
-  document.getElementById("detailModal").classList.remove("hidden");
+ const s=stays.find(x=>x.id===id);
+ if(s)renderDetail(s,true);
 }
 
-/* ACTIVITIES, TRANSPORTATION, BUSINESSES */
+/* =====================================
+   ORIGINAL DESTINATION LISTING
+===================================== */
+function destinationCard(d){
+ const saved=getStored("catFavorites").includes(d.id);
+
+ return `
+ <article class="card">
+  <div class="card-image">
+   <img src="${d.image}" alt="${esc(d.name)}" loading="lazy">
+   <span class="badge">${esc(d.category.toUpperCase())}</span>
+   <button class="heart ${saved?"saved":""}" onclick="toggleFavorite(${d.id})">
+    ${saved?"♥":"♡"}
+   </button>
+  </div>
+  <div class="card-body">
+   <h3>${esc(d.name)}</h3>
+   <p class="card-location">📍 ${esc(d.location)}, Catanduanes</p>
+   <p>${esc(d.description)}</p>
+   <div class="card-bottom">
+    <small>
+     <a onclick="focusLocation('destination',${d.id})">📍 View on Map</a>
+    </small>
+    <button onclick="openDestination(${d.id})">View Details ↗</button>
+   </div>
+  </div>
+ </article>`;
+}
+
+function pagination(total,current,type){
+ let html="";
+ for(let i=1;i<=Math.ceil(total/pageSize);i++){
+  html+=`<button class="${i===current?"active":""}"
+   onclick="changePage('${type}',${i})">${i}</button>`;
+ }
+ return html;
+}
+
+function renderDestinations(){
+ const start=(destinationPage-1)*pageSize;
+ const list=destinationFiltered.slice(start,start+pageSize);
+
+ document.getElementById("destinationResults").innerHTML=
+  list.length?list.map(destinationCard).join(""):
+  '<div class="empty">No destinations found.</div>';
+
+ document.getElementById("destinationCount").textContent=
+  `Showing ${destinationFiltered.length?start+1:0}–${Math.min(start+pageSize,destinationFiltered.length)} of ${destinationFiltered.length} destinations`;
+
+ document.getElementById("destinationPagination").innerHTML=
+  pagination(destinationFiltered.length,destinationPage,"destination");
+
+ updateDestinationMap();
+}
+
+function changePage(type,page){
+ if(type==="destination"){
+  destinationPage=page;
+  renderDestinations();
+ }else{
+  stayPage=page;
+  renderStays();
+ }
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderDestinationSidebar(){
+ document.getElementById("destinationCategoryFilters").innerHTML=
+  categories.map(c=>`
+   <label class="filter-option">
+    <input type="radio" name="sideCategory" value="${c}"
+     ${c==="all"?"checked":""} onchange="destinationSidebarFilter()">
+    ${c==="all"?"All destinations":c.charAt(0).toUpperCase()+c.slice(1)}
+   </label>
+  `).join("");
+
+ document.getElementById("destinationLocationFilters").innerHTML=
+  municipalities.map(c=>`
+   <label class="filter-option">
+    <input type="radio" name="sideLocation" value="${c}"
+     ${c==="all"?"checked":""} onchange="destinationSidebarFilter()">
+    ${c==="all"?"All municipalities":c}
+   </label>
+  `).join("");
+}
+
+function destinationSidebarFilter(){
+ document.getElementById("topCategory").value=
+  document.querySelector('[name="sideCategory"]:checked').value;
+
+ document.getElementById("topLocation").value=
+  document.querySelector('[name="sideLocation"]:checked').value;
+
+ applyDestinationFilters();
+}
+
+function applyDestinationFilters(){
+ const q=document.getElementById("destinationSearch").value.toLowerCase().trim();
+ const c=document.getElementById("topCategory").value;
+ const l=document.getElementById("topLocation").value;
+
+ destinationFiltered=destinations.filter(d=>
+  (c==="all"||d.category===c)&&
+  (l==="all"||d.location===l)&&
+  (d.name+" "+d.location+" "+d.description).toLowerCase().includes(q)
+ );
+
+ const sort=document.getElementById("destinationSort").value;
+
+ if(sort==="name")destinationFiltered.sort((a,b)=>a.name.localeCompare(b.name));
+ if(sort==="location")destinationFiltered.sort((a,b)=>a.location.localeCompare(b.location));
+
+ document.querySelectorAll('[name="sideCategory"]').forEach(x=>x.checked=x.value===c);
+ document.querySelectorAll('[name="sideLocation"]').forEach(x=>x.checked=x.value===l);
+
+ destinationPage=1;
+ renderDestinations();
+}
+
+function clearDestinationFilters(){
+ document.getElementById("destinationSearch").value="";
+ document.getElementById("topCategory").value="all";
+ document.getElementById("topLocation").value="all";
+ document.getElementById("destinationSort").value="default";
+ applyDestinationFilters();
+}
+
+function categoryShortcut(c){
+ showPage("destinations");
+ document.getElementById("topCategory").value=c;
+ applyDestinationFilters();
+}
+
+function toggleFavorite(id){
+ const list=getStored("catFavorites");
+ const updated=list.includes(id)?list.filter(x=>x!==id):[...list,id];
+
+ if(setStored("catFavorites",updated)){
+  renderDestinations();
+  document.getElementById("homeDestinations").innerHTML=
+   destinations.slice(0,6).map(destinationCard).join("");
+ }
+}
+
+/* =====================================
+   ORIGINAL STAY LISTING
+===================================== */
+function stayCard(s){
+ const index=photoIndexes[s.id]||0;
+ const saved=getStored("stayFavorites").includes(s.id);
+
+ return `
+ <article class="stay-card">
+  <div class="stay-photo">
+   <img id="stayPhoto${s.id}" src="${s.photos[index]}" alt="${esc(s.name)}" loading="lazy">
+   <div class="stay-badges">
+    <span>FEATURED</span>
+    <span class="promo">DEMO</span>
+   </div>
+   <button class="heart ${saved?"saved":""}" onclick="toggleStayFavorite(${s.id})">
+    ${saved?"♥":"♡"}
+   </button>
+   <button class="photo-prev" onclick="changeStayPhoto(${s.id},-1)">‹</button>
+   <button class="photo-next" onclick="changeStayPhoto(${s.id},1)">›</button>
+  </div>
+
+  <div class="stay-body">
+   <div class="stay-type">${esc(s.type.toUpperCase())}</div>
+   <h3>${esc(s.name)}</h3>
+   <p class="card-location">📍 ${esc(s.location)}, Catanduanes</p>
+   <div class="stay-rating">★ ${s.rating.toFixed(1)} <span>Sample rating</span></div>
+   <div class="stay-features">
+    ${s.amenities.map(a=>`<span>✓ ${esc(a)}</span>`).join("")}
+   </div>
+
+   <div class="stay-price-row">
+    <div class="price">₱${s.price.toLocaleString()} <small>/ night</small></div>
+    <button onclick="openStay(${s.id})">View Details</button>
+   </div>
+
+   <div class="demo-note">
+    <a onclick="focusLocation('stay',${s.id})">📍 View on Map</a>
+    • Illustrative rates only
+   </div>
+  </div>
+ </article>`;
+}
+
+function renderStays(){
+ const start=(stayPage-1)*pageSize;
+ const list=stayFiltered.slice(start,start+pageSize);
+
+ document.getElementById("stayResults").innerHTML=
+  list.length?list.map(stayCard).join(""):
+  '<div class="empty">No stays match your filters.</div>';
+
+ document.getElementById("stayCount").textContent=
+  `Showing ${stayFiltered.length?start+1:0}–${Math.min(start+pageSize,stayFiltered.length)} of ${stayFiltered.length} example stays`;
+
+ document.getElementById("stayPagination").innerHTML=
+  pagination(stayFiltered.length,stayPage,"stay");
+
+ updateStayMap();
+}
+
+function changeStayPhoto(id,direction){
+ const s=stays.find(x=>x.id===id);
+ if(!s)return;
+
+ photoIndexes[id]=
+  ((photoIndexes[id]||0)+direction+s.photos.length)%s.photos.length;
+
+ const el=document.getElementById("stayPhoto"+id);
+ if(el)el.src=s.photos[photoIndexes[id]];
+}
+
+function toggleStayFavorite(id){
+ const list=getStored("stayFavorites");
+ const updated=list.includes(id)?list.filter(x=>x!==id):[...list,id];
+
+ if(setStored("stayFavorites",updated)){
+  renderStays();
+  document.getElementById("homeStays").innerHTML=
+   stays.slice(0,3).map(stayCard).join("");
+ }
+}
+
+function renderStaySidebar(){
+ const types=["all","Hotel","Resort","Villa","Homestay","Beachfront"];
+
+ document.getElementById("stayTypeFilters").innerHTML=
+  types.map(t=>`
+   <label class="filter-option">
+    <input type="radio" name="stayType" value="${t}"
+     ${t==="all"?"checked":""} onchange="applyStayFilters()">
+    ${t==="all"?"All property types":t}
+   </label>
+  `).join("");
+}
+
+function selectStayType(t){
+ document.querySelectorAll('[name="stayType"]').forEach(x=>x.checked=x.value===t);
+ applyStayFilters();
+}
+
+function applyStayFilters(){
+ const q=document.getElementById("staySearch").value.toLowerCase().trim();
+ const location=document.getElementById("stayLocation").value;
+ const type=document.querySelector('[name="stayType"]:checked')?.value||"all";
+ const price=document.querySelector('[name="priceFilter"]:checked')?.value||"all";
+ const amenities=[...document.querySelectorAll('[name="amenity"]:checked')].map(x=>x.value);
+
+ stayFiltered=stays.filter(s=>{
+  if(q&&!(s.name+" "+s.location+" "+s.type).toLowerCase().includes(q))return false;
+  if(location!=="all"&&s.location!==location)return false;
+  if(type!=="all"&&s.type!==type)return false;
+  if(price==="budget"&&s.price>=2000)return false;
+  if(price==="mid"&&(s.price<2000||s.price>4000))return false;
+  if(price==="premium"&&s.price<=4000)return false;
+  return amenities.every(a=>s.amenities.includes(a));
+ });
+
+ const sort=document.getElementById("staySort").value;
+ if(sort==="low")stayFiltered.sort((a,b)=>a.price-b.price);
+ if(sort==="high")stayFiltered.sort((a,b)=>b.price-a.price);
+ if(sort==="rating")stayFiltered.sort((a,b)=>b.rating-a.rating);
+
+ document.querySelectorAll("[data-stay-type]").forEach(b=>
+  b.classList.toggle("active",b.dataset.stayType===type)
+ );
+
+ stayPage=1;
+ renderStays();
+}
+
+function clearStayFilters(){
+ document.getElementById("staySearch").value="";
+ document.getElementById("stayLocation").value="all";
+ document.getElementById("staySort").value="default";
+ document.querySelector('[name="stayType"][value="all"]').checked=true;
+ document.querySelector('[name="priceFilter"][value="all"]').checked=true;
+ document.querySelectorAll('[name="amenity"]').forEach(x=>x.checked=false);
+ applyStayFilters();
+}
+
+/* =====================================
+   ORIGINAL OTHER CONTENT
+===================================== */
 function simpleCard(item){
-  return `
-    <article class="info-card">
-      <img src="${item.image}" alt="${esc(item.name)}" loading="lazy">
-      <div>
-        <h3>${esc(item.name)}</h3>
-        <p>📍 ${esc(item.location)}, Catanduanes</p>
-        <p>${esc(item.description)}</p>
-        <button onclick="openItemLocation('${esc(item.name)}','${esc(item.location)}')">
-          View Location ↗
-        </button>
-      </div>
-    </article>
-  `;
+ return `
+ <article class="info-card">
+  <img src="${item.image}" alt="${esc(item.name)}" loading="lazy">
+  <div>
+   <h3>${esc(item.name)}</h3>
+   <p>📍 ${esc(item.location)}, Catanduanes</p>
+   <p>${esc(item.description)}</p>
+  </div>
+ </article>`;
 }
 
-function openItemLocation(name,locationName){
-  const url=mapURL({name,location:locationName});
+function renderOtherPages(){
+ document.getElementById("activitiesGrid").innerHTML=
+  activities.map(simpleCard).join("");
+
+ document.getElementById("transportGrid").innerHTML=
+  transport.map(simpleCard).join("");
+}
+
+/* =====================================
+   NEW BUSINESS DIRECTORY
+===================================== */
+function businessCard(b){
+ return `
+ <article class="business-card">
+  <div class="business-cover">
+   <img src="${esc(businessImage(b))}" alt="${esc(b.name)}" loading="lazy">
+   <span class="business-category">${esc(b.category)}</span>
+  </div>
+  <div class="business-card-body">
+   <h3>${esc(b.name)}</h3>
+   <p class="location">📍 ${esc(b.municipality)}, Catanduanes</p>
+   <p>${esc(b.description).slice(0,160)}${b.description.length>160?"...":""}</p>
+   ${b.promotion?`<span class="promo-chip">🎁 ${esc(b.promotion)}</span>`:""}
+   <div class="business-card-actions">
+    <button onclick="openBusiness('${esc(b.id)}')">View Details ↗</button>
+    <button onclick="focusBusiness('${esc(b.id)}')">📍 View Map</button>
+   </div>
+  </div>
+ </article>`;
+}
+
+function renderBusinesses(){
+ const q=document.getElementById("businessSearch").value.toLowerCase().trim();
+ const category=document.getElementById("businessCategoryFilter").value;
+ const location=document.getElementById("businessLocationFilter").value;
+
+ businessFiltered=allBusinesses().filter(b=>
+  b.status==="approved"&&
+  (category==="all"||b.category===category)&&
+  (location==="all"||b.municipality===location)&&
+  (
+   b.name+" "+b.description+" "+b.municipality+" "+
+   b.category+" "+(b.products||[]).map(p=>p.name).join(" ")
+  ).toLowerCase().includes(q)
+ );
+
+ document.getElementById("businessCount").textContent=
+  businessFiltered.length+" approved businesses found";
+
+ document.getElementById("businessGrid").innerHTML=
+  businessFiltered.length?
+  businessFiltered.map(businessCard).join(""):
+  `<div class="business-empty" style="grid-column:1/-1">
+    <h3>🏪 No businesses found</h3>
+    <p>There are no approved businesses matching your filters yet.</p>
+    <button class="pink-btn" onclick="openPartnerArea()">List Your Business</button>
+   </div>`;
+
+ const featured=allBusinesses().filter(b=>b.status==="approved").slice(0,3);
+ document.getElementById("homeBusinesses").innerHTML=
+  featured.length?
+  featured.map(businessCard).join(""):
+  `<div class="business-empty" style="grid-column:1/-1">
+    <h3>Support Local Businesses</h3>
+    <p>Approved business listings will appear here.</p>
+    <button class="pink-btn" onclick="openPartnerArea()">Become a Business Partner</button>
+   </div>`;
+
+ updateBusinessMap();
+}
+
+function trackBusinessEvent(id,type){
+ const data=allBusinesses();
+ const b=data.find(x=>x.id===id&&x.status==="approved");
+ if(!b)return;
+
+ if(!["views","contacts","mapViews"].includes(type))return;
+ if(!b.stats)b.stats={views:0,contacts:0,mapViews:0};
+
+ b.stats[type]=(b.stats[type]||0)+1;
+ saveBusinesses(data);
+}
+
+function openBusiness(id){
+ const b=allBusinesses().find(x=>x.id===id&&x.status==="approved");
+ if(!b)return;
+
+ trackBusinessEvent(id,"views");
+ if(detailMap){detailMap.remove();detailMap=null}
+
+ const products=Array.isArray(b.products)?b.products:[];
+ const messenger=safeLink(b.messenger);
+ const phone=String(b.phone||"").replace(/[^0-9+]/g,"");
+ const email=String(b.email||"").trim();
+
+ const nearby=destinations
+  .filter(d=>d.location===b.municipality)
+  .slice(0,3);
+
+ document.getElementById("detailContent").innerHTML=`
+  <img class="modal-main-image" src="${esc(businessImage(b))}" alt="${esc(b.name)}">
+  <h2>${esc(b.name)}</h2>
+  <p style="color:var(--teal);font-weight:800">
+   📍 ${esc(b.address)}, ${esc(b.municipality)}, Catanduanes
+  </p>
+
+  <span class="status-pill status-approved">✓ Approved Listing</span>
+  <p>${esc(b.description)}</p>
+
+  ${b.promotion?`<p class="promo-chip">🎁 ${esc(b.promotion)}</p>`:""}
+
+  <div class="detail-info-grid">
+   <div class="detail-info"><small>CATEGORY</small><strong>${esc(b.category)}</strong></div>
+   <div class="detail-info"><small>MUNICIPALITY</small><strong>${esc(b.municipality)}</strong></div>
+   <div class="detail-info"><small>OPERATING HOURS</small><strong>${esc(b.hours||"Contact business")}</strong></div>
+   <div class="detail-info"><small>PHONE</small><strong>${esc(b.phone||"Not provided")}</strong></div>
+  </div>
+
+  <h3>Products & Services</h3>
+  ${products.length?`
+   <div class="product-gallery">
+    ${products.map(p=>`
+     <div class="product-tile">
+      <img src="${esc(safeImage(p.image,businessImage(b)))}" alt="${esc(p.name)}">
+      <strong>${esc(p.name)}</strong>
+      <span>${p.price!==""&&p.price!=null?"₱"+Number(p.price).toLocaleString():"Ask for price"}</span>
+     </div>
+    `).join("")}
+   </div>
+  `:'<p>Contact the business for products and services.</p>'}
+
+  <h3>📍 Business Location</h3>
+  <p>Explore the owner-selected location on the embedded map.</p>
+  <div id="detailMap" class="detail-map"></div>
+
+  ${nearby.length?`
+   <div class="nearby-box">
+    <h3>🌴 Tourist Destinations in ${esc(b.municipality)}</h3>
+    ${nearby.map(d=>`
+     <button onclick="closeModal();openDestination(${d.id})">
+      📍 ${esc(d.name)}
+     </button>
+    `).join("")}
+   </div>
+  `:""}
+
+  <h3 style="margin-top:22px">Contact This Business</h3>
+  <div class="detail-actions">
+   ${phone?`<button onclick="contactBusiness('${esc(b.id)}','phone')">📞 Call Business</button>`:""}
+   ${email?`<button onclick="contactBusiness('${esc(b.id)}','email')">✉ Email</button>`:""}
+   ${messenger?`<button onclick="contactBusiness('${esc(b.id)}','messenger')">💬 Messenger</button>`:""}
+   <button onclick="closeModal();focusBusiness('${esc(b.id)}')">📍 View on Main Map</button>
+  </div>
+
+  <p style="font-size:10px">
+   Business details and coordinates are owner-submitted and not independently verified in this prototype.
+  </p>
+ `;
+
+ document.getElementById("detailModal").classList.remove("hidden");
+ setTimeout(()=>openDetailMap(b,false,true),80);
+}
+
+function contactBusiness(id,type){
+ const b=allBusinesses().find(x=>x.id===id&&x.status==="approved");
+ if(!b)return;
+
+ let url="";
+
+ if(type==="phone"){
+  const number=String(b.phone||"").replace(/[^0-9+]/g,"");
+  if(number)url="tel:"+number;
+ }
+ if(type==="email"&&b.email){
+  url="mailto:"+encodeURIComponent(b.email);
+ }
+ if(type==="messenger"){
+  url=safeLink(b.messenger);
+ }
+
+ if(!url)return;
+
+ trackBusinessEvent(id,"contacts");
+
+ if(url.startsWith("https://")){
   window.open(url,"_blank","noopener,noreferrer");
+ }else{
+  window.location.href=url;
+ }
 }
 
-function filterSimple(items,searchId,typeId,locationId,gridId,countId){
-  const q=document.getElementById(searchId).value.trim().toLowerCase();
-  const type=document.getElementById(typeId).value;
-  const locationValue=locationId
-    ?document.getElementById(locationId).value
-    :"all";
-
-  const filtered=items.filter(item=>{
-    const text=(
-      item.name+" "+item.location+" "+item.type+" "+item.description
-    ).toLowerCase();
-
-    return text.includes(q)&&
-      (type==="all"||item.type===type)&&
-      (locationValue==="all"||item.location===locationValue);
-  });
-
-  document.getElementById(gridId).innerHTML=
-    filtered.length
-      ?filtered.map(simpleCard).join("")
-      :'<div class="empty">No matching results found.</div>';
-
-  document.getElementById(countId).textContent=
-    `${filtered.length} result${filtered.length===1?"":"s"} found`;
+/* =====================================
+   NEW DEMO AUTHENTICATION
+   NOT FOR PRODUCTION USE
+===================================== */
+function togglePassword(id,button){
+ const field=document.getElementById(id);
+ field.type=field.type==="password"?"text":"password";
+ button.textContent=field.type==="password"?"Show":"Hide";
 }
 
-function filterActivities(){
-  filterSimple(
-    activities,"activitySearch","activityType","activityLocation",
-    "activitiesGrid","activityCount"
-  );
+function showFormMessage(id,message,success=false){
+ const el=document.getElementById(id);
+ el.textContent=message;
+ el.className="form-message"+(success?" success":"");
 }
 
-function filterTransport(){
-  filterSimple(
-    transport,"transportSearch","transportType",null,
-    "transportGrid","transportCount"
-  );
+function fillAdminDemo(){
+ document.getElementById("signinEmail").value="admin@mycatanduanesguide.demo";
+ document.getElementById("signinPassword").value="AdminDemo123!";
 }
 
-function filterBusinesses(){
-  filterSimple(
-    businesses,"businessSearch","businessType","businessLocation",
-    "businessGrid","businessCount"
-  );
+function demoAdminCredentials(email,password){
+ return email==="admin@mycatanduanesguide.demo"&&
+        password==="AdminDemo123!";
 }
 
-/* SEARCH EVENTS */
-document.getElementById("homeSearch").addEventListener("submit",function(e){
-  e.preventDefault();
+document.getElementById("partnerForm").addEventListener("submit",function(e){
+ e.preventDefault();
 
-  const category=document.getElementById("homeCategory").value;
-  const locationValue=document.getElementById("homeLocation").value;
+ const name=document.getElementById("partnerName").value.trim();
+ const email=document.getElementById("partnerEmail").value.trim().toLowerCase();
+ const phone=document.getElementById("partnerPhone").value.trim();
+ const password=document.getElementById("partnerPassword").value;
+ const confirm=document.getElementById("partnerConfirm").value;
 
-  showPage("destinations");
+ if(password!==confirm){
+  showFormMessage("partnerMessage","Passwords do not match.");
+  return;
+ }
 
-  document.getElementById("topCategory").value=category;
-  document.getElementById("topLocation").value=locationValue;
+ if(email==="admin@mycatanduanesguide.demo"){
+  showFormMessage("partnerMessage","This demonstration email is reserved.");
+  return;
+ }
 
-  applyDestinationFilters();
+ const accounts=getStored("mcgDemoAccounts");
+
+ if(accounts.some(a=>a.email===email)){
+  showFormMessage("partnerMessage","An account with this email already exists.");
+  return;
+ }
+
+ const account={
+  id:"owner_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),
+  name,email,phone,password,
+  role:"owner"
+ };
+
+ accounts.push(account);
+
+ if(!setStored("mcgDemoAccounts",accounts))return;
+
+ sessionStorage.setItem("mcgSession",JSON.stringify({
+  id:account.id,name:account.name,email:account.email,role:"owner"
+ }));
+
+ this.reset();
+ showPage("dashboard");
+ showOwnerTab("form");
 });
 
-[
-  "destinationSearch","topCategory","topLocation"
-].forEach(id=>{
-  const el=document.getElementById(id);
-  el.addEventListener(id==="destinationSearch"?"input":"change",
-    applyDestinationFilters);
+document.getElementById("signinForm").addEventListener("submit",function(e){
+ e.preventDefault();
+
+ const email=document.getElementById("signinEmail").value.trim().toLowerCase();
+ const password=document.getElementById("signinPassword").value;
+
+ if(demoAdminCredentials(email,password)){
+  sessionStorage.setItem("mcgSession",JSON.stringify({
+   id:"demo-admin",name:"Administrator",email,role:"admin"
+  }));
+  this.reset();
+  showPage("admin");
+  return;
+ }
+
+ const account=getStored("mcgDemoAccounts").find(a=>
+  a.email===email&&a.password===password
+ );
+
+ if(!account){
+  showFormMessage("signinMessage","Invalid demo email or password.");
+  return;
+ }
+
+ sessionStorage.setItem("mcgSession",JSON.stringify({
+  id:account.id,name:account.name,email:account.email,role:"owner"
+ }));
+
+ this.reset();
+ showPage("dashboard");
 });
 
-[
-  "staySearch","stayLocation","staySort"
-].forEach(id=>{
-  const el=document.getElementById(id);
-  el.addEventListener(id==="staySearch"?"input":"change",
-    applyStayFilters);
-});
+function logout(){
+ sessionStorage.removeItem("mcgSession");
+ updateNav();
+ showPage("home");
+}
 
-document.querySelectorAll('[name="priceFilter"],[name="amenity"]')
-  .forEach(x=>x.addEventListener("change",applyStayFilters));
+/* =====================================
+   BUSINESS OWNER DASHBOARD
+===================================== */
+function ownerBusinesses(){
+ const user=getSession();
+ if(!user||user.role!=="owner")return [];
+ return allBusinesses().filter(b=>b.ownerId===user.id);
+}
 
-document.querySelectorAll("[data-stay-type]").forEach(b=>{
-  b.addEventListener("click",()=>selectStayType(b.dataset.stayType));
-});
+function statusBadge(status){
+ return `<span class="status-pill status-${esc(status)}">${esc(status.toUpperCase())}</span>`;
+}
 
-[
-  "activitySearch","activityType","activityLocation"
-].forEach(id=>{
-  const el=document.getElementById(id);
-  el.addEventListener(id==="activitySearch"?"input":"change",
-    filterActivities);
-});
+function renderOwnerDashboard(){
+ if(!isOwner())return;
 
-[
-  "transportSearch","transportType"
-].forEach(id=>{
-  const el=document.getElementById(id);
-  el.addEventListener(id==="transportSearch"?"input":"change",
-    filterTransport);
-});
+ const user=getSession();
+ const items=ownerBusinesses();
 
-[
-  "businessSearch","businessType","businessLocation"
-].forEach(id=>{
-  const el=document.getElementById(id);
-  el.addEventListener(id==="businessSearch"?"input":"change",
-    filterBusinesses);
-});
+ document.getElementById("dashboardUserName").textContent=user.name;
+ document.getElementById("ownerTotal").textContent=items.length;
+ document.getElementById("ownerViews").textContent=
+  items.reduce((n,b)=>n+(b.stats?.views||0),0);
+ document.getElementById("ownerContacts").textContent=
+  items.reduce((n,b)=>n+(b.stats?.contacts||0),0);
+ document.getElementById("ownerMapViews").textContent=
+  items.reduce((n,b)=>n+(b.stats?.mapViews||0),0);
 
-/* MOBILE MENU */
-document.getElementById("menuBtn").addEventListener("click",function(){
-  const nav=document.getElementById("navLinks");
-  const open=nav.classList.toggle("open");
+ document.getElementById("ownerBusinessList").innerHTML=
+  items.length?items.map(b=>`
+   <div class="dashboard-business-item">
+    <img src="${esc(businessImage(b))}" alt="${esc(b.name)}">
+    <div class="item-info">
+     <h3>${esc(b.name)}</h3>
+     <p>📍 ${esc(b.municipality)} • ${esc(b.category)}</p>
+     ${statusBadge(b.status)}
+     ${b.status==="rejected"?`<p>${esc(b.reviewNote||"Please review your information and resubmit.")}</p>`:""}
+    </div>
+    <div class="item-actions">
+     <button class="edit" onclick="editBusiness('${esc(b.id)}')">✎ Edit</button>
+     ${b.status==="approved"?`<button onclick="openBusiness('${esc(b.id)}')">View</button>`:""}
+     <button class="delete" onclick="deleteBusiness('${esc(b.id)}')">Delete</button>
+    </div>
+   </div>
+  `).join(""):
+  `<div class="business-empty">
+    <h3>No business listings yet</h3>
+    <p>Create your first listing to start promoting your business.</p>
+    <button class="pink-btn" onclick="showOwnerTab('form')">+ Add Your Business</button>
+   </div>`;
 
-  this.textContent=open?"✕":"☰";
-  this.setAttribute("aria-expanded",String(open));
-});
+ document.getElementById("ownerAnalyticsContent").innerHTML=
+  items.length?items.map(b=>`
+   <div class="dashboard-business-item">
+    <img src="${esc(businessImage(b))}" alt="">
+    <div class="item-info">
+     <h3>${esc(b.name)}</h3>
+     <p>${statusBadge(b.status)}</p>
+     <p>👁️ ${b.stats?.views||0} views &nbsp; 💬 ${b.stats?.contacts||0} contact clicks &nbsp; 📍 ${b.stats?.mapViews||0} map interactions</p>
+    </div>
+   </div>
+  `).join(""):
+  '<p>No analytics available yet.</p>';
+}
 
-document.addEventListener("click",function(e){
-  const nav=document.getElementById("navLinks");
-  const btn=document.getElementById("menuBtn");
+function showOwnerTab(tab){
+ if(!isOwner())return;
 
-  if(nav.classList.contains("open")&&
-     !nav.contains(e.target)&&
-     !btn.contains(e.target)){
-    nav.classList.remove("open");
-    btn.textContent="☰";
-    btn.setAttribute("aria-expanded","false");
+ document.getElementById("ownerListTab").classList.toggle("hidden",tab!=="list");
+ document.getElementById("ownerFormTab").classList.toggle("hidden",tab!=="form");
+ document.getElementById("ownerAnalyticsTab").classList.toggle("hidden",tab!=="analytics");
+
+ document.querySelectorAll("[data-owner-tab]").forEach(b=>
+  b.classList.toggle("active",b.dataset.ownerTab===tab)
+ );
+
+ if(tab==="form"){
+  if(!document.getElementById("editBusinessId").value)resetBusinessForm();
+
+  setTimeout(()=>{
+   initializePickerMap();
+   pickerMap?.invalidateSize();
+  },150);
+ }
+
+ if(tab==="analytics"||tab==="list")renderOwnerDashboard();
+}
+
+/* =====================================
+   BUSINESS FORM & PRODUCTS
+===================================== */
+function addProductRow(product={}){
+ const row=document.createElement("div");
+ row.className="product-row";
+
+ row.innerHTML=`
+  <input class="product-name" placeholder="Product / Service Name" maxlength="100" value="${esc(product.name||"")}">
+  <input class="product-price" type="number" min="0" step="0.01" placeholder="Price" value="${esc(product.price??"")}">
+  <input class="product-image" type="url" placeholder="Image URL (optional)" value="${esc(product.image||"")}">
+  <button type="button" title="Remove" onclick="this.parentElement.remove()">×</button>
+ `;
+
+ document.getElementById("productRows").appendChild(row);
+}
+
+function collectProducts(){
+ return [...document.querySelectorAll("#productRows .product-row")]
+  .map(row=>({
+   name:row.querySelector(".product-name").value.trim(),
+   price:row.querySelector(".product-price").value.trim(),
+   image:safeLink(row.querySelector(".product-image").value.trim())
+  }))
+  .filter(p=>p.name);
+}
+
+function resetBusinessForm(){
+ document.getElementById("businessSubmissionForm").reset();
+ document.getElementById("editBusinessId").value="";
+ document.getElementById("businessFormTitle").textContent="Add Your Business";
+ document.getElementById("productRows").innerHTML="";
+ document.getElementById("bizPhotoPreview").classList.add("hidden");
+ document.getElementById("businessSubmitMessage").classList.add("hidden");
+
+ currentBusinessPhoto="";
+ addProductRow();
+
+ if(pickerMap){
+  pickerMap.setView([13.78,124.25],10);
+  if(pickerMarker){
+   pickerMap.removeLayer(pickerMarker);
+   pickerMarker=null;
   }
+ }
+}
+
+function setPickerLocation(lat,lng){
+ document.getElementById("bizLat").value=Number(lat).toFixed(6);
+ document.getElementById("bizLng").value=Number(lng).toFixed(6);
+
+ if(!pickerMap)return;
+
+ if(pickerMarker){
+  pickerMarker.setLatLng([lat,lng]);
+ }else{
+  pickerMarker=L.marker([lat,lng],{draggable:true}).addTo(pickerMap);
+  pickerMarker.on("dragend",()=>{
+   const p=pickerMarker.getLatLng();
+   setPickerLocation(p.lat,p.lng);
+  });
+ }
+}
+
+function initializePickerMap(){
+ if(typeof L==="undefined")return;
+
+ if(!pickerMap){
+  pickerMap=L.map("businessLocationPicker",{
+   scrollWheelZoom:false
+  }).setView([13.78,124.25],10);
+
+  L.tileLayer(
+   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+   {attribution:"&copy; OpenStreetMap contributors",maxZoom:19}
+  ).addTo(pickerMap);
+
+  pickerMap.on("click",e=>{
+   setPickerLocation(e.latlng.lat,e.latlng.lng);
+  });
+ }
+
+ const lat=Number(document.getElementById("bizLat").value);
+ const lng=Number(document.getElementById("bizLng").value);
+
+ if(document.getElementById("bizLat").value&&
+    document.getElementById("bizLng").value){
+  setPickerLocation(lat,lng);
+  pickerMap.setView([lat,lng],14);
+ }
+
+ pickerMap.invalidateSize();
+}
+
+document.getElementById("bizMunicipality").addEventListener("change",function(){
+ const coords=municipalityCoords[this.value];
+ if(!coords)return;
+
+ document.getElementById("bizLat").value="";
+ document.getElementById("bizLng").value="";
+
+ if(pickerMarker&&pickerMap){
+  pickerMap.removeLayer(pickerMarker);
+  pickerMarker=null;
+ }
+
+ if(pickerMap)pickerMap.setView(coords,13);
 });
 
-/* MODAL EVENTS */
+["bizLat","bizLng"].forEach(id=>{
+ document.getElementById(id).addEventListener("change",()=>{
+  const lat=document.getElementById("bizLat").value;
+  const lng=document.getElementById("bizLng").value;
+
+  if(lat!==""&&lng!==""&&
+     Number(lat)>=-90&&Number(lat)<=90&&
+     Number(lng)>=-180&&Number(lng)<=180){
+   setPickerLocation(Number(lat),Number(lng));
+   pickerMap?.setView([Number(lat),Number(lng)],14);
+  }
+ });
+});
+
+/* Resize and compress demo photos before local storage */
+async function compressImage(file){
+ return new Promise((resolve,reject)=>{
+  if(!file.type.startsWith("image/")){
+   reject(new Error("Please select an image file."));
+   return;
+  }
+  if(file.size>8*1024*1024){
+   reject(new Error("Please select an image smaller than 8 MB."));
+   return;
+  }
+
+  const image=new Image();
+  const url=URL.createObjectURL(file);
+
+  image.onload=()=>{
+   try{
+    const scale=Math.min(1,850/Math.max(image.width,image.height));
+    const canvas=document.createElement("canvas");
+    canvas.width=Math.round(image.width*scale);
+    canvas.height=Math.round(image.height*scale);
+
+    canvas.getContext("2d").drawImage(image,0,0,canvas.width,canvas.height);
+    const result=canvas.toDataURL("image/jpeg",0.72);
+
+    URL.revokeObjectURL(url);
+    resolve(result);
+   }catch(err){
+    URL.revokeObjectURL(url);
+    reject(err);
+   }
+  };
+
+  image.onerror=()=>{
+   URL.revokeObjectURL(url);
+   reject(new Error("Unable to read the image."));
+  };
+
+  image.src=url;
+ });
+}
+
+document.getElementById("bizPhoto").addEventListener("change",async function(){
+ const file=this.files[0];
+ if(!file)return;
+
+ try{
+  currentBusinessPhoto=await compressImage(file);
+  const preview=document.getElementById("bizPhotoPreview");
+  preview.src=currentBusinessPhoto;
+  preview.classList.remove("hidden");
+ }catch(err){
+  alert(err.message);
+  this.value="";
+ }
+});
+
+document.getElementById("businessSubmissionForm").addEventListener("submit",function(e){
+ e.preventDefault();
+
+ if(!isOwner()){
+  showPage("signin");
+  return;
+ }
+
+ const user=getSession();
+ const id=document.getElementById("editBusinessId").value;
+ const existing=allBusinesses();
+ const old=existing.find(b=>b.id===id);
+
+ if(id&&(!old||old.ownerId!==user.id)){
+  alert("You cannot edit this listing.");
+  return;
+ }
+
+ const latValue=document.getElementById("bizLat").value;
+ const lngValue=document.getElementById("bizLng").value;
+ const lat=Number(latValue);
+ const lng=Number(lngValue);
+
+ if(!latValue||!lngValue||
+    !Number.isFinite(lat)||!Number.isFinite(lng)||
+    lat<12.5||lat>15||lng<123||lng>125.5){
+  showFormMessage("businessSubmitMessage",
+   "Please select a valid location within the Catanduanes area.");
+  return;
+ }
+
+ const name=document.getElementById("bizName").value.trim();
+ const category=document.getElementById("bizCategory").value;
+ const municipality=document.getElementById("bizMunicipality").value;
+ const address=document.getElementById("bizAddress").value.trim();
+ const description=document.getElementById("bizDescription").value.trim();
+
+ if(!name||!category||!municipality||!address||!description){
+  showFormMessage("businessSubmitMessage","Complete all required fields.");
+  return;
+ }
+
+ const messengerInput=document.getElementById("bizMessenger").value.trim();
+ const messenger=safeLink(messengerInput);
+
+ if(messengerInput&&!messenger){
+  showFormMessage("businessSubmitMessage","Enter a valid Messenger URL.");
+  return;
+ }
+
+ const business={
+  id:old?.id||"biz_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),
+  ownerId:user.id,
+  ownerName:user.name,
+  name,category,municipality,address,description,
+  phone:document.getElementById("bizPhone").value.trim(),
+  email:document.getElementById("bizEmail").value.trim(),
+  messenger,
+  hours:document.getElementById("bizHours").value.trim(),
+  image:currentBusinessPhoto||old?.image||img.shop,
+  products:collectProducts(),
+  promotion:document.getElementById("bizPromo").value.trim(),
+  lat,lng,
+  status:"pending",
+  reviewNote:"",
+  stats:old?.stats||{views:0,contacts:0,mapViews:0},
+  createdAt:old?.createdAt||new Date().toISOString(),
+  updatedAt:new Date().toISOString()
+ };
+
+ const updated=old?
+  existing.map(b=>b.id===old.id?business:b):
+  [...existing,business];
+
+ if(!saveBusinesses(updated))return;
+
+ resetBusinessForm();
+ renderBusinesses();
+ renderOwnerDashboard();
+ showOwnerTab("list");
+ alert("Business submitted successfully! Please wait for admin approval.");
+});
+
+function editBusiness(id){
+ if(!isOwner())return;
+
+ const b=ownerBusinesses().find(x=>x.id===id);
+ if(!b)return;
+
+ showPage("dashboard");
+
+ document.getElementById("editBusinessId").value=b.id;
+ document.getElementById("businessFormTitle").textContent="Edit Business Listing";
+ document.getElementById("bizName").value=b.name;
+ document.getElementById("bizCategory").value=b.category;
+ document.getElementById("bizMunicipality").value=b.municipality;
+ document.getElementById("bizAddress").value=b.address;
+ document.getElementById("bizDescription").value=b.description;
+ document.getElementById("bizPhone").value=b.phone||"";
+ document.getElementById("bizEmail").value=b.email||"";
+ document.getElementById("bizMessenger").value=b.messenger||"";
+ document.getElementById("bizHours").value=b.hours||"";
+ document.getElementById("bizPromo").value=b.promotion||"";
+ document.getElementById("bizLat").value=b.lat;
+ document.getElementById("bizLng").value=b.lng;
+
+ currentBusinessPhoto=b.image||"";
+ const preview=document.getElementById("bizPhotoPreview");
+ preview.src=businessImage(b);
+ preview.classList.remove("hidden");
+
+ document.getElementById("productRows").innerHTML="";
+ (b.products||[]).forEach(addProductRow);
+ if(!(b.products||[]).length)addProductRow();
+
+ showOwnerTab("form");
+}
+
+function deleteBusiness(id){
+ if(!isOwner())return;
+
+ const b=ownerBusinesses().find(x=>x.id===id);
+ if(!b)return;
+
+ if(!confirm("Delete this business listing permanently from this browser?"))return;
+
+ const updated=allBusinesses().filter(x=>x.id!==id);
+ if(!saveBusinesses(updated))return;
+
+ renderOwnerDashboard();
+ renderBusinesses();
+}
+
+/* =====================================
+   NEW ADMIN APPROVAL SYSTEM
+===================================== */
+function setAdminFilter(filter){
+ if(!isAdmin())return;
+ adminFilter=filter;
+
+ document.querySelectorAll("[data-admin-filter]").forEach(b=>
+  b.classList.toggle("active",b.dataset.adminFilter===filter)
+ );
+
+ renderAdminDashboard();
+}
+
+function renderAdminDashboard(){
+ if(!isAdmin())return;
+
+ const items=allBusinesses();
+
+ document.getElementById("adminTotal").textContent=items.length;
+ document.getElementById("adminPending").textContent=
+  items.filter(b=>b.status==="pending").length;
+ document.getElementById("adminApproved").textContent=
+  items.filter(b=>b.status==="approved").length;
+ document.getElementById("adminRejected").textContent=
+  items.filter(b=>b.status==="rejected").length;
+
+ const filtered=items.filter(b=>
+  adminFilter==="all"||b.status===adminFilter
+ );
+
+ document.getElementById("adminBusinessList").innerHTML=
+  filtered.length?filtered.map(b=>`
+   <div class="dashboard-business-item">
+    <img src="${esc(businessImage(b))}" alt="${esc(b.name)}">
+    <div class="item-info">
+     <h3>${esc(b.name)}</h3>
+     <p>👤 ${esc(b.ownerName)} • ${esc(b.category)}</p>
+     <p>📍 ${esc(b.address)}, ${esc(b.municipality)}</p>
+     <p>${esc(b.description).slice(0,180)}</p>
+     ${statusBadge(b.status)}
+     ${b.reviewNote?`<p>Admin note: ${esc(b.reviewNote)}</p>`:""}
+    </div>
+    <div class="item-actions">
+     <button onclick="adminPreviewBusiness('${esc(b.id)}')">Review Details</button>
+     ${b.status!=="approved"?`
+      <button class="approve" onclick="reviewBusiness('${esc(b.id)}','approved')">✓ Approve</button>
+     `:""}
+     ${b.status!=="rejected"?`
+      <button class="reject" onclick="reviewBusiness('${esc(b.id)}','rejected')">× Reject</button>
+     `:""}
+    </div>
+   </div>
+  `).join(""):
+  '<div class="business-empty">No submissions in this category.</div>';
+}
+
+function adminPreviewBusiness(id){
+ if(!isAdmin())return;
+
+ const b=allBusinesses().find(x=>x.id===id);
+ if(!b)return;
+
+ if(detailMap){detailMap.remove();detailMap=null}
+
+ document.getElementById("detailContent").innerHTML=`
+  <img class="modal-main-image" src="${esc(businessImage(b))}" alt="${esc(b.name)}">
+  <h2>${esc(b.name)}</h2>
+  ${statusBadge(b.status)}
+  <p><strong>Owner:</strong> ${esc(b.ownerName)}</p>
+  <p><strong>Category:</strong> ${esc(b.category)}</p>
+  <p><strong>Location:</strong> ${esc(b.address)}, ${esc(b.municipality)}</p>
+  <p><strong>Description:</strong> ${esc(b.description)}</p>
+  <p><strong>Phone:</strong> ${esc(b.phone||"Not provided")}</p>
+  <p><strong>Email:</strong> ${esc(b.email||"Not provided")}</p>
+  <p><strong>Operating Hours:</strong> ${esc(b.hours||"Not provided")}</p>
+  <p><strong>Promotion:</strong> ${esc(b.promotion||"None")}</p>
+
+  <h3>Products & Services</h3>
+  <div class="detail-tags">
+   ${(b.products||[]).map(p=>`<span>${esc(p.name)} ${p.price!==""?"₱"+esc(p.price):""}</span>`).join("")||"No products provided"}
+  </div>
+
+  <h3>Submitted Map Location</h3>
+  <div id="detailMap" class="detail-map"></div>
+
+  <div class="detail-actions">
+   <button onclick="closeModal();reviewBusiness('${esc(b.id)}','approved')">✓ Approve</button>
+   <button onclick="closeModal();reviewBusiness('${esc(b.id)}','rejected')">× Reject</button>
+  </div>
+ `;
+
+ document.getElementById("detailModal").classList.remove("hidden");
+ setTimeout(()=>openDetailMap(b,false,true),80);
+}
+
+function reviewBusiness(id,status){
+ if(!isAdmin())return;
+ if(!["approved","rejected"].includes(status))return;
+
+ const data=allBusinesses();
+ const b=data.find(x=>x.id===id);
+ if(!b)return;
+
+ let note="";
+
+ if(status==="rejected"){
+  const response=prompt("Reason for rejection (shown to business owner):","Please correct your business information.");
+  if(response===null)return;
+  note=response.trim().slice(0,300)||"Please correct your business information.";
+ }else{
+  if(!confirm("Approve this business for public display?"))return;
+ }
+
+ b.status=status;
+ b.reviewNote=note;
+ b.reviewedAt=new Date().toISOString();
+
+ if(!saveBusinesses(data))return;
+
+ renderAdminDashboard();
+ renderBusinesses();
+}
+
+/* =====================================
+   EVENTS
+===================================== */
+document.getElementById("homeSearch").addEventListener("submit",function(e){
+ e.preventDefault();
+
+ showPage("destinations");
+
+ document.getElementById("topCategory").value=
+  document.getElementById("homeCategory").value;
+
+ document.getElementById("topLocation").value=
+  document.getElementById("homeLocation").value;
+
+ applyDestinationFilters();
+});
+
+document.getElementById("destinationSearch").addEventListener("input",applyDestinationFilters);
+document.getElementById("topCategory").addEventListener("change",applyDestinationFilters);
+document.getElementById("topLocation").addEventListener("change",applyDestinationFilters);
+
+document.getElementById("staySearch").addEventListener("input",applyStayFilters);
+document.getElementById("stayLocation").addEventListener("change",applyStayFilters);
+document.getElementById("staySort").addEventListener("change",applyStayFilters);
+
+document.querySelectorAll('[name="priceFilter"],[name="amenity"]').forEach(x=>
+ x.addEventListener("change",applyStayFilters)
+);
+
+document.querySelectorAll("[data-stay-type]").forEach(b=>
+ b.addEventListener("click",()=>selectStayType(b.dataset.stayType))
+);
+
+document.getElementById("businessSearch").addEventListener("input",renderBusinesses);
+document.getElementById("businessCategoryFilter").addEventListener("change",renderBusinesses);
+document.getElementById("businessLocationFilter").addEventListener("change",renderBusinesses);
+
+document.getElementById("menuBtn").addEventListener("click",()=>{
+ document.getElementById("navLinks").classList.toggle("open");
+});
+
 document.getElementById("detailModal").addEventListener("click",e=>{
-  if(e.target.id==="detailModal")closeModal();
+ if(e.target.id==="detailModal")closeModal();
 });
 
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape")closeModal();
+ if(e.key==="Escape")closeModal();
 });
 
-/* INITIALIZE */
+/* =====================================
+   INITIALIZE
+===================================== */
 renderDestinationSidebar();
 renderStaySidebar();
-
 renderDestinations();
 renderStays();
+renderOtherPages();
+renderBusinesses();
 
-renderHomeDestinations();
-renderHomeStays();
+document.getElementById("homeDestinations").innerHTML=
+ destinations.slice(0,6).map(destinationCard).join("");
 
-filterActivities();
-filterTransport();
-filterBusinesses();
+document.getElementById("homeStays").innerHTML=
+ stays.slice(0,3).map(stayCard).join("");
 
 document.getElementById("year").textContent=new Date().getFullYear();
 
 const today=new Date();
 document.getElementById("travelDate").min=
-  new Date(today.getTime()-today.getTimezoneOffset()*60000)
-    .toISOString().split("T")[0];
-
-const validPages=[
-  "home","destinations","stays","activities",
-  "transport","businesses","about","partner","signin"
-];
+ new Date(today.getTime()-today.getTimezoneOffset()*60000)
+ .toISOString().split("T")[0];
 
 const initial=location.hash.replace("#","");
-showPage(validPages.includes(initial)?initial:"home");
-
-window.addEventListener("hashchange",()=>{
-  const page=location.hash.replace("#","");
-  if(validPages.includes(page))showPage(page);
-});
+showPage(initial||"home");
 </script>
 
 </body>
