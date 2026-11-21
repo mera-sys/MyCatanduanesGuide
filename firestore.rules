@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+  match /destinations/{id} {allow read: if resource.data.published == true; allow write: if false;}
+  match /businesses/{id} {allow read: if resource.data.status == 'approved'; allow write: if false;}
+  match /aiUsage/{uid} {allow read, write: if false;}
+  match /{document=**} {allow read, write: if false;}
+ }
+}

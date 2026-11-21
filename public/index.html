@@ -1,0 +1,921 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TaraSaIsla | Catanduanes Tourist Spots & Local Businesses</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/ai.css">
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+ <a class="logo" onclick="showPage('home')"><b>✿</b>Tara<span>SaIsla</span></a>
+ <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+ <nav class="nav-links" id="navLinks">
+  <a data-nav="home" onclick="showPage('home')">Home</a>
+  <a data-nav="destinations" onclick="showPage('destinations')">Destinations</a>
+  <a data-nav="stays" onclick="showPage('stays')">Stays</a>
+  <a data-nav="activities" onclick="showPage('activities')">Activities</a>
+  <a data-nav="transport" onclick="showPage('transport')">Transportation</a>
+  <a data-nav="businesses" onclick="showPage('businesses')">Local Businesses</a>
+  <a data-nav="ai" onclick="showPage('ai')">✨ AI Travel Planner</a>
+   <a data-nav="about" onclick="showPage('about')">About</a>
+ </nav>
+ <div class="nav-actions">
+  <button class="pink-btn" id="partnerNavBtn" onclick="openPartnerArea()">List Your Business ↗</button>
+  <button class="signin-btn" id="signinNavBtn" onclick="openSignInArea()">
+   <span class="signin-icon">●</span>
+   <span id="signinNavText">Sign In</span>
+  </button>
+ </div>
+</div>
+</header>
+
+<!-- HOME -->
+<div id="homePage">
+<section class="hero">
+ <div class="container hero-inner">
+  <span class="hero-badge">🌴 EXPLORE THE HAPPY ISLAND • CATANDUANES</span>
+  <h1>Tara sa Isla!<br><span>Tuklasin ang Catanduanes.</span></h1>
+  <p>Tara, Tuklasin ang Isla! Discover Catanduanes tourist spots, island stays, local experiences, and businesses. Explore the island and support Catandunganon entrepreneurs.</p>
+  <p>★★★★★ &nbsp; Discover more. Explore local. Support Catandunganons.</p>
+ </div>
+
+ <form class="search-box" id="homeSearch">
+  <div class="search-field">
+   <label>WHAT ARE YOU LOOKING FOR?</label>
+   <select id="homeCategory">
+    <option value="all">All destinations</option>
+    <option value="beach">Beaches</option>
+    <option value="waterfall">Waterfalls</option>
+    <option value="viewpoint">Viewpoints</option>
+    <option value="culture">Heritage & Culture</option>
+   </select>
+  </div>
+  <div class="search-field">
+   <label>LOCATION</label>
+   <select id="homeLocation">
+    <option value="all">Anywhere in Catanduanes</option>
+    <option>Baras</option><option>Virac</option>
+    <option>San Andres</option><option>Bagamanoc</option>
+    <option>Gigmoto</option><option>Pandan</option>
+    <option>Caramoran</option><option>Bato</option>
+    <option>San Miguel</option><option>Viga</option>
+    <option>Panganiban</option>
+   </select>
+  </div>
+  <div class="search-field">
+   <label>TRAVEL DATE</label>
+   <input type="date" id="travelDate">
+  </div>
+  <div class="search-field">
+   <label>TRAVELERS</label>
+   <select id="travelers">
+    <option>1 traveler</option>
+    <option selected>2 travelers</option>
+    <option>3 travelers</option>
+    <option>4+ travelers</option>
+   </select>
+  </div>
+  <button class="pink-btn">⌕ Explore</button>
+ </form>
+</section>
+
+<div class="container stats">
+ <div><strong>11</strong><span>Municipalities</span></div>
+ <div><strong>Happy Island</strong><span>Explore Catanduanes</span></div>
+ <div><strong>Nature</strong><span>Beautiful destinations</span></div>
+ <div><strong>Support Local</strong><span>Help island businesses</span></div>
+</div>
+
+<section class="section gray">
+<div class="container">
+ <span class="eyebrow">EXPLORE YOUR WAY</span>
+ <h2 class="section-title">Discover everything Catanduanes has to offer.</h2>
+ <div class="category-grid">
+  <div class="category-tile" onclick="categoryShortcut('beach')">
+   <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600" alt="Beach">
+   <div><h3>Beaches</h3><p>Explore the coast</p></div>
+  </div>
+  <div class="category-tile" onclick="categoryShortcut('waterfall')">
+   <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600" alt="Waterfall">
+   <div><h3>Waterfalls</h3><p>Discover nature</p></div>
+  </div>
+  <div class="category-tile" onclick="categoryShortcut('viewpoint')">
+   <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600" alt="Viewpoint">
+   <div><h3>Viewpoints</h3><p>Scenic landscapes</p></div>
+  </div>
+  <div class="category-tile" onclick="showPage('businesses')">
+   <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600" alt="Business">
+   <div><h3>Local Businesses</h3><p>Support local</p></div>
+  </div>
+ </div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+ <span class="eyebrow">POPULAR DESTINATIONS</span>
+ <h2 class="section-title">Find your favorite island spots.</h2>
+ <div class="destination-grid" id="homeDestinations"></div>
+ <div style="text-align:center;margin-top:25px">
+  <button class="pink-btn" onclick="showPage('destinations')">View All Destinations ↗</button>
+ </div>
+</div>
+</section>
+
+<section class="section gray">
+<div class="container">
+ <span class="eyebrow">ACCOMMODATIONS</span>
+ <h2 class="section-title">Find your perfect island stay.</h2>
+ <div class="stays-grid" id="homeStays"></div>
+ <div style="text-align:center;margin-top:25px">
+  <button class="pink-btn" onclick="showPage('stays')">View All Stays ↗</button>
+ </div>
+</div>
+</section>
+
+<!-- NEW: HOME BUSINESS PROMOTION -->
+<section class="section">
+<div class="container">
+ <span class="eyebrow">SUPPORT CATANDUNGANON ENTREPRENEURS</span>
+ <h2 class="section-title">Discover local businesses.</h2>
+ <p class="section-desc">Explore approved local businesses, products and services across Catanduanes.</p>
+ <div class="business-grid" id="homeBusinesses" style="margin-top:22px"></div>
+ <div style="text-align:center;margin-top:25px">
+  <button class="pink-btn" onclick="showPage('businesses')">Explore Local Businesses ↗</button>
+ </div>
+</div>
+</section>
+</div>
+
+<!-- DESTINATIONS -->
+<div id="destinationsPage" class="listing-page hidden">
+<div class="page-top">
+<div class="container">
+ <div class="breadcrumb"><a onclick="showPage('home')">Home</a> / Destinations</div>
+ <div class="page-search">
+  <input id="destinationSearch" placeholder="Search tourist spots...">
+  <select id="topCategory">
+   <option value="all">All categories</option>
+   <option value="beach">Beaches</option>
+   <option value="waterfall">Waterfalls</option>
+   <option value="viewpoint">Viewpoints</option>
+   <option value="culture">Heritage & Culture</option>
+  </select>
+  <select id="topLocation">
+   <option value="all">All municipalities</option>
+   <option>Baras</option><option>Virac</option>
+   <option>Bato</option><option>Pandan</option>
+   <option>San Andres</option><option>Caramoran</option>
+   <option>Bagamanoc</option><option>Gigmoto</option>
+   <option>Viga</option><option>San Miguel</option>
+   <option>Panganiban</option>
+  </select>
+  <button onclick="applyDestinationFilters()">⌕ Search</button>
+ </div>
+</div>
+</div>
+
+<div class="container page-layout">
+<aside class="sidebar">
+ <h2>Explore Catanduanes</h2>
+ <p>Find your next island destination.</p>
+ <div class="filter-group">
+  <h3>DESTINATION TYPE</h3>
+  <div id="destinationCategoryFilters"></div>
+ </div>
+ <div class="filter-group">
+  <h3>MUNICIPALITY</h3>
+  <div id="destinationLocationFilters"></div>
+ </div>
+ <button class="clear-btn" onclick="clearDestinationFilters()">Clear Filters ×</button>
+</aside>
+
+<div>
+ <div class="results-heading">
+  <div>
+   <h1>Catanduanes Tourist Destinations</h1>
+   <p id="destinationCount"></p>
+  </div>
+  <div class="results-actions">
+   <select id="destinationSort" onchange="applyDestinationFilters()">
+    <option value="default">Recommended</option>
+    <option value="name">Name A–Z</option>
+    <option value="location">Municipality</option>
+   </select>
+   <button class="map-toggle" id="destinationMapBtn" onclick="toggleMap('destination')">
+    📍 <span>Show Map</span>
+   </button>
+  </div>
+ </div>
+
+ <div class="map-panel hidden" id="destinationMapPanel">
+  <div class="map-panel-top">
+   <div>
+    <h3>🗺️ Interactive Catanduanes Map</h3>
+    <p>Tap a circular photo pin to view destination details.</p>
+   </div>
+   <span class="map-count" id="destinationMapCount">0 PLACES</span>
+  </div>
+  <div id="destinationMap" class="embedded-map"></div>
+  <div class="map-caption">
+   Pink photo markers indicate approximate tourist destinations.
+   All map interactions happen inside this website.
+  </div>
+ </div>
+
+ <div class="destination-grid" id="destinationResults"></div>
+ <div class="pagination" id="destinationPagination"></div>
+</div>
+</div>
+</div>
+
+<!-- STAYS -->
+<div id="staysPage" class="listing-page hidden">
+<div class="page-top">
+<div class="container">
+ <div class="breadcrumb"><a onclick="showPage('home')">Home</a> / Stays</div>
+ <div class="page-search">
+  <input id="staySearch" placeholder="Search hotels, resorts, villas...">
+  <select id="stayLocation">
+   <option value="all">All municipalities</option>
+   <option>Virac</option><option>Baras</option>
+   <option>San Andres</option><option>Pandan</option>
+   <option>Caramoran</option><option>Bato</option>
+  </select>
+  <select id="staySort">
+   <option value="default">Recommended</option>
+   <option value="low">Price: Low to High</option>
+   <option value="high">Price: High to Low</option>
+   <option value="rating">Highest Rated</option>
+  </select>
+  <button onclick="applyStayFilters()">⌕ Search</button>
+ </div>
+</div>
+</div>
+
+<div class="container">
+ <div class="stay-categories">
+  <button class="active" data-stay-type="all">All Stays</button>
+  <button data-stay-type="Hotel">Hotels</button>
+  <button data-stay-type="Resort">Resorts</button>
+  <button data-stay-type="Villa">Villas</button>
+  <button data-stay-type="Homestay">Homestays</button>
+  <button data-stay-type="Beachfront">Beachfront</button>
+ </div>
+</div>
+
+<div class="container page-layout">
+<aside class="sidebar">
+ <h2>Catanduanes Stays</h2>
+ <p>Find hotels, resorts and homestays across the island.</p>
+ <div class="filter-group">
+  <h3>PROPERTY TYPE</h3>
+  <div id="stayTypeFilters"></div>
+ </div>
+ <div class="filter-group">
+  <h3>PRICE PER NIGHT</h3>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="all" checked> Any price</label>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="budget"> Under ₱2,000</label>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="mid"> ₱2,000 – ₱4,000</label>
+  <label class="filter-option"><input type="radio" name="priceFilter" value="premium"> Above ₱4,000</label>
+ </div>
+ <div class="filter-group">
+  <h3>AMENITIES</h3>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="WiFi"> WiFi</label>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="Pool"> Swimming Pool</label>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="Parking"> Parking</label>
+  <label class="filter-option"><input type="checkbox" name="amenity" value="Beach Access"> Beach Access</label>
+ </div>
+ <button class="clear-btn" onclick="clearStayFilters()">Clear All Filters ×</button>
+</aside>
+
+<div>
+ <div class="results-heading">
+  <div>
+   <h1>Hotels, Resorts & Villas in Catanduanes</h1>
+   <p id="stayCount"></p>
+  </div>
+  <div class="results-actions">
+   <button class="map-toggle" id="stayMapBtn" onclick="toggleMap('stay')">
+    📍 <span>Show Map</span>
+   </button>
+  </div>
+ </div>
+
+ <div class="map-panel hidden" id="stayMapPanel">
+  <div class="map-panel-top">
+   <div>
+    <h3>🏨 Explore Accommodations on Map</h3>
+    <p>Tap a teal photo pin to view available example stays.</p>
+   </div>
+   <span class="map-count" id="stayMapCount">0 STAYS</span>
+  </div>
+  <div id="stayMap" class="embedded-map"></div>
+  <div class="map-caption">
+   Teal markers show sample accommodations at municipality reference
+   locations, not verified property addresses.
+  </div>
+ </div>
+
+ <div class="stays-grid" id="stayResults"></div>
+ <div class="pagination" id="stayPagination"></div>
+</div>
+</div>
+</div>
+
+<!-- ACTIVITIES -->
+<div id="activitiesPage" class="simple-page hidden">
+<div class="container">
+ <span class="eyebrow">THINGS TO DO</span>
+ <h1 class="section-title">Activities in Catanduanes</h1>
+ <div class="simple-grid" id="activitiesGrid"></div>
+</div>
+</div>
+
+<!-- TRANSPORT -->
+<div id="transportPage" class="simple-page hidden">
+<div class="container">
+ <span class="eyebrow">TRANSPORTATION</span>
+ <h1 class="section-title">Getting Around Catanduanes</h1>
+ <div class="simple-grid" id="transportGrid"></div>
+</div>
+</div>
+
+<!-- NEW LOCAL BUSINESS LISTING -->
+<div id="businessesPage" class="simple-page hidden">
+<div class="container">
+
+ <div class="business-intro">
+  <div>
+   <span class="eyebrow" style="color:#ffcf27">SUPPORT LOCAL</span>
+   <h2>Discover Catanduanes Local Businesses</h2>
+   <p>Explore local restaurants, shops, accommodations, transportation and services. Help local entrepreneurs grow through tourism.</p>
+  </div>
+  <button class="pink-btn" onclick="openPartnerArea()">+ List Your Business ↗</button>
+ </div>
+
+ <div class="business-toolbar">
+  <input id="businessSearch" placeholder="⌕ Search businesses, products or services...">
+  <select id="businessCategoryFilter">
+   <option value="all">All Business Categories</option>
+   <option>Restaurant & Food</option>
+   <option>Souvenirs & Handicrafts</option>
+   <option>Accommodation</option>
+   <option>Transportation</option>
+   <option>Tourism & Activities</option>
+   <option>Retail & Shopping</option>
+   <option>Other Services</option>
+  </select>
+  <select id="businessLocationFilter">
+   <option value="all">All Municipalities</option>
+   <option>Baras</option><option>Virac</option>
+   <option>San Andres</option><option>Bagamanoc</option>
+   <option>Gigmoto</option><option>Pandan</option>
+   <option>Caramoran</option><option>Bato</option>
+   <option>San Miguel</option><option>Viga</option>
+   <option>Panganiban</option>
+  </select>
+  <button class="pink-btn" onclick="renderBusinesses()">Search</button>
+ </div>
+
+ <div class="results-heading">
+  <div>
+   <h1>Local Business Directory</h1>
+   <p id="businessCount">Approved business listings</p>
+  </div>
+  <button class="map-toggle" id="businessMapBtn" onclick="toggleMap('business')">
+   📍 <span>Show Map</span>
+  </button>
+ </div>
+
+ <div class="map-panel business-map hidden" id="businessMapPanel">
+  <div class="map-panel-top">
+   <div>
+    <h3>🗺️ Local Businesses on the Map</h3>
+    <p>Tap an orange circular photo marker to view a business.</p>
+   </div>
+   <span class="map-count" id="businessMapCount">0 BUSINESSES</span>
+  </div>
+  <div id="businessMap" class="embedded-map"></div>
+  <div class="map-caption">
+   Business pins use owner-selected coordinates. Map locations are not independently verified in this prototype.
+  </div>
+ </div>
+
+ <div class="business-grid" id="businessGrid"></div>
+
+</div>
+</div>
+
+<!-- ABOUT -->
+<div id="aboutPage" class="simple-page hidden">
+<div class="container">
+ <span class="eyebrow">ABOUT OUR PLATFORM</span>
+ <h1 class="section-title">Discover. Explore. Support Local.</h1>
+ <p class="section-desc" style="max-width:750px">
+  TaraSaIsla is a Catanduanes-focused tourism and local business promotion
+  platform that helps visitors discover destinations, accommodations,
+  transportation options and local businesses throughout Catanduanes.
+ </p>
+</div>
+</div>
+
+<!-- PARTNER REGISTRATION -->
+<div id="partnerPage" class="hidden">
+<section class="partner-hero">
+<div class="container partner-layout">
+
+ <div class="partner-intro">
+  <span class="partner-label">🌴 Partner with us • Catanduanes Tourism</span>
+  <h1>Grow your Catanduanes business with <span>TaraSaIsla</span></h1>
+  <p>Reach more tourists, showcase your products and services,
+  and manage your business information through a platform
+  designed to promote tourism and support local entrepreneurs.</p>
+
+  <div class="partner-benefit"><b>✓</b> Free business registration</div>
+  <div class="partner-benefit"><b>✓</b> Your own business profile and dashboard</div>
+  <div class="partner-benefit"><b>✓</b> Showcase products, services and photos</div>
+  <div class="partner-benefit"><b>✓</b> Display your business on the interactive map</div>
+  <div class="partner-benefit"><b>✓</b> Publish special offers and promotions</div>
+  <div class="partner-benefit"><b>✓</b> Receive direct customer inquiries</div>
+  <div class="partner-benefit"><b>✓</b> Track views and customer contact clicks</div>
+ </div>
+
+ <div class="auth-card">
+  <h2>Create your partner account</h2>
+  <p class="auth-subtitle">Register to start showcasing your business.</p>
+
+  <form class="auth-form" id="partnerForm">
+   <div class="auth-field">
+    <label>FULL NAME</label>
+    <input id="partnerName" type="text" required minlength="2">
+   </div>
+   <div class="auth-field">
+    <label>EMAIL ADDRESS</label>
+    <input id="partnerEmail" type="email" required>
+   </div>
+   <div class="auth-field">
+    <label>PHONE (OPTIONAL)</label>
+    <input id="partnerPhone" type="tel">
+   </div>
+   <div class="auth-field">
+    <label>PASSWORD (DEMO ONLY)</label>
+    <div class="password-wrap">
+     <input id="partnerPassword" type="password" required minlength="8">
+     <button class="password-toggle" type="button" onclick="togglePassword('partnerPassword',this)">Show</button>
+    </div>
+   </div>
+   <div class="auth-field">
+    <label>CONFIRM PASSWORD</label>
+    <div class="password-wrap">
+     <input id="partnerConfirm" type="password" required minlength="8">
+     <button class="password-toggle" type="button" onclick="togglePassword('partnerConfirm',this)">Show</button>
+    </div>
+   </div>
+   <label class="agreement">
+    <input type="checkbox" id="partnerAgree" required>
+    <span>I agree to participate in this demonstration of the Partner Agreement, Terms of Service and Privacy Policy.</span>
+   </label>
+   <div id="partnerMessage" class="form-message hidden"></div>
+   <button class="auth-submit" type="submit">Create partner account →</button>
+  </form>
+
+  <div class="auth-switch">
+   Already have an account? <a onclick="showPage('signin')">Sign in</a> · <a onclick="showPage('register')">Change account type</a>
+  </div>
+ </div>
+</div>
+</section>
+
+<!-- NEW PARTNER BENEFITS -->
+<section class="partner-extra">
+<div class="container">
+ <span class="eyebrow">WHY PARTNER WITH US?</span>
+ <h2 class="section-title">Everything you need to promote your business.</h2>
+ <p class="section-desc">Tools designed to help small and growing businesses become more visible to visitors.</p>
+
+ <div class="benefit-grid">
+  <div class="benefit-card">
+   <div class="benefit-icon">🏪</div>
+   <h3>Business Profile</h3>
+   <p>Create a professional listing with your business name, description, location and contact details.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">📍</div>
+   <h3>Interactive Map</h3>
+   <p>Let tourists discover your business through an embedded Catanduanes map.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">🛍️</div>
+   <h3>Products & Services</h3>
+   <p>Showcase your products, services and prices in a dedicated gallery.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">📢</div>
+   <h3>Special Promotions</h3>
+   <p>Promote discounts, seasonal offers and tourism-related packages.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">💬</div>
+   <h3>Direct Inquiries</h3>
+   <p>Help customers reach your business through phone, email or Messenger.</p>
+  </div>
+  <div class="benefit-card">
+   <div class="benefit-icon">📊</div>
+   <h3>Business Analytics</h3>
+   <p>View basic counts of profile views, map clicks and contact clicks in the demo dashboard.</p>
+  </div>
+ </div>
+</div>
+</section>
+
+<section class="section gray">
+<div class="container">
+ <span class="eyebrow">HOW IT WORKS</span>
+ <h2 class="section-title">Four simple steps to get started.</h2>
+ <div class="partner-steps">
+  <div class="partner-step">
+   <strong>1</strong><h3>Create an Account</h3>
+   <p>Register as a local business partner.</p>
+  </div>
+  <div class="partner-step">
+   <strong>2</strong><h3>Add Your Business</h3>
+   <p>Submit your business details, photos, products and location.</p>
+  </div>
+  <div class="partner-step">
+   <strong>3</strong><h3>Admin Approval</h3>
+   <p>Wait for the administrator to review your listing.</p>
+  </div>
+  <div class="partner-step">
+   <strong>4</strong><h3>Reach Tourists</h3>
+   <p>Your approved business appears in the directory and map.</p>
+  </div>
+ </div>
+</div>
+</section>
+</div>
+
+<!-- SIGN IN -->
+<div id="signinPage" class="signin-page hidden">
+<div class="signin-card">
+ <div class="logo" style="margin-bottom:25px"><b>✿</b>Tara<span>SaIsla</span></div>
+ <h1>Welcome back!</h1>
+ <p>Sign in to your TaraSaIsla tourist or business partner account.</p>
+
+ <div class="demo-warning">
+  Local demonstration only. Do not enter real account credentials.
+ </div>
+
+ <form class="auth-form" id="signinForm">
+  <div class="auth-field">
+   <label>EMAIL ADDRESS</label>
+   <input id="signinEmail" type="email" required>
+  </div>
+  <div class="auth-field">
+   <label>PASSWORD</label>
+   <div class="password-wrap">
+    <input id="signinPassword" type="password" required>
+    <button type="button" class="password-toggle" onclick="togglePassword('signinPassword',this)">Show</button>
+   </div>
+  </div>
+  <div id="signinMessage" class="form-message hidden"></div>
+  <button class="auth-submit" type="submit">Sign In →</button>
+ </form>
+ <div class="auth-switch">
+  Don't have an account? <a onclick="showPage('register')">Create an account (Tourist or Business Owner)</a>
+ </div>
+ <div class="auth-switch">
+  <a onclick="fillAdminDemo()">Use demo administrator credentials</a>
+ </div>
+</div>
+</div>
+
+<!-- NEW BUSINESS OWNER DASHBOARD -->
+<div id="dashboardPage" class="dashboard-page hidden">
+ <div class="owner-portal-bar"><div class="container"><div><strong>✿ Tara<span>SaIsla</span> Partner Portal</strong><small>Business performance & reservations • Catanduanes</small></div><div class="dashboard-actions"><button class="outline-btn" onclick="showPage('businesses')">← Public Website</button><button class="outline-btn" onclick="logout()">Sign Out</button></div></div></div>
+<div class="container">
+ <div class="dashboard-heading">
+  <div>
+   <span class="eyebrow">BUSINESS PARTNER PORTAL</span>
+   <h1>Welcome, <span id="dashboardUserName">Partner</span>!</h1>
+   <p>Manage your business listings, products, promotions and customer interactions.</p>
+  </div>
+  <div class="dashboard-actions">
+   <button class="outline-btn" onclick="showPage('businesses')">View Directory</button>
+   <button class="outline-btn" onclick="logout()">Sign Out</button>
+  </div>
+ </div>
+
+ <div class="dashboard-stats">
+  <div class="stat-card"><div class="stat-icon">🏪</div><strong id="ownerTotal">0</strong><span>My Businesses</span></div>
+  <div class="stat-card"><div class="stat-icon">👁️</div><strong id="ownerViews">0</strong><span>Profile Views</span></div>
+  <div class="stat-card"><div class="stat-icon">💬</div><strong id="ownerContacts">0</strong><span>Contact Clicks</span></div>
+  <div class="stat-card"><div class="stat-icon">📍</div><strong id="ownerMapViews">0</strong><span>Map Interactions</span></div>
+ </div>
+
+ <div class="dashboard-tabs">
+  <button class="active" data-owner-tab="list" onclick="showOwnerTab('list')">My Businesses</button>
+  <button data-owner-tab="form" onclick="showOwnerTab('form')">+ Add Business</button>
+  <button data-owner-tab="analytics" onclick="showOwnerTab('analytics')">Performance Dashboard</button>
+  <button data-owner-tab="bookings" onclick="showOwnerTab('bookings')">📅 Reservations <span id="ownerPendingCount"></span></button>
+ </div>
+
+ <div id="ownerListTab" class="dashboard-panel">
+  <h2>My Business Listings</h2>
+  <p>Manage submitted businesses and monitor their approval status.</p>
+  <div id="ownerBusinessList" class="dashboard-list"></div>
+ </div>
+
+ <div id="ownerFormTab" class="dashboard-panel hidden">
+  <h2 id="businessFormTitle">Add Your Business</h2>
+  <p>Complete the form below. New or edited listings will be submitted for administrator review.</p>
+
+  <form id="businessSubmissionForm" class="dashboard-form">
+   <input type="hidden" id="editBusinessId">
+
+   <div class="dashboard-field">
+    <label>BUSINESS NAME *</label>
+    <input id="bizName" required maxlength="100" placeholder="Enter business name">
+   </div>
+
+   <div class="dashboard-field">
+    <label>BUSINESS CATEGORY *</label>
+    <select id="bizCategory" required>
+     <option value="">Select category</option>
+     <option>Restaurant & Food</option>
+     <option>Souvenirs & Handicrafts</option>
+     <option>Accommodation</option>
+     <option>Transportation</option>
+     <option>Tourism & Activities</option>
+     <option>Retail & Shopping</option>
+     <option>Other Services</option>
+    </select>
+   </div>
+
+   <div class="dashboard-field">
+    <label>MUNICIPALITY *</label>
+    <select id="bizMunicipality" required>
+     <option value="">Select municipality</option>
+     <option>Baras</option><option>Virac</option>
+     <option>San Andres</option><option>Bagamanoc</option>
+     <option>Gigmoto</option><option>Pandan</option>
+     <option>Caramoran</option><option>Bato</option>
+     <option>San Miguel</option><option>Viga</option>
+     <option>Panganiban</option>
+    </select>
+   </div>
+
+   <div class="dashboard-field">
+    <label>BARANGAY / ADDRESS *</label>
+    <input id="bizAddress" required maxlength="180" placeholder="Barangay, street or landmark">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>BUSINESS DESCRIPTION *</label>
+    <textarea id="bizDescription" required maxlength="1000" placeholder="Describe your business, products and services..."></textarea>
+   </div>
+
+   <div class="dashboard-field">
+    <label>CONTACT NUMBER</label>
+    <input id="bizPhone" type="tel" placeholder="09XXXXXXXXX">
+   </div>
+
+   <div class="dashboard-field">
+    <label>CONTACT EMAIL</label>
+    <input id="bizEmail" type="email" placeholder="business@example.com">
+   </div>
+
+   <div class="dashboard-field">
+    <label>MESSENGER PAGE URL</label>
+    <input id="bizMessenger" type="url" placeholder="https://www.facebook.com/...">
+   </div>
+
+   <div class="dashboard-field">
+    <label>OPERATING HOURS</label>
+    <input id="bizHours" placeholder="Example: 8:00 AM - 6:00 PM">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>BUSINESS COVER PHOTO</label>
+    <input id="bizPhoto" type="file" accept="image/jpeg,image/png,image/webp">
+    <p class="form-hint">Use a small JPG, PNG or WebP image. Images are compressed and stored in this browser for demonstration.</p>
+    <img id="bizPhotoPreview" class="upload-preview hidden" alt="Business preview">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>PRODUCTS OR SERVICES</label>
+    <p class="form-hint">Add products or services, prices and an optional image URL.</p>
+    <div class="product-list" id="productRows"></div>
+    <button type="button" class="outline-btn" style="margin-top:12px" onclick="addProductRow()">+ Add Product / Service</button>
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>SPECIAL PROMOTION / OFFER</label>
+    <input id="bizPromo" maxlength="150" placeholder="Example: 10% off for tourists this month">
+   </div>
+
+   <div class="dashboard-field full-field">
+    <label>BUSINESS LOCATION ON MAP *</label>
+    <p class="form-hint">Select a municipality first, then tap the map to position your business marker. Confirm the exact location before submitting.</p>
+    <div id="businessLocationPicker" class="location-picker-map"></div>
+   </div>
+
+   <div class="dashboard-field">
+    <label>LATITUDE *</label>
+    <input id="bizLat" type="number" step="any" min="-90" max="90" required>
+   </div>
+   <div class="dashboard-field">
+    <label>LONGITUDE *</label>
+    <input id="bizLng" type="number" step="any" min="-180" max="180" required>
+   </div>
+
+   <div class="full-field">
+    <div class="admin-note">
+     📋 <strong>Admin Approval Required:</strong> Your business will appear publicly only after it is approved. Editing an approved listing will send it back for review.
+    </div>
+   </div>
+
+   <div id="businessSubmitMessage" class="form-message hidden full-field"></div>
+
+   <div class="full-field" style="display:flex;gap:10px;flex-wrap:wrap">
+    <button type="submit" class="pink-btn">Submit Business for Approval →</button>
+    <button type="button" class="outline-btn" onclick="resetBusinessForm();showOwnerTab('list')">Cancel</button>
+   </div>
+  </form>
+ </div>
+
+ <div id="ownerBookingsTab" class="dashboard-panel hidden"><h2>Customer Reservations & Requests</h2><p>Manage booking requests for your approved business listings. Requests remain demonstrations in this browser.</p><div id="ownerBookingList"></div></div>
+ <div id="ownerAnalyticsTab" class="dashboard-panel hidden">
+  <h2>Business Analytics</h2>
+  <p>Demonstration activity counts recorded in this browser. These are not verified visitors or unique users.</p>
+  <div id="ownerAnalyticsContent"></div>
+  <div id="ownerPerformanceContent"></div>
+ </div>
+</div>
+</div>
+
+<!-- NEW ADMIN DASHBOARD -->
+<div id="adminPage" class="dashboard-page hidden">
+<div class="container">
+ <div class="dashboard-heading">
+  <div>
+   <span class="eyebrow">ADMINISTRATOR PORTAL • DEMONSTRATION</span>
+   <h1>Business Approval Dashboard</h1>
+   <p>Review business submissions and manage directory visibility.</p>
+  </div>
+  <div class="dashboard-actions">
+   <button class="outline-btn" onclick="showPage('businesses')">Public Directory</button>
+   <button class="outline-btn" onclick="logout()">Sign Out</button>
+  </div>
+ </div>
+
+ <div class="demo-warning">
+  This administrator dashboard is a front-end simulation. It does not enforce real access control. Do not deploy this demonstration as a production admin system.
+ </div>
+
+ <div class="dashboard-stats">
+  <div class="stat-card"><div class="stat-icon">📋</div><strong id="adminTotal">0</strong><span>Total Submissions</span></div>
+  <div class="stat-card"><div class="stat-icon">⏳</div><strong id="adminPending">0</strong><span>Pending Approval</span></div>
+  <div class="stat-card"><div class="stat-icon">✅</div><strong id="adminApproved">0</strong><span>Approved</span></div>
+  <div class="stat-card"><div class="stat-icon">❌</div><strong id="adminRejected">0</strong><span>Rejected</span></div>
+ </div>
+
+ <div class="dashboard-panel">
+  <h2>Submitted Businesses</h2>
+  <p>Approve or reject business listings submitted by local partners.</p>
+
+  <div class="dashboard-tabs" style="margin-top:20px">
+   <button class="active" data-admin-filter="all" onclick="setAdminFilter('all')">All</button>
+   <button data-admin-filter="pending" onclick="setAdminFilter('pending')">Pending</button>
+   <button data-admin-filter="approved" onclick="setAdminFilter('approved')">Approved</button>
+   <button data-admin-filter="rejected" onclick="setAdminFilter('rejected')">Rejected</button>
+  </div>
+
+  <div id="adminBusinessList" class="dashboard-list"></div>
+ </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+ <div class="footer-grid">
+  <div>
+   <h4>TOURISM GUIDE</h4>
+   <a onclick="showPage('destinations')">All Destinations</a>
+   <a onclick="showPage('stays')">Hotels & Resorts</a>
+   <a onclick="showPage('stays')">Villas & Homestays</a>
+   <a onclick="showPage('businesses')">Local Businesses</a>
+  </div>
+  <div>
+   <h4>TRANSPORTATION</h4>
+   <a onclick="showPage('transport')">Airport Transfers</a>
+   <a onclick="showPage('transport')">Local Transportation</a>
+   <a onclick="showPage('transport')">Ferry Travel</a>
+   <a onclick="showPage('transport')">Getting Around</a>
+  </div>
+  <div>
+   <h4>ACTIVITIES</h4>
+   <a onclick="showPage('activities')">All Activities</a>
+   <a onclick="showPage('activities')">Surfing</a>
+   <a onclick="showPage('activities')">Sightseeing</a>
+   <a onclick="showPage('activities')">Nature Adventures</a>
+  </div>
+  <div>
+   <h4>INFORMATION</h4>
+   <a onclick="showPage('about')">About Us</a>
+   <a onclick="openPartnerArea()">List Your Business</a>
+   <a onclick="openSignInArea()">Partner Sign In</a>
+  </div>
+ </div>
+ <div class="footer-bottom">
+  <div class="logo"><b>✿</b>Tara<span>SaIsla</span></div>
+  © <span id="year"></span> TaraSaIsla • Catanduanes Tourism & Local Business Platform Prototype • Tara, Tuklasin ang Isla!
+ </div>
+</div>
+</footer>
+
+
+
+<!-- CENTRAL ACCOUNT REGISTRATION: choose the correct user role -->
+<div id="registerPage" class="account-choice-page hidden">
+ <div class="account-choice-wrap">
+  <div class="logo" style="color:white"><b>✿</b>Tara<span>SaIsla</span></div>
+  <h1>Create your TaraSaIsla account</h1>
+  <p>Select how you will use the platform. Each account type has its own dashboard.</p>
+  <div class="account-choice-grid">
+   <button type="button" class="account-choice-card" onclick="showPage('touristRegister')">
+    <span class="account-choice-icon">🧳</span><h2>I'm a Tourist</h2>
+    <p>Discover Catanduanes, request bookings, and manage your travel reservations in My Bookings.</p>
+    <span class="choice-cta">Create Tourist Account →</span>
+   </button>
+   <button type="button" class="account-choice-card" onclick="showPage('partner')">
+    <span class="account-choice-icon">🏪</span><h2>I'm a Business Owner</h2>
+    <p>Promote your business, manage listings and promotions, track performance, and respond to reservation requests.</p>
+    <span class="choice-cta">Create Business Account →</span>
+   </button>
+  </div>
+  <div class="account-choice-login">Already have an account? <a onclick="showPage('signin')">Sign in here</a></div>
+  <p style="font-size:11px;margin-top:20px">Prototype demonstration: do not use real passwords or sensitive information.</p>
+ </div>
+</div>
+
+<!-- TOURIST REGISTRATION & BOOKING DASHBOARD -->
+<div id="touristRegisterPage" class="signin-page hidden"><div class="signin-card">
+ <div class="logo"><b>✿</b>Tara<span>SaIsla</span></div>
+ <h1>Create Tourist Account</h1><p>Sign up to request stays and activities.</p>
+ <p class="booking-hint">Prototype only. Accounts are stored in this browser. Do not use a real password or sensitive information.</p>
+ <form id="touristRegisterForm" class="auth-form">
+  <div class="auth-field"><label>FULL NAME</label><input id="touristRegName" required maxlength="80"></div>
+  <div class="auth-field"><label>EMAIL</label><input id="touristRegEmail" type="email" required></div>
+  <div class="auth-field"><label>DEMO PASSWORD (6+ CHARACTERS)</label><input id="touristRegPassword" type="password" minlength="6" required></div>
+  <div id="touristRegisterMessage" class="form-message hidden"></div>
+  <button class="auth-submit">Create Tourist Account</button>
+ </form><div class="auth-switch">Already registered? <a onclick="showPage('signin')">Sign in</a> · <a onclick="showPage('register')">Change account type</a></div>
+</div></div>
+<div id="touristBookingsPage" class="dashboard-page hidden"><div class="container">
+ <div class="dashboard-heading"><div><span class="eyebrow">TOURIST ACCOUNT</span><h1>My Booking Requests</h1><p id="touristWelcome"></p></div><div class="dashboard-actions"><button class="outline-btn" onclick="showPage('stays')">Explore Stays</button><button class="outline-btn" onclick="showPage('activities')">Explore Activities</button><button class="outline-btn" onclick="logout()">Sign Out</button></div></div>
+ <p class="booking-hint">Demonstration only: requests are stored on this device and are not sent to a hotel, tour operator, or administrator. A request is NOT a confirmed reservation. Do not make payments.</p>
+ <div id="touristBookingList"></div>
+</div></div>
+<div class="modal-bg hidden" id="bookingModal"><div class="modal" style="max-width:550px">
+ <button class="modal-close" type="button" onclick="closeBookingModal()">×</button>
+ <div id="bookingFormContent"></div>
+</div></div>
+
+<!-- DETAILS MODAL -->
+<div class="modal-bg hidden" id="detailModal">
+ <div class="modal">
+  <button class="modal-close" onclick="closeModal()">×</button>
+  <div id="detailContent"></div>
+ </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/navigation.js" defer></script>
+
+<script src="js/app.js" defer></script>
+
+
+<section id="aiPage" class="simple-page hidden"><div class="container ai-shell">
+ <div class="ai-hero"><span class="eyebrow">TARASAISLA AI • CATANDUANES</span><h1>Plan your Catanduanes adventure</h1><p>Ask about destinations, stays, local businesses, or generate an itinerary. Suggestions appear directly below as interactive cards.</p></div>
+ <div class="ai-grid"><div class="ai-panel"><h2>Ask TaraSaIsla AI</h2>
+ <div id="aiAuthStatus" class="ai-muted">Checking AI connection…</div>
+ <div class="ai-auth"><input id="aiEmail" type="email" placeholder="Firebase email" autocomplete="email"><input id="aiPassword" type="password" placeholder="Password (min 6 characters)" autocomplete="current-password"><button id="aiLogin">Sign in</button><button id="aiSignup">Create account</button><button id="aiLogout" hidden>Sign out</button></div>
+ <form id="aiForm"><label for="aiPrompt">What would you like to explore?</label><textarea id="aiPrompt" rows="4" maxlength="1500" placeholder="Plan a 3-day trip to Catanduanes for 2 people with a ₱5,000 budget" required></textarea><div class="ai-options"><label>Budget (PHP) <input id="aiBudget" type="number" min="0" max="1000000" value="5000"></label><label>Days <input id="aiDays" type="number" min="1" max="14" value="3"></label><label>Travelers <input id="aiTravelers" type="number" min="1" max="30" value="2"></label></div><button class="pink-btn" id="aiSubmit" type="submit">✨ Generate recommendations</button></form>
+ <p class="ai-muted">AI suggestions are planning estimates, not confirmed fares, reservations, emergency information, or business availability. Requires Firebase sign-in and an online connection.</p></div>
+ <div class="ai-panel"><h2>Your AI trip results</h2><p id="aiResultStatus" class="ai-muted">Enter a question and select Generate.</p><div id="aiAnswer" aria-live="polite"></div><div id="aiSuggestions" class="ai-results"></div></div></div>
+ </div></section>
+<script type="module" src="js/firebase-ai.js"></script>
+</body>
+</html>

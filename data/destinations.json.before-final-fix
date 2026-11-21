@@ -1,0 +1,263 @@
+﻿[
+    {
+        "id":  "1",
+        "name":  "Puraran Beach",
+        "location":  "Baras, Catanduanes",
+        "municipality":  "Baras",
+        "category":  "beach",
+        "description":  "A popular surfing beach in Catanduanes.",
+        "published":  true
+    },
+    {
+        "id":  "2",
+        "name":  "Binurong Point",
+        "location":  "Baras, Catanduanes",
+        "municipality":  "Baras",
+        "category":  "viewpoint",
+        "description":  "A scenic coastal viewpoint in Catanduanes.",
+        "published":  true
+    },
+    {
+        "id":  "3",
+        "name":  "Lampitaw Beach",
+        "location":  "Baras, Catanduanes",
+        "municipality":  "Baras",
+        "category":  "beach",
+        "description":  "A visitor destination in Baras, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "4",
+        "name":  "Hinitligan Falls",
+        "location":  "Baras, Catanduanes",
+        "municipality":  "Baras",
+        "category":  "waterfall",
+        "description":  "A visitor destination in Baras, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "5",
+        "name":  "Maribina Falls",
+        "location":  "Bato, Catanduanes",
+        "municipality":  "Bato",
+        "category":  "waterfall",
+        "description":  "A visitor destination in Bato, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "6",
+        "name":  "Bato Church",
+        "location":  "Bato, Catanduanes",
+        "municipality":  "Bato",
+        "category":  "heritage",
+        "description":  "A visitor destination in Bato, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "7",
+        "name":  "Sacahon Beach",
+        "location":  "Bato, Catanduanes",
+        "municipality":  "Bato",
+        "category":  "beach",
+        "description":  "A visitor destination in Bato, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "8",
+        "name":  "Batalay Mangrove Eco Park",
+        "location":  "Bato, Catanduanes",
+        "municipality":  "Bato",
+        "category":  "nature",
+        "description":  "A visitor destination in Bato, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "9",
+        "name":  "Cagnipa Rolling Hills",
+        "location":  "Pandan, Catanduanes",
+        "municipality":  "Pandan",
+        "category":  "viewpoint",
+        "description":  "A visitor destination in Pandan, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "10",
+        "name":  "Tuwad-Tuwadan Lagoon",
+        "location":  "Pandan, Catanduanes",
+        "municipality":  "Pandan",
+        "category":  "nature",
+        "description":  "A visitor destination in Pandan, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "11",
+        "name":  "Hiyop View Deck",
+        "location":  "Pandan, Catanduanes",
+        "municipality":  "Pandan",
+        "category":  "viewpoint",
+        "description":  "A visitor destination in Pandan, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "12",
+        "name":  "Nahulugan Falls",
+        "location":  "Gigmoto, Catanduanes",
+        "municipality":  "Gigmoto",
+        "category":  "waterfall",
+        "description":  "A visitor destination in Gigmoto, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "13",
+        "name":  "Inagasan Falls",
+        "location":  "Gigmoto, Catanduanes",
+        "municipality":  "Gigmoto",
+        "category":  "waterfall",
+        "description":  "A visitor destination in Gigmoto, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "14",
+        "name":  "Luyang Cave",
+        "location":  "San Andres, Catanduanes",
+        "municipality":  "San Andres",
+        "category":  "heritage",
+        "description":  "A visitor destination in San Andres, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "15",
+        "name":  "Lambingan Falls",
+        "location":  "San Andres, Catanduanes",
+        "municipality":  "San Andres",
+        "category":  "waterfall",
+        "description":  "A visitor destination in San Andres, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "16",
+        "name":  "Amenia Beach",
+        "location":  "San Andres, Catanduanes",
+        "municipality":  "San Andres",
+        "category":  "beach",
+        "description":  "A visitor destination in San Andres, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "17",
+        "name":  "San Miguel River Park",
+        "location":  "San Miguel, Catanduanes",
+        "municipality":  "San Miguel",
+        "category":  "nature",
+        "description":  "A visitor destination in San Miguel, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "18",
+        "name":  "Solong Falls",
+        "location":  "San Miguel, Catanduanes",
+        "municipality":  "San Miguel",
+        "category":  "waterfall",
+        "description":  "A visitor destination in San Miguel, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "19",
+        "name":  "Mamangal Beach",
+        "location":  "Virac, Catanduanes",
+        "municipality":  "Virac",
+        "category":  "beach",
+        "description":  "A visitor destination in Virac, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "20",
+        "name":  "Marilima Beach",
+        "location":  "Virac, Catanduanes",
+        "municipality":  "Virac",
+        "category":  "beach",
+        "description":  "A visitor destination in Virac, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "21",
+        "name":  "Cathedral of the Immaculate Conception",
+        "location":  "Virac, Catanduanes",
+        "municipality":  "Virac",
+        "category":  "heritage",
+        "description":  "A visitor destination in Virac, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "22",
+        "name":  "Bitaog Beach",
+        "location":  "Caramoran, Catanduanes",
+        "municipality":  "Caramoran",
+        "category":  "beach",
+        "description":  "A visitor destination in Caramoran, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "23",
+        "name":  "Toytoy Beach",
+        "location":  "Caramoran, Catanduanes",
+        "municipality":  "Caramoran",
+        "category":  "beach",
+        "description":  "A visitor destination in Caramoran, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "24",
+        "name":  "Awinis Falls",
+        "location":  "Caramoran, Catanduanes",
+        "municipality":  "Caramoran",
+        "category":  "waterfall",
+        "description":  "A visitor destination in Caramoran, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "25",
+        "name":  "Boto ni Kurakog",
+        "location":  "Bagamanoc, Catanduanes",
+        "municipality":  "Bagamanoc",
+        "category":  "nature",
+        "description":  "A visitor destination in Bagamanoc, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "26",
+        "name":  "Bartasan Beach",
+        "location":  "Bagamanoc, Catanduanes",
+        "municipality":  "Bagamanoc",
+        "category":  "beach",
+        "description":  "A visitor destination in Bagamanoc, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "27",
+        "name":  "Viga River Park",
+        "location":  "Viga, Catanduanes",
+        "municipality":  "Viga",
+        "category":  "nature",
+        "description":  "A visitor destination in Viga, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "28",
+        "name":  "Viga Mountain Road Viewpoints",
+        "location":  "Viga, Catanduanes",
+        "municipality":  "Viga",
+        "category":  "viewpoint",
+        "description":  "A visitor destination in Viga, Catanduanes.",
+        "published":  false
+    },
+    {
+        "id":  "29",
+        "name":  "Panganiban Town Center",
+        "location":  "Panganiban, Catanduanes",
+        "municipality":  "Panganiban",
+        "category":  "heritage",
+        "description":  "A visitor destination in Panganiban, Catanduanes.",
+        "published":  false
+    }
+]
